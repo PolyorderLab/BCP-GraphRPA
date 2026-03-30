@@ -1,0 +1,37 @@
+system:
+  k_star: 2.431799
+  topology: "Branch"
+  χN_star: 32.64441
+  components:
+    - blocks:
+        - label: "b1"
+          length: 0.09298520735327222
+          segment: "A"
+          ends:
+            - "bb_start"
+            - "bb_end"
+        - label: "b2"
+          length: 0.11075717003959785
+          segment: "A"
+          ends:
+            - "bb_start"
+            - "L1"
+        - label: "b3"
+          length: 0.19432751161526235
+          segment: "B"
+          ends:
+            - "bb_start"
+            - "L2"
+        - label: "b4"
+          length: 0.17829887594335292
+          segment: "A"
+          ends:
+            - "bb_end"
+            - "R1"
+        - label: "b5"
+          length: 0.42363123504851463
+          segment: "A"
+          ends:
+            - "bb_end"
+            - "R2"
+      type: "OTD"

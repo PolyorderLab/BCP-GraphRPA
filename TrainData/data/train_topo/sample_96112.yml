@@ -1,0 +1,37 @@
+system:
+  k_star: 2.0051923
+  topology: "Comb"
+  χN_star: 57.242786
+  components:
+    - blocks:
+        - label: "b1"
+          length: 0.10775387152019707
+          segment: "B"
+          ends:
+            - "bb1"
+            - "bb2"
+        - label: "b2"
+          length: 0.3425661023079779
+          segment: "B"
+          ends:
+            - "bb2"
+            - "bb3"
+        - label: "b3"
+          length: 0.35474586428600446
+          segment: "B"
+          ends:
+            - "bb3"
+            - "bb4"
+        - label: "b4"
+          length: 0.13616315276427354
+          segment: "A"
+          ends:
+            - "bb2"
+            - "br1"
+        - label: "b5"
+          length: 0.058771009121546994
+          segment: "A"
+          ends:
+            - "bb3"
+            - "br2"
+      type: "OTD"

@@ -3,7 +3,7 @@ import random
 import shutil
 import glob
 
-def create_mini_dataset(source_dir, dest_dir, num_samples=100):
+def create_mini_dataset(source_dir, dest_dir, num_samples=1000):
     """
     从源目录随机抽取指定数量的成对 (.mat 和 .yml) 样本，复制到目标目录。
     """
@@ -60,10 +60,10 @@ if __name__ == "__main__":
     SOURCE_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo"
     
     # 目标测试文件夹（新建的用于小样本测试的文件夹）
-    DEST_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_100"
+    DEST_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
     
     # 需要抽取的样本数量
-    SAMPLE_SIZE = 100
+    SAMPLE_SIZE = 10000
     # ============================================
     
     create_mini_dataset(SOURCE_DIR, DEST_DIR, SAMPLE_SIZE)

@@ -1,0 +1,31 @@
+system:
+  k_star: 2.0829055
+  topology: "Linear"
+  χN_star: 111.40994
+  components:
+    - blocks:
+        - label: "b1"
+          length: 0.5894701470584078
+          segment: "B"
+          ends:
+            - "n1"
+            - "n2"
+        - label: "b2"
+          length: 0.05782448961232607
+          segment: "A"
+          ends:
+            - "n2"
+            - "n3"
+        - label: "b3"
+          length: 0.28525697603450056
+          segment: "B"
+          ends:
+            - "n3"
+            - "n4"
+        - label: "b4"
+          length: 0.0674483872947656
+          segment: "A"
+          ends:
+            - "n4"
+            - "n5"
+      type: "OTD"
