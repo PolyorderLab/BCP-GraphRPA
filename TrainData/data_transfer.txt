@@ -1,0 +1,11 @@
+'''
+cd /home/zxy/project/TAPD/TrainData/data/
+
+tar -czvf train_topoclassify.tar.gz train_topoclassify/
+
+rsync -avzP train_topoclassify.tar.gz zxy@10.158.145.98:/home/zxy/project/TAPD/TrainData/data/
+
+10.158.145.98
+cd /home/zxy/project/TAPD/TrainData/data/
+tar -xzvf train_topoclassify.tar.gz
+'''
