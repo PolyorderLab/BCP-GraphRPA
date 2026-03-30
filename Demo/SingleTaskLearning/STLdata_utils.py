@@ -4,6 +4,7 @@ import yaml
 import torch
 import numpy as np
 import scipy.io as sio
+import h5py
 from torch_geometric.data import Data
 
 # 定义拓扑类型到数字分类标签的映射字典
@@ -40,10 +41,22 @@ def load_and_process_dataset(data_dir, scaler=None):
             
         try:
             # ================= 1. 读取 MAT 文件 (张量特征) =================
-            mat_data = sio.loadmat(mat_path)
-            Fp = np.array(mat_data['F_pad'], dtype=np.float32)
-            edge_idx = np.array(mat_data['edge_index'], dtype=np.int64)
-            edge_attr = np.array(mat_data['edge_attr'], dtype=np.float32)
+            try:
+                mat_data = sio.loadmat(mat_path)
+                Fp = np.array(mat_data['F_pad'], dtype=np.float32)
+                edge_idx = np.array(mat_data['edge_index'], dtype=np.int64)
+                edge_attr = np.array(mat_data['edge_attr'], dtype=np.float32)
+            except (NotImplementedError, ValueError) as e:
+                # Handle Matlab v7.3 files which are HDF5 based
+                if 'HDF' in str(e) or 'v7.3' in str(e):
+                    with h5py.File(mat_path, 'r') as f:
+                        # h5py loads datasets in transposed order relative to Matlab/Scipy
+                        Fp = np.array(f['F_pad'], dtype=np.float32).T
+                        edge_idx = np.array(f['edge_index'], dtype=np.int64).T
+                        edge_attr = np.array(f['edge_attr'], dtype=np.float32).T
+                else:
+                    raise e
+
             
             # ================= 2. 读取 YML 文件 (物理量与配置) =================
             with open(yml_path, 'r', encoding='utf-8') as f:

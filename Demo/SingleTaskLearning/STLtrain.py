@@ -14,7 +14,7 @@ from STLmodel_utils import get_model
 # ================= 1. 配置路径与全局参数 =================
 # 你刚生成的 10万 样本文件夹 (包含 .mat 和 .yml)
 DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_100"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/SingleTaskLearning/outcome/test"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/testSTL"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
@@ -113,8 +113,8 @@ def save_parity_plot(model, loader, save_path, title="Parity Plot (Grouped by To
     # 绘制对角线基准
     ax.plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 'k--', alpha=0.6)
     ax.set_xscale('log'); ax.set_yscale('log')
-    ax.set_xlabel('True $\chi N^*$')
-    ax.set_ylabel('Predicted $\chi N^*$')
+    ax.set_xlabel(r'True $\chi N^*$')
+    ax.set_ylabel(r'Predicted $\chi N^*$')
     ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}%")
     
     # 把图例放在图外侧，避免遮挡数据点

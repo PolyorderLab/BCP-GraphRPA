@@ -1,0 +1,61 @@
+system:
+  k_star: 1.9729515
+  topology: "Dendrimer"
+  χN_star: 30.998463
+  components:
+    - blocks:
+        - label: "b1"
+          length: 0.09214975526309066
+          segment: "B"
+          ends:
+            - "center"
+            - "d_node1"
+        - label: "b2"
+          length: 0.14392544571022786
+          segment: "B"
+          ends:
+            - "center"
+            - "d_node2"
+        - label: "b3"
+          length: 0.20806142916260356
+          segment: "B"
+          ends:
+            - "center"
+            - "d_node3"
+        - label: "b4"
+          length: 0.06026903663355557
+          segment: "A"
+          ends:
+            - "d_node1"
+            - "d_node4"
+        - label: "b5"
+          length: 0.07126293686612502
+          segment: "A"
+          ends:
+            - "d_node1"
+            - "d_node5"
+        - label: "b6"
+          length: 0.06268498093607366
+          segment: "B"
+          ends:
+            - "d_node2"
+            - "d_node6"
+        - label: "b7"
+          length: 0.0581825185705988
+          segment: "A"
+          ends:
+            - "d_node2"
+            - "d_node7"
+        - label: "b8"
+          length: 0.0755916751461413
+          segment: "B"
+          ends:
+            - "d_node3"
+            - "d_node8"
+        - label: "b9"
+          length: 0.22787222171158367
+          segment: "A"
+          ends:
+            - "d_node3"
+            - "d_node9"
+      type: "OTD"
