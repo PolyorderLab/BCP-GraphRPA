@@ -4,7 +4,6 @@ from torch_geometric.nn import GINEConv, global_mean_pool
 
 class GNNEncoder(nn.Module):
     def __init__(self, in_feats=3, edge_dim=2, hidden_dim=64, num_layers=3):
-        # 注意：in_feats 默认值修改为了 3
         super(GNNEncoder, self).__init__()
         self.convs = nn.ModuleList()
         self.edge_lin = nn.ModuleList()

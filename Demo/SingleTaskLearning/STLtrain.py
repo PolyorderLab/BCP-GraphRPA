@@ -5,21 +5,16 @@ import numpy as np
 import pandas as pd
 from tqdm import tqdm
 import matplotlib
-matplotlib.use('Agg') # 保证在没有屏幕显示器的 Linux 服务器上正常绘图
+matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
-
-# PyG 相关的导入
 from torch_geometric.loader import DataLoader
-
-# 导入我们重写的新版 utils (确保 data_utils.py 和 model.py 与此脚本在同级目录或 Python 路径中)
-from data_utils import load_and_process_dataset
-from model import get_model # 如果你的模型文件叫 model.py，这里就是从 model 导入
-
+from STLdata_utils import load_and_process_dataset
+from STLmodel_utils import get_model 
 # ================= 1. 配置路径与全局参数 =================
 # 你刚生成的 10万 样本文件夹 (包含 .mat 和 .yml)
-DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/TrainData/random_outcome/model_new_topo"
+DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_100"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/SingleTaskLearning/outcome/test"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
