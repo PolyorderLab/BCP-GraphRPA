@@ -67,7 +67,7 @@ function main()
     end
 
     # 随机抽取 10 个文件 (如果总数不足10个则全取)
-    sample_size = min(10, length(all_files))
+    sample_size = min(100, length(all_files))
     selected_files = shuffle(all_files)[1:sample_size]
 
     println("🎨 开始渲染聚合物拓扑结构图...")
@@ -80,7 +80,7 @@ function main()
         
         # 使用 Makie 生成图像
         # PolymerArchitectureMakie 的 visualize() 会返回一个 Figure 对象
-        fig = visualize(bcp)
+        fig = visualize(bcp, node_size=8.0)
         
         # 提取文件前缀作为图片名的一部分 (比如 sample_00012)
         base_name = replace(file, ".yml" => "")

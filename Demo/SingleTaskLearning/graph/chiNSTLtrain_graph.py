@@ -14,8 +14,8 @@ from chiNSTLdata_graph import load_and_process_dataset
 from chiNSTLmodel_graph import get_model 
 
 # ================= 1. 配置路径与全局参数 =================
-DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/chiN1wSTL"
+DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topoclassify/Star"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/topoclassify/Star"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
@@ -129,7 +129,7 @@ def train_mixed_model():
 
     # ================= 新增：固化数据集切分逻辑 =================
     # 将切分索引文件保存在数据目录的上一级，所有模型共享
-    split_info_path = os.path.join(os.path.dirname(DATA_DIR), "fixed_dataset_splits_1w.pt")
+    split_info_path = os.path.join(os.path.dirname(DATA_DIR), "fixed_dataset_splits_Star.pt")
 
     if os.path.exists(split_info_path):
         print(f"📥 检测到统一的数据集划分文件，正在加载以确保严格的对比实验...")
