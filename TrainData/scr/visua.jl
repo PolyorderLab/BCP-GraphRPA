@@ -55,8 +55,8 @@ end
 # 主程序：随机抽取并画图
 # =================================================================
 function main()
-    data_dir = "/home/zxy/project/TAPD/TrainData/data/train_topo"
-    vis_dir = "/home/zxy/project/TAPD/TrainData/data/topo_visualizations"
+    data_dir = "/home/zxy/project/TAPD/TrainData/data/train_nnumber"
+    vis_dir = "/home/zxy/project/TAPD/TrainData/data/nnumber_visualizations"
     mkpath(vis_dir) # 创建专门存放图片的文件夹
 
     # 找到所有的 yml 文件
@@ -67,7 +67,7 @@ function main()
     end
 
     # 随机抽取 10 个文件 (如果总数不足10个则全取)
-    sample_size = min(100, length(all_files))
+    sample_size = min(10, length(all_files))
     selected_files = shuffle(all_files)[1:sample_size]
 
     println("🎨 开始渲染聚合物拓扑结构图...")

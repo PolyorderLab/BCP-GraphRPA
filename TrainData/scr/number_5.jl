@@ -11,123 +11,126 @@ using MAT
 
 BLAS.set_num_threads(1)
 
-function get_random_f(rng, num_segments, f_min)
-    if f_min * num_segments >= 1.0
-        return fill(1.0/num_segments, num_segments)
+# ================= 新增：基础组件切分（引入线程专属rng防止冲突） =================
+function rand_positive_numbers(rng::AbstractRNG, n::Int, total::Float64, minimum::Float64)
+    total_int = round(Int, 1000 * total)
+    min_int = round(Int, 1000 * minimum)
+    numbers = [0]
+    for i in 1:n-1
+        upper_bound = total_int - (n-i)*min_int - sum(numbers)
+        if min_int <= upper_bound
+            number = rand(rng, min_int:upper_bound)
+        else
+            number = min_int # 兜底限幅
+        end
+        push!(numbers, number)
     end
-    remaining = 1.0 - (num_segments * f_min)
+    push!(numbers, total_int - sum(numbers))
+    return numbers[2:end] ./ 1000.0
+end
+
+# ================= 新增：纯随机图论生长算法核心 =================
+# 1. 高效且不越界的随机体积分数切分函数
+function get_random_f(rng::AbstractRNG, num_segments::Int, total_f::Float64, f_min::Float64)
+    if num_segments == 0 return Float64[] end
+    if num_segments == 1 return [total_f] end
+    if f_min * num_segments >= total_f
+        return fill(total_f / num_segments, num_segments)
+    end
+    remaining = total_f - (num_segments * f_min)
     temp_pts = sort(rand(rng, num_segments - 1))
     gaps = [temp_pts[1]; diff(temp_pts); 1.0 - temp_pts[end]]
     return gaps .* remaining .+ f_min
 end
 
-# ================= 新增：自带"去冗余"的精确拓扑生成核心 =================
-function generate_specific_architecture(rng=Random.GLOBAL_RNG)
-    topo_types = [:Linear, :Comb, :Branch, :Star, :Dendrimer]
-    selected_type = rand(rng, topo_types)
+# 2. 完美无环、智能着色的随机拓扑生成器
+function generate_random_architecture(rng::AbstractRNG, total_blocks::Int; minimum_f=0.03)
+    # [步骤一] 随机整体体积分数
+    fA = rand(rng, 10:90) / 100.0
     
-    configs = [] 
+    # [步骤二] 树状图(Tree)严格生长，数学上100%无环
+    edges = Tuple{Int, Int}[]
+    degrees = Dict{Int, Int}(1 => 0)
+    active_nodes = [1]
     
-    if selected_type == :Linear
-        n_b = rand(rng, 2:5) # 2到5嵌段线型
-        for i in 1:n_b
-            push!(configs, (n1=Symbol("n$i"), n2=Symbol("n$(i+1)")))
+    for new_node in 2:(total_blocks + 1)
+        # 为了符合高分子物理，限制单个节点最多连 4 根线
+        candidates = [n for n in active_nodes if degrees[n] < 4]
+        if isempty(candidates)
+            candidates = active_nodes
         end
+        parent = rand(rng, candidates)
+        push!(edges, (parent, new_node))
         
-    elseif selected_type == :Comb
-        n_branches = rand(rng, 2:4) # 骨架上有2到4个接枝点
-        # 构建主链(骨架)
-        for i in 1:(n_branches + 1)
-            push!(configs, (n1=Symbol("bb$i"), n2=Symbol("bb$(i+1)")))
-        end
-        # 在主链节点上附加侧链 
-        for i in 1:n_branches
-            push!(configs, (n1=Symbol("bb$(i+1)"), n2=Symbol("br$i")))
-        end
-        
-    elseif selected_type == :Branch # 对应 H-shape 或 Pom-Pom
-        arms_left = rand(rng, 2:3)
-        arms_right = rand(rng, 2:3)
-        push!(configs, (n1=:bb_start, n2=:bb_end))
-        for i in 1:arms_left push!(configs, (n1=:bb_start, n2=Symbol("L$i"))) end
-        for i in 1:arms_right push!(configs, (n1=:bb_end, n2=Symbol("R$i"))) end
-        
-    elseif selected_type == :Star
-        n_arms = rand(rng, 3:6) 
-        for i in 1:n_arms
-            push!(configs, (n1=:center, n2=Symbol("arm$i")))
-        end
-        
-    elseif selected_type == :Dendrimer
-        functionality = 3 
-        current_nodes = [:center]
-        next_nodes = []
-        node_id = 1
-        for g in 1:2 
-            for node in current_nodes
-                branches = (g == 1) ? functionality : (functionality - 1)
-                for b in 1:branches
-                    new_n = Symbol("d_node$node_id")
-                    node_id += 1
-                    push!(configs, (n1=node, n2=new_n))
-                    push!(next_nodes, new_n)
-                end
-            end
-            current_nodes = next_nodes
-            next_nodes = []
-        end
+        degrees[parent] += 1
+        degrees[new_node] = 1
+        push!(active_nodes, new_node)
     end
     
-    node_connections = Dict{Symbol, Int}()
-    for c in configs
-        node_connections[c.n1] = get(node_connections, c.n1, 0) + 1
-        node_connections[c.n2] = get(node_connections, c.n2, 0) + 1
-    end
-
-    deg2_nodes = [k for (k, v) in node_connections if v == 2]
-    conflict_pairs = []
-    for n in deg2_nodes
-        connected_edges = Int[]
-        for (i, c) in enumerate(configs)
-            if c.n1 == n || c.n2 == n
-                push!(connected_edges, i)
+    # [步骤三] 图着色：强制过滤无效的“同色线型相连”
+    edge_colors = Vector{Symbol}(undef, total_blocks)
+    edge_adj = [Int[] for _ in 1:total_blocks]
+    # 找到所有共享度数为 2 节点的边 (即线型相连的边)
+    for i in 1:total_blocks
+        for j in i+1:total_blocks
+            u1, v1 = edges[i]
+            u2, v2 = edges[j]
+            shared = intersect([u1, v1], [u2, v2])
+            if !isempty(shared) && degrees[shared[1]] == 2
+                push!(edge_adj[i], j)
+                push!(edge_adj[j], i)
             end
         end
-        if length(connected_edges) == 2
-            push!(conflict_pairs, (connected_edges[1], connected_edges[2]))
-        end
     end
     
-    n_b = length(configs)
-    monomers = Vector{Symbol}(undef, n_b)
-    
-    while true
-        temp_monomers = rand(rng, [:A, :B], n_b)
-        
-        if !(:A in temp_monomers) temp_monomers[rand(rng, 1:n_b)] = :A end
-        if !(:B in temp_monomers) temp_monomers[rand(rng, 1:n_b)] = :B end
-        is_valid = true
-        for (e1, e2) in conflict_pairs
-            if temp_monomers[e1] == temp_monomers[e2]
-                is_valid = false
-                break
-            end
-        end
-        
-        if is_valid
-            monomers = temp_monomers
-            break
-        end
+    # 贪心着色：相邻线型边必须异色
+    for i in 1:total_blocks
+        forbidden = [edge_colors[j] for j in edge_adj[i] if isassigned(edge_colors, j)]
+        choices = setdiff([:A, :B], forbidden)
+        # 如果是复杂星型节点导致没得选，才随机分配；线型必定异色
+        edge_colors[i] = isempty(choices) ? rand(rng, [:A, :B]) : rand(rng, choices)
     end
     
-    shares = get_random_f(rng, n_b, 0.05)
+    # 确保体系必须是共聚物(有A也有B)
+    if !(:A in edge_colors) edge_colors[rand(rng, 1:total_blocks)] = :A end
+    if !(:B in edge_colors) edge_colors[rand(rng, 1:total_blocks)] = :B end
     
-    node_objs = Dict(n => (d > 1 ? BranchPoint(n) : FreeEnd(n)) for (n, d) in node_connections)
-    blocks = [PolymerBlock(Symbol("b$i"), KuhnSegment(monomers[i]), shares[i], node_objs[c.n1], node_objs[c.n2]) for (i, c) in enumerate(configs)]
+    # [步骤四] 分配体积分数
+    num_A = count(==( :A ), edge_colors)
+    num_B = total_blocks - num_A
+    f_A_list = get_random_f(rng, num_A, fA, minimum_f)
+    f_B_list = get_random_f(rng, num_B, 1.0 - fA, minimum_f)
     
-    return BlockCopolymer(selected_type, blocks; check=false), string(selected_type), n_b
+    # [步骤五] 打包实体 PolymerBlock
+    idx_A, idx_B = 1, 1
+    blocks = PolymerBlock[]
+    
+    for i in 1:total_blocks
+        u, v = edges[i]
+        # 根据统计好的度数，精准判断是 FreeEnd 还是 BranchPoint
+        node_u = degrees[u] > 1 ? BranchPoint(Symbol("N$u")) : FreeEnd(Symbol("N$u"))
+        node_v = degrees[v] > 1 ? BranchPoint(Symbol("N$v")) : FreeEnd(Symbol("N$v"))
+        
+        color = edge_colors[i]
+        if color == :A
+            f_val = f_A_list[idx_A]
+            idx_A += 1
+        else
+            f_val = f_B_list[idx_B]
+            idx_B += 1
+        end
+        
+        b = PolymerBlock(Symbol("b$i"), KuhnSegment(color), f_val, node_u, node_v)
+        push!(blocks, b)
+    end
+    
+    chain = BlockCopolymer(Symbol("AB"), blocks; check=false)
+    topo_type = "Random_$(total_blocks)blocks"
+    
+    return chain, topo_type, total_blocks
 end
 
+# ================= 原有：向GNN特征矩阵的提取映射 (保持不变) =================
 function polymer_to_gnn(chain; N_max::Int=20, D_feat::Int=2)
     blocks = chain.blocks
     N_blocks = length(blocks)
@@ -179,24 +182,26 @@ function polymer_to_gnn(chain; N_max::Int=20, D_feat::Int=2)
     return F_pad, edge_index, edge_attr
 end
 
+# ================= 多线程并行采样与 RPA 计算 (进度条逻辑稍作动态调整) =================
 function run_generation_mixed_parallel(total_target=20000)
     dataset = []
     data_lock = ReentrantLock()
     
-    stats = Dict("Linear"=>0, "Comb"=>0, "Branch"=>0, "Star"=>0, "Dendrimer"=>0)
+    stats = Dict{String, Int}() # 改为动态字典，以适应不确定名称的 Random 拓扑
     
     num_threads = Threads.nthreads()
-    println("多线程生产模式 |线程数: $num_threads | 目标: $total_target")
+    println("多线程生产模式 | 线程数: $num_threads | 目标: $total_target")
     start_time = time()
 
     @sync for t in 1:num_threads
         Threads.@spawn begin
-            local_rng = MersenneTwister(42 + Threads.threadid())
+            local_rng = MersenneTwister(42 + Threads.threadid()) # 绑定线程安全的随机种子
             
             while true
                 if lock(()->length(dataset) >= total_target, data_lock) break end
                 
-                chain, topo_type, n_b = generate_specific_architecture(local_rng)
+                target_blocks = rand(local_rng, 2:5) 
+                chain, topo_type, n_b = generate_random_architecture(local_rng, target_blocks; minimum_f=0.03)
                 n_max_val = 32 
                 
                 try
@@ -211,7 +216,7 @@ function run_generation_mixed_parallel(total_target=20000)
                             lock(data_lock) do
                                 if length(dataset) < total_target
                                     push!(dataset, (gnn_out..., Float32(χN_star), Float32(k_star), topo_type, chain))
-                                    stats[topo_type] += 1
+                                    stats[topo_type] = get(stats, topo_type, 0) + 1
                                     
                                     current_count = length(dataset)
                                     if current_count % 100 == 0 
@@ -221,7 +226,7 @@ function run_generation_mixed_parallel(total_target=20000)
                                         eta_h = floor(Int, (total_target - current_count) / sps / 3600)
                                         eta_m = floor(Int, ((total_target - current_count) / sps % 3600) / 60)
                                         
-                                        stat_str = "L:$(stats["Linear"]) C:$(stats["Comb"]) B:$(stats["Branch"]) S:$(stats["Star"]) D:$(stats["Dendrimer"])"
+                                        stat_str = join(["$k:$(v)" for (k,v) in stats], " ")
                                         print("\r\x1b[K>> $percent% ($current_count/$total_target) | ETA: $(eta_h)h$(eta_m)m | $stat_str")
                                         flush(stdout)
                                     end
@@ -243,13 +248,13 @@ function run_generation_mixed_parallel(total_target=20000)
     return dataset, stats
 end
 
-output_dir = "/home/zxy/project/TAPD/TrainData/data/train_topo"
+output_dir = "/home/zxy/project/TAPD/TrainData/data/train_nnumber/"
 mkpath(output_dir)
 
 total_samples = 100000
 final_data, final_stats = run_generation_mixed_parallel(total_samples) 
 
-txt_path = "/home/zxy/project/TAPD/TrainData/data/topology_summary.txt"
+txt_path = "/home/zxy/project/TAPD/TrainData/data/nnumber_summary.txt"
 open(txt_path, "w") do file
     println(file, "生成完成！拓扑分布：")
     for (k, v) in final_stats

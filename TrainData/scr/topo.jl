@@ -21,7 +21,6 @@ function get_random_f(rng, num_segments, f_min)
     return gaps .* remaining .+ f_min
 end
 
-# ================= 新增：自带"去冗余"的精确拓扑生成核心 =================
 function generate_specific_architecture(rng=Random.GLOBAL_RNG)
     topo_types = [:Linear, :Comb, :Branch, :Star, :Dendrimer]
     selected_type = rand(rng, topo_types)
