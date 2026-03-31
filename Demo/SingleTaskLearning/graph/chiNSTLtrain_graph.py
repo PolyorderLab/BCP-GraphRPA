@@ -9,10 +9,9 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
-from torch.utils.data import Subset  # 新增：用于根据索引提取子集
-
-from chiNSTLdata_utils import load_and_process_dataset
-from chiNSTLmodel_utils import get_model 
+from torch.utils.data import Subset  
+from chiNSTLdata_graph import load_and_process_dataset
+from chiNSTLmodel_graph import get_model 
 
 # ================= 1. 配置路径与全局参数 =================
 DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
@@ -106,7 +105,6 @@ def save_parity_plot(model, loader, save_path, title=r"Parity Plot for $\chi N^*
     
     ax.plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 'k--', alpha=0.6)
     ax.set_xscale('log'); ax.set_yscale('log')
-    # 这里修正了 LaTeX 转义
     ax.set_xlabel(r'True $\chi N^*$')
     ax.set_ylabel(r'Predicted $\chi N^*$')
     ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}%")

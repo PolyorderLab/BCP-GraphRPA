@@ -10,13 +10,13 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
 from torch.utils.data import Subset  # 新增
-from kSTLdata_utils import load_and_process_dataset
-from kSTLmodel_utils import get_model 
+from kSTLdata_graph import load_and_process_dataset
+from kSTLmodel_graph import get_model 
 
 # ================= 1. 配置路径与全局参数 =================
 # 你刚生成的 10万 样本文件夹 (包含 .mat 和 .yml)
 DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/ktest1wSTL"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/ktest1wSTL"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
@@ -145,7 +145,7 @@ def train_mixed_model():
 
     if os.path.exists(split_info_path):
         print(f"📥 检测到统一的数据集划分文件，正在加载以确保严格的对比实验...")
-        splits = torch.load(split_info_path)
+        splits = torch.load(split_info_path, weights_only=False)
         train_idx, val_idx, test_idx = splits['train'], splits['val'], splits['test']
     else:
         print(f"🔨 未检测到统一划分文件，正在生成固定的索引切分并保存...")
@@ -170,7 +170,7 @@ def train_mixed_model():
     print(f"✅ 数据划分完毕 | 训练集: {len(tr_data)} | 验证集: {len(val_data)} | 测试集: {len(test_data)}")
 
     # --- B. 模型初始化 ---
-    model = get_model(in_feats=3, edge_dim=2, hidden_dim=64, num_enc_layers=3, num_dec_layers=2, use_global_features=True, device=DEVICE)
+    model = get_model(in_feats=3, edge_dim=2, hidden_dim=64, num_enc_layers=3, num_dec_layers=2, device=DEVICE)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10)
     criterion = nn.MSELoss()
