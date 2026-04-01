@@ -8,7 +8,7 @@ import matplotlib
 matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 import seaborn as sns 
-from sklearn.metrics import confusion_matrix, accuracy_score 
+from sklearn.metrics import confusion_matrix, accuracy_score, r2_score, mean_squared_error
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
 from torch.utils.data import Subset  # 【新增】引入 Subset 用于固定索引提取
@@ -50,7 +50,7 @@ def save_loss_curve(train_hist, val_hist, save_path):
     plt.close()
 
 def save_parity_plot(y_true, y_pred, all_topos, save_path, title, xlabel, ylabel):
-    """通用的奇偶校验图绘制函数"""
+    """通用的奇偶校验图绘制函数 (包含 MAPE, R2, RMSE)"""
     mape_data = []
     fig, ax = plt.subplots(figsize=(10, 7), dpi=100)
     
@@ -61,10 +61,22 @@ def save_parity_plot(y_true, y_pred, all_topos, save_path, title, xlabel, ylabel
         
         t_true = y_true[mask]
         t_pred = y_pred[mask]
+        
+        # 计算该类别的三大指标
         t_mape = np.mean(np.abs((t_pred - t_true) / t_true)) * 100
+        t_r2 = r2_score(t_true, t_pred)
+        t_rmse = np.sqrt(mean_squared_error(t_true, t_pred))
+        
         topo_name = TOPO_MAP_REV.get(int(topo_idx), f"Unknown-{topo_idx}")
         
-        mape_data.append({"Topology": topo_name, "Samples": len(t_true), "MAPE(%)": round(t_mape, 4)})
+        # 记录到字典，用于输出 CSV
+        mape_data.append({
+            "Topology": topo_name, 
+            "Samples": len(t_true), 
+            "MAPE(%)": round(t_mape, 4),
+            "R2": round(t_r2, 4),
+            "RMSE": round(t_rmse, 4)
+        })
         
         MAX_PTS = 15000 
         if len(t_true) > MAX_PTS:
@@ -73,28 +85,36 @@ def save_parity_plot(y_true, y_pred, all_topos, save_path, title, xlabel, ylabel
         else:
             p_true, p_pred = t_true, t_pred
 
+        # 在图例中标注每个分类的 MAPE 和 R2
         ax.scatter(p_true, p_pred, c=COLOR_MAP_TOPO.get(topo_idx, 'black'), 
-                   label=f"{topo_name} (MAPE: {t_mape:.2f}%)", 
+                   label=f"{topo_name} (MAPE: {t_mape:.1f}%, R²: {t_r2:.2f})", 
                    alpha=0.6, edgecolors='black', linewidths=0.5, s=25)
 
     df_mape = pd.DataFrame(mape_data)
     csv_out_path = save_path.replace('.png', '_stats.csv')
     df_mape.to_csv(csv_out_path, index=False)
 
+    # 计算全局指标
     total_mape = np.mean(np.abs((y_pred - y_true) / y_true)) * 100
+    total_r2 = r2_score(y_true, y_pred)
+    total_rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     
     ax.plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 'k--', alpha=0.6)
-    ax.set_xscale('log'); ax.set_yscale('log')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
     ax.set_xlabel(xlabel)
     ax.set_ylabel(ylabel)
-    ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}%")
+    
+    # 将三大总指标写进图片标题
+    ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}% | R²: {total_r2:.4f} | RMSE: {total_rmse:.4f}")
+    
     ax.legend(loc='upper left', bbox_to_anchor=(1.02, 1))
     
     plt.tight_layout()
     plt.savefig(save_path, bbox_inches='tight', dpi=200)
     plt.close()
+    
     return total_mape
-
 
 def save_confusion_matrix(y_true, y_pred, save_path):
     cm = confusion_matrix(y_true, y_pred)

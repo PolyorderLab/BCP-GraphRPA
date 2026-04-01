@@ -10,12 +10,12 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
 from torch.utils.data import Subset  
-from chiNSTLdata_graph import load_and_process_dataset
-from chiNSTLmodel_graph import get_model 
-
+from project.TAPD.Demo.SingleTaskLearning.graph.chiN.chiNSTLdata_graph import load_and_process_dataset
+from project.TAPD.Demo.SingleTaskLearning.graph.chiN.chiNSTLmodel_graph import get_model 
+from sklearn.metrics import r2_score, mean_squared_error
 # ================= 1. 配置路径与全局参数 =================
-DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topoclassify/Star"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/topoclassify/Star"
+DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topoclassify/Comb"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/topoclassify/Comb"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
@@ -75,14 +75,20 @@ def save_parity_plot(model, loader, save_path, title=r"Parity Plot for $\chi N^*
         
         t_true = y_true[mask]
         t_pred = y_pred[mask]
+        
+        # --- 计算该类别的三大指标 ---
         t_mape = np.mean(np.abs((t_pred - t_true) / t_true)) * 100
+        t_r2 = r2_score(t_true, t_pred)
+        t_rmse = np.sqrt(mean_squared_error(t_true, t_pred))
         
         topo_name = TOPO_MAP_REV.get(int(topo_idx), f"Unknown-{topo_idx}")
         
         mape_data.append({
             "Topology": topo_name,
             "Samples": len(t_true),
-            "MAPE(%)": round(t_mape, 4)
+            "MAPE(%)": round(t_mape, 4),
+            "R2": round(t_r2, 4),
+            "RMSE": round(t_rmse, 4)
         })
         
         MAX_PTS = 15000 
@@ -92,8 +98,9 @@ def save_parity_plot(model, loader, save_path, title=r"Parity Plot for $\chi N^*
         else:
             p_true, p_pred = t_true, t_pred
 
+        # 在图例中额外加上 R2 的显示
         ax.scatter(p_true, p_pred, c=COLOR_MAP_TOPO.get(topo_idx, 'black'), 
-                   label=f"{topo_name} (MAPE: {t_mape:.2f}%)", 
+                   label=f"{topo_name} (MAPE: {t_mape:.1f}%, R²: {t_r2:.2f})", 
                    alpha=0.6, edgecolors='black', linewidths=0.5, s=25)
 
     df_mape = pd.DataFrame(mape_data)
@@ -101,13 +108,19 @@ def save_parity_plot(model, loader, save_path, title=r"Parity Plot for $\chi N^*
     df_mape.to_csv(csv_out_path, index=False)
     print(f"📊 分拓扑结构测试统计已保存至: {csv_out_path}")
 
+    # --- 计算全局三大指标 ---
     total_mape = np.mean(np.abs((y_pred - y_true) / y_true)) * 100
+    total_r2 = r2_score(y_true, y_pred)
+    total_rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     
     ax.plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 'k--', alpha=0.6)
-    ax.set_xscale('log'); ax.set_yscale('log')
+    ax.set_xscale('log')
+    ax.set_yscale('log')
     ax.set_xlabel(r'True $\chi N^*$')
     ax.set_ylabel(r'Predicted $\chi N^*$')
-    ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}%")
+    
+    # --- 将全局 R2 和 RMSE 写入图表大标题 ---
+    ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}% | R²: {total_r2:.4f} | RMSE: {total_rmse:.4f}")
     
     ax.legend(loc='upper left', bbox_to_anchor=(1.02, 1))
     
@@ -115,7 +128,6 @@ def save_parity_plot(model, loader, save_path, title=r"Parity Plot for $\chi N^*
     plt.savefig(save_path, bbox_inches='tight', dpi=200)
     plt.close()
     return total_mape
-
 # ================= 4. 主训练流程 =================
 def train_mixed_model():
     print(f"🖥️ 当前实际运行设备: {DEVICE}")
@@ -129,7 +141,7 @@ def train_mixed_model():
 
     # ================= 新增：固化数据集切分逻辑 =================
     # 将切分索引文件保存在数据目录的上一级，所有模型共享
-    split_info_path = os.path.join(os.path.dirname(DATA_DIR), "fixed_dataset_splits_Star.pt")
+    split_info_path = os.path.join(os.path.dirname(DATA_DIR), "fixed_dataset_splits_comb.pt")
 
     if os.path.exists(split_info_path):
         print(f"📥 检测到统一的数据集划分文件，正在加载以确保严格的对比实验...")
@@ -157,7 +169,7 @@ def train_mixed_model():
     print(f"✅ 数据划分完毕 | 训练集: {len(tr_data)} | 验证集: {len(val_data)} | 测试集: {len(test_data)}")
 
     # --- B. 模型初始化 ---
-    model = get_model(in_feats=3, edge_dim=2, hidden_dim=64, num_enc_layers=3, num_dec_layers=2, device=DEVICE)
+    model = get_model(in_feats=3, edge_dim=2, hidden_dim=64, num_enc_layers=6, num_dec_layers=3, device=DEVICE)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=10)
     criterion = nn.MSELoss()

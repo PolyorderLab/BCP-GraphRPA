@@ -9,23 +9,21 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
-from torch.utils.data import Subset  # 新增
-from kSTLdata_graph import load_and_process_dataset
-from kSTLmodel_graph import get_model 
+from torch.utils.data import Subset  
+from project.TAPD.Demo.SingleTaskLearning.graph.chiN.chiNSTLdata_graph import load_and_process_dataset
+from project.TAPD.Demo.SingleTaskLearning.graph.chiN.chiNSTLmodel_graph import get_model 
+from sklearn.metrics import r2_score, mean_squared_error
 
 # ================= 1. 配置路径与全局参数 =================
-# 你刚生成的 10万 样本文件夹 (包含 .mat 和 .yml)
 DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/ktest1wSTL"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/chiN1wSTL"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
 
 # ================= 2. 拓扑结构配色与映射配置 =================
-# 0: Linear, 1: Comb, 2: Branch, 3: Star, 4: Dendrimer
 TOPO_MAP_REV = {0: "Linear", 1: "Comb", 2: "Branch", 3: "Star", 4: "Dendrimer"}
 
-# 给每种拓扑分配一个高区分度的颜色
 COLOR_MAP_TOPO = {
     0: 'green',       # Linear
     1: 'royalblue',   # Comb
@@ -49,7 +47,7 @@ def save_loss_curve(train_hist, val_hist, save_path):
     plt.savefig(save_path, dpi=150)
     plt.close()
 
-def save_parity_plot(model, loader, save_path, title="Parity Plot (Grouped by Topology)"):
+def save_parity_plot(model, loader, save_path, title=r"Parity Plot for $\chi N^*$"):
     model.eval()
     all_preds_raw, all_trues_raw, all_topos = [], [], []
     
@@ -61,7 +59,6 @@ def save_parity_plot(model, loader, save_path, title="Parity Plot (Grouped by To
             all_preds_raw.append(preds.reshape(-1, 1))
             all_trues_raw.append(trues.reshape(-1, 1))
             
-            # 提取拓扑类型的分类标签 (0~4)
             if hasattr(batch, 'topo_type'):
                 all_topos.extend(batch.topo_type.cpu().numpy().flatten())
 
@@ -69,7 +66,6 @@ def save_parity_plot(model, loader, save_path, title="Parity Plot (Grouped by To
     y_true = 10 ** np.vstack(all_trues_raw).flatten()
     all_topos = np.array(all_topos)
     
-    # --- 计算分拓扑结构的 MAPE 并导出 CSV ---
     mape_data = []
     fig, ax = plt.subplots(figsize=(10, 7), dpi=100)
     
@@ -80,19 +76,22 @@ def save_parity_plot(model, loader, save_path, title="Parity Plot (Grouped by To
         
         t_true = y_true[mask]
         t_pred = y_pred[mask]
-        t_mape = np.mean(np.abs((t_pred - t_true) / t_true)) * 100
         
-        # 获取拓扑结构的真实名称
+        # --- 计算该类别的三大指标 ---
+        t_mape = np.mean(np.abs((t_pred - t_true) / t_true)) * 100
+        t_r2 = r2_score(t_true, t_pred)
+        t_rmse = np.sqrt(mean_squared_error(t_true, t_pred))
+        
         topo_name = TOPO_MAP_REV.get(int(topo_idx), f"Unknown-{topo_idx}")
         
-        # 记录统计
         mape_data.append({
             "Topology": topo_name,
             "Samples": len(t_true),
-            "MAPE(%)": round(t_mape, 4)
+            "MAPE(%)": round(t_mape, 4),
+            "R2": round(t_r2, 4),
+            "RMSE": round(t_rmse, 4)
         })
         
-        # --- 绘图优化：大样本降采样显示，防止点太密集变成糊状 ---
         MAX_PTS = 15000 
         if len(t_true) > MAX_PTS:
             idx = np.random.choice(len(t_true), MAX_PTS, replace=False)
@@ -100,39 +99,40 @@ def save_parity_plot(model, loader, save_path, title="Parity Plot (Grouped by To
         else:
             p_true, p_pred = t_true, t_pred
 
+        # 在图例中额外加上 R2 的显示
         ax.scatter(p_true, p_pred, c=COLOR_MAP_TOPO.get(topo_idx, 'black'), 
-                   label=f"{topo_name} (MAPE: {t_mape:.2f}%)", 
+                   label=f"{topo_name} (MAPE: {t_mape:.1f}%, R²: {t_r2:.2f})", 
                    alpha=0.6, edgecolors='black', linewidths=0.5, s=25)
 
-    # 导出 CSV 统计表格
     df_mape = pd.DataFrame(mape_data)
     csv_out_path = os.path.join(BASE_RESULT_ROOT, "topology_mape_stats.csv")
     df_mape.to_csv(csv_out_path, index=False)
     print(f"📊 分拓扑结构测试统计已保存至: {csv_out_path}")
 
+    # --- 计算全局三大指标 ---
     total_mape = np.mean(np.abs((y_pred - y_true) / y_true)) * 100
+    total_r2 = r2_score(y_true, y_pred)
+    total_rmse = np.sqrt(mean_squared_error(y_true, y_pred))
     
-    # 绘制对角线基准
     ax.plot([y_true.min(), y_true.max()], [y_true.min(), y_true.max()], 'k--', alpha=0.6)
-    ax.set_xscale('log'); ax.set_yscale('log')
-    # 【修改点1】：将图表轴标签改为 k^*
-    ax.set_xlabel(r'True $k^*$')
-    ax.set_ylabel(r'Predicted $k^*$')
-    ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}%")
+    ax.set_xscale('log')
+    ax.set_yscale('log')
+    ax.set_xlabel(r'True $\chi N^*$')
+    ax.set_ylabel(r'Predicted $\chi N^*$')
     
-    # 把图例放在图外侧，避免遮挡数据点
+    # --- 将全局 R2 和 RMSE 写入图表大标题 ---
+    ax.set_title(f"{title}\nTotal Test MAPE: {total_mape:.2f}% | R²: {total_r2:.4f} | RMSE: {total_rmse:.4f}")
+    
     ax.legend(loc='upper left', bbox_to_anchor=(1.02, 1))
     
     plt.tight_layout()
     plt.savefig(save_path, bbox_inches='tight', dpi=200)
     plt.close()
     return total_mape
-
 # ================= 4. 主训练流程 =================
 def train_mixed_model():
     print(f"🖥️ 当前实际运行设备: {DEVICE}")
     
-    # --- A. 数据加载与固定划分 ---
     print(f"📖 正在扫描并加载总数据集 (这可能需要几分钟)...")
     full_dataset = load_and_process_dataset(DATA_DIR, scaler=None)
     
@@ -140,7 +140,8 @@ def train_mixed_model():
         print("❌ 数据集为空，请检查路径是否正确！")
         return
 
-    # 定义统一的索引存放路径（存放在数据根目录的同级，即 TrainData/data 下）
+    # ================= 新增：固化数据集切分逻辑 =================
+    # 将切分索引文件保存在数据目录的上一级，所有模型共享
     split_info_path = os.path.join(os.path.dirname(DATA_DIR), "fixed_dataset_splits_1w.pt")
 
     if os.path.exists(split_info_path):
@@ -150,17 +151,16 @@ def train_mixed_model():
     else:
         print(f"🔨 未检测到统一划分文件，正在生成固定的索引切分并保存...")
         indices = np.arange(len(full_dataset))
-        # 第一次划分：抽出 20% 作为暂存的 Val+Test，剩下 80% 作为 Train
         train_idx, temp_idx = train_test_split(indices, test_size=0.2, random_state=42)
-        # 第二次划分：把刚才的 20% 对半切，得到 10% Val 和 10% Test
         val_idx, test_idx = train_test_split(temp_idx, test_size=0.5, random_state=42)
         torch.save({'train': train_idx, 'val': val_idx, 'test': test_idx}, split_info_path)
         print(f"💾 切分索引已保存至: {split_info_path}")
 
-    # 提取子集
+    # 使用 Subset 提取固定的数据集
     tr_data = Subset(full_dataset, train_idx)
     val_data = Subset(full_dataset, val_idx)
     test_data = Subset(full_dataset, test_idx)
+    # ==========================================================
 
     print(f"🛠️ 正在装载至 DataLoader...")
     train_loader = DataLoader(tr_data, batch_size=64, shuffle=True)
@@ -192,7 +192,6 @@ def train_mixed_model():
             loss = criterion(out, batch.y)
             loss.backward()
             optimizer.step()
-            # 注意: 使用 batch.num_graphs 而不是直接用 batch 数量
             total_t_loss += loss.item() * batch.num_graphs
         
         model.eval()
@@ -208,20 +207,18 @@ def train_mixed_model():
         val_hist.append(avg_v)
         
         scheduler.step(avg_v)
-        # 保存验证集表现最好的模型参数
         if avg_v < best_val_loss:
             best_val_loss = avg_v
             torch.save(model.state_dict(), model_path)
 
     # --- D. 最终评估与出图 ---
     print("\n💾 训练结束，正在生成分析图表...")
-    # 保存 Loss 曲线
     save_loss_curve(train_hist, val_hist, os.path.join(BASE_RESULT_ROOT, "loss_curve.png"))
     
-    # 加载表现最好的权重，在从未见过的 Test 集上做最终测试
     model.load_state_dict(torch.load(model_path))
     final_mape = save_parity_plot(model, test_loader, os.path.join(BASE_RESULT_ROOT, "parity_plot_topology.png"))
     
+    # 这里修正了 LaTeX 转义
     print(f"\n✨ 全部任务完美收官！模型已保存，测试集最终总 MAPE: {final_mape:.2f}%")
     print(f"📁 请前往目录查看结果: {BASE_RESULT_ROOT}")
 
