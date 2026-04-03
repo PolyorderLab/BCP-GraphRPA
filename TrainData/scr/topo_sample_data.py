@@ -57,10 +57,10 @@ def create_mini_dataset(source_dir, dest_dir, num_samples=1000):
 if __name__ == "__main__":
     # ================= 配置路径 =================
     # 源数据文件夹（你刚才生成的 10 万个文件所在的地方）
-    SOURCE_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo"
+    SOURCE_DIR = "/home/zxy/project/TAPD/TrainData/data/train_nnumber"
     
     # 目标测试文件夹（新建的用于小样本测试的文件夹）
-    DEST_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
+    DEST_DIR = "/home/zxy/project/TAPD/TrainData/data/train_nnumber_1w"
     
     # 需要抽取的样本数量
     SAMPLE_SIZE = 10000

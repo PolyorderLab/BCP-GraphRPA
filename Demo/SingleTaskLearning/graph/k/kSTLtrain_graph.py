@@ -10,29 +10,39 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
 from torch.utils.data import Subset  # 新增
-from project.TAPD.Demo.SingleTaskLearning.graph.k.kSTLdata_graph import load_and_process_dataset
-from project.TAPD.Demo.SingleTaskLearning.graph.k.kSTLmodel_graph import get_model 
+from kSTLdata_graph import load_and_process_dataset
+from kSTLmodel_graph import get_model 
 from sklearn.metrics import r2_score, mean_squared_error
 
 # ================= 1. 配置路径与全局参数 =================
 # 你刚生成的 10万 样本文件夹 (包含 .mat 和 .yml)
-DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/ktest1wSTL"
+# DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
+# BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/ktest1wSTL"
+DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_nnumber_1w"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph_trainn/k1wSTL"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
 
 # ================= 2. 拓扑结构配色与映射配置 =================
 # 0: Linear, 1: Comb, 2: Branch, 3: Star, 4: Dendrimer
-TOPO_MAP_REV = {0: "Linear", 1: "Comb", 2: "Branch", 3: "Star", 4: "Dendrimer"}
+# TOPO_MAP_REV = {0: "Linear", 1: "Comb", 2: "Branch", 3: "Star", 4: "Dendrimer"}
+TOPO_MAP_REV = {0: "Random_2blocks", 1: "Random_3blocks", 2: "Random_4blocks", 3: "Random_5blocks", 4: "Random_6blocks"}
 
 # 给每种拓扑分配一个高区分度的颜色
+# COLOR_MAP_TOPO = {
+#     0: 'green',       # Linear
+#     1: 'royalblue',   # Comb
+#     2: 'magenta',     # Branch
+#     3: 'orange',      # Star
+#     4: 'purple'       # Dendrimer
+# }
 COLOR_MAP_TOPO = {
-    0: 'green',       # Linear
-    1: 'royalblue',   # Comb
-    2: 'magenta',     # Branch
-    3: 'orange',      # Star
-    4: 'purple'       # Dendrimer
+    0: 'green',       # Random_2blocks
+    1: 'royalblue',   # Random_3blocks
+    2: 'magenta',     # Random_4blocks
+    3: 'orange',      # Random_5blocks
+    4: 'purple'       # Random_6blocks
 }
 
 # ================= 3. 辅助函数 =================

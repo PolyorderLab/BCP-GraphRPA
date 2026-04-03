@@ -19,8 +19,8 @@ from reSTLdata_graph import load_and_process_dataset
 from reSTLmodel_graph import get_model 
 
 # ================= 1. 配置路径与全局参数 =================
-DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/RecSTL_1w"
+DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_nnumber_1w"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph_trainn/RecSTL_1w"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)

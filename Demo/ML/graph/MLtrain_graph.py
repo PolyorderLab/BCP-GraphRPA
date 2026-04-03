@@ -18,20 +18,31 @@ from MLdata_graph import load_and_process_dataset
 from MLmodel_graph import get_model 
 
 # ================= 1. 配置路径与全局参数 =================
-DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
-BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/test1wML"
+# DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topo_1w"
+# BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph/test1wML"
+DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_nnumber_1w"
+BASE_RESULT_ROOT = "/home/zxy/project/TAPD/Demo/outcome/graph_trainn/test1wML"
 DEVICE = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 os.makedirs(BASE_RESULT_ROOT, exist_ok=True)
 
 # ================= 2. 拓扑结构配色与映射配置 =================
-TOPO_MAP_REV = {0: "Linear", 1: "Comb", 2: "Branch", 3: "Star", 4: "Dendrimer"}
+# TOPO_MAP_REV = {0: "Linear", 1: "Comb", 2: "Branch", 3: "Star", 4: "Dendrimer"}
+# COLOR_MAP_TOPO = {
+#     0: 'green',       # Linear
+#     1: 'royalblue',   # Comb
+#     2: 'magenta',     # Branch
+#     3: 'orange',      # Star
+#     4: 'purple'       # Dendrimer
+# }
+TOPO_MAP_REV = {0: "Random_2blocks", 1: "Random_3blocks", 2: "Random_4blocks", 3: "Random_5blocks", 4: "Random_6blocks"}
+
 COLOR_MAP_TOPO = {
-    0: 'green',       # Linear
-    1: 'royalblue',   # Comb
-    2: 'magenta',     # Branch
-    3: 'orange',      # Star
-    4: 'purple'       # Dendrimer
+    0: 'green',       # 给 Random_2blocks 用的颜色
+    1: 'royalblue',   # 给 Random_3blocks 用的颜色
+    2: 'magenta',     # 给 Random_4blocks 用的颜色
+    3: 'orange',      # 给 Random_5blocks 用的颜色
+    4: 'purple'       # 给 Random_6blocks 用的颜色
 }
 
 # ================= 3. 辅助函数 =================

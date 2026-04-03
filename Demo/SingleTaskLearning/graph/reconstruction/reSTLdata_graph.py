@@ -8,12 +8,19 @@ import h5py
 from torch_geometric.data import Data
 
 # 定义拓扑类型到数字分类标签的映射字典
+# TOPO_MAP = {
+#     "Linear": 0,
+#     "Comb": 1,
+#     "Branch": 2,
+#     "Star": 3,
+#     "Dendrimer": 4
+# }
 TOPO_MAP = {
-    "Linear": 0,
-    "Comb": 1,
-    "Branch": 2,
-    "Star": 3,
-    "Dendrimer": 4
+    "Random_2blocks": 0,
+    "Random_3blocks": 1,
+    "Random_4blocks": 2,
+    "Random_5blocks": 3,
+    "Random_6blocks": 4
 }
 
 def load_and_process_dataset(data_dir, scaler=None):

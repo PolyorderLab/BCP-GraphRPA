@@ -10,8 +10,8 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from torch_geometric.loader import DataLoader
 from torch.utils.data import Subset  
-from project.TAPD.Demo.SingleTaskLearning.graph.chiN.chiNSTLdata_graph import load_and_process_dataset
-from project.TAPD.Demo.SingleTaskLearning.graph.chiN.chiNSTLmodel_graph import get_model 
+from chiNSTLdata_graph import load_and_process_dataset
+from chiNSTLmodel_graph import get_model 
 from sklearn.metrics import r2_score, mean_squared_error
 # ================= 1. 配置路径与全局参数 =================
 DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_topoclassify/Comb"
