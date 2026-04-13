@@ -183,7 +183,11 @@ def evaluate_and_plot_mtl(model, loader, device, result_root):
     
     return {
         "chiN_mape": np.mean(np.abs((y_pred_chiN - y_true_chiN) / y_true_chiN)) * 100,
+        "chiN_rmse": np.sqrt(mean_squared_error(y_true_chiN, y_pred_chiN)),
+        "chiN_r2": r2_score(y_true_chiN, y_pred_chiN),
         "kstar_mape": np.mean(np.abs((y_pred_kstar - y_true_kstar) / y_true_kstar)) * 100,
+        "kstar_rmse": np.sqrt(mean_squared_error(y_true_kstar, y_pred_kstar)),
+        "kstar_r2": r2_score(y_true_kstar, y_pred_kstar),
         "cls_acc": cls_acc,
         "rec_A_acc": rec_A_acc,
         "rec_F_mse": rec_F_mse,

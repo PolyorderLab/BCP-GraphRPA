@@ -182,6 +182,36 @@ class DualClsModel(nn.Module):
         out_cls = self.head_cls(graph_embed)
         return out_chiN, out_kstar, out_cls
 
+class ChiNReconClsModel(nn.Module):
+    def __init__(self, encoder, hidden_dim=64, num_classes=5, max_nodes=32):
+        super().__init__()
+        self.encoder = encoder
+        self.head_chiN = MLPHead(hidden_dim, hidden_dim, 1)
+        self.head_cls = MLPHead(hidden_dim, hidden_dim, num_classes)
+        self.head_rec = ReconstructionHead(hidden_dim, hidden_dim, max_nodes)
+        
+    def forward(self, data):
+        graph_embed = self.encoder(data)
+        out_chiN = self.head_chiN(graph_embed)
+        out_cls = self.head_cls(graph_embed)
+        out_rec = self.head_rec(graph_embed)
+        return out_chiN, out_cls, out_rec
+
+class KReconClsModel(nn.Module):
+    def __init__(self, encoder, hidden_dim=64, num_classes=5, max_nodes=32):
+        super().__init__()
+        self.encoder = encoder
+        self.head_kstar = MLPHead(hidden_dim, hidden_dim, 1)
+        self.head_cls = MLPHead(hidden_dim, hidden_dim, num_classes)
+        self.head_rec = ReconstructionHead(hidden_dim, hidden_dim, max_nodes)
+        
+    def forward(self, data):
+        graph_embed = self.encoder(data)
+        out_kstar = self.head_kstar(graph_embed)
+        out_cls = self.head_cls(graph_embed)
+        out_rec = self.head_rec(graph_embed)
+        return out_kstar, out_cls, out_rec
+
 class MultiTaskModel(nn.Module):
     def __init__(self, encoder, hidden_dim=64, num_classes=5, max_nodes=32):
         super().__init__()
@@ -243,8 +273,6 @@ def get_model(task_type='chiN', **kwargs):
         model = ChiNClsModel(encoder, hidden_dim, kwargs.get('num_classes', 5))
     elif task_type == 'k_cls':
         model = KClsModel(encoder, hidden_dim, kwargs.get('num_classes', 5))
-    elif task_type == 'dual_recon':
-        model = DualReconModel(encoder, hidden_dim, kwargs.get('max_nodes', 32))
     elif task_type == 'dual_cls':
         model = DualClsModel(encoder, hidden_dim, kwargs.get('num_classes', 5))
     else:
