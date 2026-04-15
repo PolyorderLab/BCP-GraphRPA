@@ -1,0 +1,386 @@
+nohup: ignoring input
+[I 2026-04-15 15:48:39,568] A new study created in RDB with name: study_ALL
+🚀 Starting MTL Ablation & Optuna exploration on cuda
+🔍 正在扫描数据目录: /home/zxy/project/TAPD/TrainData/data/train_nnumber_1w for task: mtl
+✅ 成功加载了 10000 个样本！
+📥 加载统一的数据集划分文件: /home/zxy/project/TAPD/TrainData/data/fixed_dataset_splits_shared.pt
+
+============================================================
+🧬 Evaluating Combination: ALL (Tasks: ['chiN', 'kstar', 'cls', 'recon'])
+[I 2026-04-15 15:51:31,991] Trial 0 finished with value: 0.4999999950681299 and parameters: {'w_chiN': 70.60926753299755, 'w_kstar': 0.09952699191255539, 'w_cls': 44.28999763895728, 'w_recon': 2.03907674630218}. Best is trial 0 with value: 0.4999999950681299.
+[I 2026-04-15 15:54:22,441] Trial 2 finished with value: 1.2126018860540577 and parameters: {'w_chiN': 0.6845802042970106, 'w_kstar': 0.07480916653680761, 'w_cls': 0.3035482589125799, 'w_recon': 5.9266832850533895}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 15:57:14,122] Trial 4 finished with value: 1.2102457794348407 and parameters: {'w_chiN': 1.9041079505896965, 'w_kstar': 13.242489311959348, 'w_cls': 42.97492135580111, 'w_recon': 1.3331738460451361}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 15:58:23,237] Trial 8 pruned. 
+✂️ Trial 8 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.5253)
+[I 2026-04-15 15:59:36,671] Trial 9 pruned. 
+✂️ Trial 9 触发 ASHA 剪枝 (Epoch 20, Val Loss: 2.2216)
+[I 2026-04-15 16:00:49,466] Trial 10 pruned. 
+✂️ Trial 10 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.5971)
+[I 2026-04-15 16:02:02,432] Trial 12 pruned. 
+✂️ Trial 12 触发 ASHA 剪枝 (Epoch 20, Val Loss: 1.0099)
+[I 2026-04-15 16:05:01,760] Trial 14 finished with value: 0.3405047798433982 and parameters: {'w_chiN': 11.399316349747608, 'w_kstar': 0.49200912706488154, 'w_cls': 8.22130418941755, 'w_recon': 0.2691038168568494}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:06:19,025] Trial 17 pruned. 
+✂️ Trial 17 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.6083)
+[I 2026-04-15 16:09:21,724] Trial 18 finished with value: 0.42910881251889116 and parameters: {'w_chiN': 0.21191061507760328, 'w_kstar': 7.718575904751806, 'w_cls': 0.11602914359898568, 'w_recon': 0.24494387801236378}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:12:21,621] Trial 20 finished with value: 0.4122497381646757 and parameters: {'w_chiN': 5.208251243540599, 'w_kstar': 0.5966819281920205, 'w_cls': 0.8155070372039419, 'w_recon': 0.038484029855277394}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:15:18,366] Trial 23 finished with value: 0.33527684790078627 and parameters: {'w_chiN': 0.2479786898547965, 'w_kstar': 0.03268511591022105, 'w_cls': 0.01241401682156786, 'w_recon': 0.17770799145131932}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:18:16,966] Trial 25 finished with value: 0.38318401427369947 and parameters: {'w_chiN': 0.3309987837253195, 'w_kstar': 0.03612925622286165, 'w_cls': 0.01048818961633046, 'w_recon': 0.5576557433261264}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:21:10,435] Trial 27 finished with value: 0.450394688474521 and parameters: {'w_chiN': 0.03695123916780988, 'w_kstar': 0.02058463110449455, 'w_cls': 0.033208655000612555, 'w_recon': 0.013385711764555828}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:24:04,639] Trial 29 finished with value: 0.44282748341015465 and parameters: {'w_chiN': 0.1260687656003901, 'w_kstar': 0.18163132784757774, 'w_cls': 0.06284056766616082, 'w_recon': 0.06206884072604403}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:26:59,558] Trial 31 finished with value: 0.3428722603664842 and parameters: {'w_chiN': 0.4171538507643344, 'w_kstar': 0.10616218438874975, 'w_cls': 0.025808277396485658, 'w_recon': 0.010148437560274863}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:29:56,921] Trial 33 finished with value: 0.3742611353666463 and parameters: {'w_chiN': 0.5576564206224778, 'w_kstar': 0.05554709306780827, 'w_cls': 0.017971852732289566, 'w_recon': 0.029535810905791857}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:32:52,361] Trial 35 finished with value: 0.4963304327539846 and parameters: {'w_chiN': 0.062027608180851034, 'w_kstar': 0.01713730258195357, 'w_cls': 0.03916593672495346, 'w_recon': 0.08252913072827926}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:35:15,807] Trial 37 pruned. 
+✂️ Trial 37 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0182)
+[I 2026-04-15 16:36:27,627] Trial 39 pruned. 
+✂️ Trial 39 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1738)
+[I 2026-04-15 16:38:51,244] Trial 40 pruned. 
+✂️ Trial 40 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0170)
+[I 2026-04-15 16:41:16,198] Trial 43 pruned. 
+✂️ Trial 43 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0192)
+[I 2026-04-15 16:44:13,038] Trial 45 finished with value: 0.34294170173331473 and parameters: {'w_chiN': 0.5391378312198525, 'w_kstar': 0.11113837574670798, 'w_cls': 0.020231496772639232, 'w_recon': 0.030035444515250184}. Best is trial 1 with value: 0.0.
+[I 2026-04-15 16:45:26,576] Trial 47 pruned. 
+✂️ Trial 47 触发 ASHA 剪枝 (Epoch 20, Val Loss: 3.8109)
+[I 2026-04-15 16:46:42,621] Trial 49 pruned. 
+[I 2026-04-15 16:46:42,663] Using an existing study with name 'study_Recon_2Reg' instead of creating a new one.
+✂️ Trial 49 触发 ASHA 剪枝 (Epoch 20, Val Loss: 1.1081)
+🏆 Best trial for ALL: Score 0.0000
+
+============================================================
+🧬 Evaluating Combination: Recon_2Reg (Tasks: ['chiN', 'kstar', 'recon'])
+[I 2026-04-15 16:47:53,151] Trial 1 pruned. 
+✂️ Trial 1 触发 ASHA 剪枝 (Epoch 20, Val Loss: 1.1154)
+[I 2026-04-15 16:50:40,392] Trial 2 finished with value: 0.5328512111324725 and parameters: {'w_chiN': 1.4346983286550217, 'w_kstar': 25.859188502705408, 'w_recon': 1.2375559423330604}. Best is trial 2 with value: 0.5328512111324725.
+[I 2026-04-15 16:53:28,625] Trial 5 finished with value: 1.2547343405387619 and parameters: {'w_chiN': 0.03270913691560324, 'w_kstar': 0.012640300424745362, 'w_recon': 0.7801765318905778}. Best is trial 2 with value: 0.5328512111324725.
+[I 2026-04-15 16:54:40,292] Trial 7 pruned. 
+✂️ Trial 7 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.5255)
+[I 2026-04-15 16:57:31,851] Trial 9 finished with value: 0.38121197102609505 and parameters: {'w_chiN': 4.280855467471122, 'w_kstar': 50.10640063182584, 'w_recon': 0.6637070128332553}. Best is trial 9 with value: 0.38121197102609505.
+[I 2026-04-15 17:00:21,480] Trial 12 finished with value: 0.5320561926872243 and parameters: {'w_chiN': 1.048699189347394, 'w_kstar': 97.88374244352559, 'w_recon': 1.226601137133071}. Best is trial 9 with value: 0.38121197102609505.
+[I 2026-04-15 17:03:11,972] Trial 14 finished with value: 0.34073388078697153 and parameters: {'w_chiN': 2.666981847176479, 'w_kstar': 1.6122666815597493, 'w_recon': 0.15584648934339745}. Best is trial 14 with value: 0.34073388078697153.
+[I 2026-04-15 17:06:01,187] Trial 16 finished with value: 0.38693827132806746 and parameters: {'w_chiN': 3.753062507080578, 'w_kstar': 2.3487558671619695, 'w_recon': 0.0303212521205428}. Best is trial 14 with value: 0.34073388078697153.
+[I 2026-04-15 17:08:49,283] Trial 18 finished with value: 0.32023739468690404 and parameters: {'w_chiN': 0.17432646307118324, 'w_kstar': 0.8795524342230668, 'w_recon': 0.06401433158816118}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:11:39,284] Trial 20 finished with value: 0.35447918816508306 and parameters: {'w_chiN': 0.45133868360456303, 'w_kstar': 0.4370898073656712, 'w_recon': 0.09056362898809353}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:14:29,015] Trial 22 finished with value: 0.3831461872211797 and parameters: {'w_chiN': 0.0648328450560945, 'w_kstar': 0.16936706068006843, 'w_recon': 0.1671199335227076}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:17:19,770] Trial 24 finished with value: 0.3756660302500897 and parameters: {'w_chiN': 0.5077213959398624, 'w_kstar': 0.6212901630809865, 'w_recon': 0.06052753349666327}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:20:10,567] Trial 26 finished with value: 0.36382592548126536 and parameters: {'w_chiN': 0.5670287709501795, 'w_kstar': 4.854683162493381, 'w_recon': 0.01002845627966104}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:23:02,844] Trial 28 finished with value: 0.36916469144871455 and parameters: {'w_chiN': 0.012681638003580145, 'w_kstar': 0.19233912712955903, 'w_recon': 0.112716672739697}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:24:14,149] Trial 31 pruned. 
+✂️ Trial 31 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1120)
+[I 2026-04-15 17:27:04,649] Trial 32 finished with value: 0.4402054873783916 and parameters: {'w_chiN': 0.33207369061572894, 'w_kstar': 0.5059176298904372, 'w_recon': 0.09717112752808323}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:29:18,436] Trial 34 pruned. 
+✂️ Trial 34 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0236)
+[I 2026-04-15 17:31:35,550] Trial 37 pruned. 
+✂️ Trial 37 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0225)
+[I 2026-04-15 17:32:44,627] Trial 39 pruned. 
+✂️ Trial 39 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0617)
+[I 2026-04-15 17:35:33,205] Trial 40 finished with value: 0.7231545266394723 and parameters: {'w_chiN': 0.03906456533921624, 'w_kstar': 3.391134712520219, 'w_recon': 0.01922492229103937}. Best is trial 18 with value: 0.32023739468690404.
+[I 2026-04-15 17:38:21,253] Trial 43 finished with value: 0.374446358592068 and parameters: {'w_chiN': 0.3068957904944349, 'w_kstar': 0.2939816400291798, 'w_recon': 0.1181552276552368}. Best is trial 42 with value: 0.308596343279961.
+[I 2026-04-15 17:41:09,117] Trial 45 finished with value: 0.4409273508942438 and parameters: {'w_chiN': 0.0809104542267502, 'w_kstar': 0.7769651653924683, 'w_recon': 0.039890803266965924}. Best is trial 42 with value: 0.308596343279961.
+[I 2026-04-15 17:42:19,811] Trial 47 pruned. 
+✂️ Trial 47 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.8377)
+[I 2026-04-15 17:43:30,530] Trial 48 pruned. 
+✂️ Trial 48 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0732)
+[I 2026-04-15 17:46:16,379] Trial 49 finished with value: 0.4614268263158351 and parameters: {'w_chiN': 0.1719306543179363, 'w_kstar': 0.10022546773047179, 'w_recon': 0.0273091140118218}. Best is trial 42 with value: 0.308596343279961.
+[I 2026-04-15 17:46:16,403] Using an existing study with name 'study_Cls_2Reg' instead of creating a new one.
+🏆 Best trial for Recon_2Reg: Score 0.3086
+
+============================================================
+🧬 Evaluating Combination: Cls_2Reg (Tasks: ['chiN', 'kstar', 'cls'])
+[I 2026-04-15 17:47:21,327] Trial 2 pruned. 
+✂️ Trial 2 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0792)
+[I 2026-04-15 17:49:56,843] Trial 4 finished with value: 0.45943877280128864 and parameters: {'w_chiN': 0.6138523685979727, 'w_kstar': 0.010567864931175903, 'w_cls': 0.434675641490443}. Best is trial 4 with value: 0.45943877280128864.
+[I 2026-04-15 17:51:01,379] Trial 6 pruned. 
+✂️ Trial 6 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1360)
+[I 2026-04-15 17:52:07,070] Trial 8 pruned. 
+✂️ Trial 8 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2054)
+[I 2026-04-15 17:54:42,785] Trial 9 finished with value: 0.47349806089393764 and parameters: {'w_chiN': 1.2541549411436446, 'w_kstar': 0.2838238248391921, 'w_cls': 0.1018830123409799}. Best is trial 4 with value: 0.45943877280128864.
+[I 2026-04-15 17:57:17,568] Trial 11 finished with value: 1.2309182959067397 and parameters: {'w_chiN': 0.02379440911944432, 'w_kstar': 0.011749810341513933, 'w_cls': 0.25750601883380897}. Best is trial 4 with value: 0.45943877280128864.
+[I 2026-04-15 17:58:21,907] Trial 14 pruned. 
+✂️ Trial 14 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0824)
+[I 2026-04-15 17:59:25,615] Trial 15 pruned. 
+✂️ Trial 15 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.3753)
+[I 2026-04-15 18:01:33,561] Trial 17 pruned. 
+✂️ Trial 17 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0262)
+[I 2026-04-15 18:04:11,819] Trial 19 finished with value: 1.1328484922511315 and parameters: {'w_chiN': 0.05025143838821515, 'w_kstar': 0.03084430204434939, 'w_cls': 0.7223101984058108}. Best is trial 4 with value: 0.45943877280128864.
+[I 2026-04-15 18:05:15,680] Trial 22 pruned. 
+✂️ Trial 22 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1175)
+[I 2026-04-15 18:07:23,211] Trial 24 pruned. 
+✂️ Trial 24 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0296)
+[I 2026-04-15 18:09:59,843] Trial 26 finished with value: 0.481261315045022 and parameters: {'w_chiN': 0.2513747523240392, 'w_kstar': 2.031032668833536, 'w_cls': 0.44010426759895416}. Best is trial 4 with value: 0.45943877280128864.
+[I 2026-04-15 18:11:03,031] Trial 28 pruned. 
+✂️ Trial 28 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1951)
+[I 2026-04-15 18:12:05,011] Trial 30 pruned. 
+✂️ Trial 30 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0844)
+[I 2026-04-15 18:14:12,813] Trial 31 pruned. 
+✂️ Trial 31 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0189)
+[I 2026-04-15 18:16:49,191] Trial 33 finished with value: 0.340253875252469 and parameters: {'w_chiN': 0.38737149897969925, 'w_kstar': 0.01875431930148126, 'w_cls': 0.026350426808930655}. Best is trial 29 with value: 0.29326364483285616.
+[I 2026-04-15 18:19:23,637] Trial 35 finished with value: 0.28423864720732933 and parameters: {'w_chiN': 0.5329198545692803, 'w_kstar': 0.048550202291630117, 'w_cls': 0.019017150478699764}. Best is trial 35 with value: 0.28423864720732933.
+[I 2026-04-15 18:21:59,712] Trial 37 finished with value: 0.33539192739030127 and parameters: {'w_chiN': 0.41083570260645924, 'w_kstar': 0.05111786965241083, 'w_cls': 0.020064081759718518}. Best is trial 35 with value: 0.28423864720732933.
+[I 2026-04-15 18:24:35,996] Trial 39 finished with value: 0.3486023961381873 and parameters: {'w_chiN': 0.09670914444465362, 'w_kstar': 0.049745669052581806, 'w_cls': 0.019193471338328154}. Best is trial 35 with value: 0.28423864720732933.
+[I 2026-04-15 18:25:40,919] Trial 41 pruned. 
+✂️ Trial 41 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0826)
+[I 2026-04-15 18:26:45,289] Trial 43 pruned. 
+✂️ Trial 43 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0939)
+[I 2026-04-15 18:29:20,259] Trial 44 finished with value: 0.27930307289259615 and parameters: {'w_chiN': 0.4130390412433539, 'w_kstar': 0.06247056859501885, 'w_cls': 0.010667256461185413}. Best is trial 44 with value: 0.27930307289259615.
+[I 2026-04-15 18:31:51,948] Trial 46 finished with value: 0.3765436664685383 and parameters: {'w_chiN': 0.18835812379455302, 'w_kstar': 0.13564708709461873, 'w_cls': 0.010790293112626057}. Best is trial 44 with value: 0.27930307289259615.
+[I 2026-04-15 18:32:56,365] Trial 48 pruned. 
+[I 2026-04-15 18:32:56,451] A new study created in RDB with name: study_Recon_Cls_ChiN
+✂️ Trial 48 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0214)
+🏆 Best trial for Cls_2Reg: Score 0.2793
+
+============================================================
+🧬 Evaluating Combination: Recon_Cls_ChiN (Tasks: ['chiN', 'cls', 'recon'])
+[I 2026-04-15 18:35:48,482] Trial 0 finished with value: 1.5373928153595926 and parameters: {'w_chiN': 1.0353711161630546, 'w_cls': 1.2132651224694568, 'w_recon': 38.45274190701613}. Best is trial 0 with value: 1.5373928153595926.
+[I 2026-04-15 18:38:38,840] Trial 2 finished with value: 0.6120644916528724 and parameters: {'w_chiN': 0.04403066830735832, 'w_cls': 0.03272398562954785, 'w_recon': 0.13087871776660656}. Best is trial 1 with value: 0.4407630089727269.
+[I 2026-04-15 18:39:51,020] Trial 5 pruned. 
+✂️ Trial 5 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.8982)
+[I 2026-04-15 18:42:09,591] Trial 7 pruned. 
+✂️ Trial 7 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.1214)
+[I 2026-04-15 18:44:58,559] Trial 9 finished with value: 0.6717770463795727 and parameters: {'w_chiN': 0.43653961318846773, 'w_cls': 0.020850396505548444, 'w_recon': 0.19102878480589727}. Best is trial 1 with value: 0.4407630089727269.
+[I 2026-04-15 18:47:52,183] Trial 12 finished with value: 0.4985898783675555 and parameters: {'w_chiN': 2.8365290745972844, 'w_cls': 0.01117673707740863, 'w_recon': 0.010188877310036114}. Best is trial 1 with value: 0.4407630089727269.
+[I 2026-04-15 18:49:03,324] Trial 14 pruned. 
+✂️ Trial 14 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1728)
+[I 2026-04-15 18:51:53,155] Trial 16 finished with value: 1.3263190095407447 and parameters: {'w_chiN': 0.25720040779644004, 'w_cls': 0.1769907181297353, 'w_recon': 0.9503231610454715}. Best is trial 1 with value: 0.4407630089727269.
+[I 2026-04-15 18:53:02,902] Trial 17 pruned. 
+✂️ Trial 17 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1927)
+[I 2026-04-15 18:55:49,042] Trial 19 finished with value: 0.6985000052028688 and parameters: {'w_chiN': 0.20460687676185219, 'w_cls': 0.47434737760613804, 'w_recon': 0.670814498086466}. Best is trial 18 with value: 0.43257509052453064.
+[I 2026-04-15 18:56:57,805] Trial 21 pruned. 
+✂️ Trial 21 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.5083)
+[I 2026-04-15 18:59:49,930] Trial 22 finished with value: 0.4924874742459659 and parameters: {'w_chiN': 0.6257336046076808, 'w_cls': 0.03372028209720974, 'w_recon': 0.053014792595290676}. Best is trial 18 with value: 0.43257509052453064.
+[I 2026-04-15 19:02:42,113] Trial 24 finished with value: 0.48284384915951906 and parameters: {'w_chiN': 0.7567069991310319, 'w_cls': 0.0632563042994291, 'w_recon': 0.034858118289074994}. Best is trial 18 with value: 0.43257509052453064.
+[I 2026-04-15 19:05:31,295] Trial 26 finished with value: 0.38065462885942664 and parameters: {'w_chiN': 1.8190120921574846, 'w_cls': 0.024710669132623538, 'w_recon': 0.06794415732755697}. Best is trial 26 with value: 0.38065462885942664.
+[I 2026-04-15 19:06:40,952] Trial 29 pruned. 
+✂️ Trial 29 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2075)
+[I 2026-04-15 19:07:50,499] Trial 31 pruned. 
+✂️ Trial 31 触发 ASHA 剪枝 (Epoch 20, Val Loss: 1.2654)
+[I 2026-04-15 19:10:39,290] Trial 32 finished with value: 0.46340393235478994 and parameters: {'w_chiN': 1.8453944727437965, 'w_cls': 0.04231889402707915, 'w_recon': 0.17859119803968393}. Best is trial 26 with value: 0.38065462885942664.
+[I 2026-04-15 19:12:55,793] Trial 34 pruned. 
+✂️ Trial 34 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0287)
+[I 2026-04-15 19:15:15,751] Trial 36 pruned. 
+✂️ Trial 36 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0319)
+[I 2026-04-15 19:16:26,436] Trial 38 pruned. 
+✂️ Trial 38 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1574)
+[I 2026-04-15 19:17:36,935] Trial 39 pruned. 
+✂️ Trial 39 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.9899)
+[I 2026-04-15 19:20:27,904] Trial 41 finished with value: 0.8464673034695481 and parameters: {'w_chiN': 0.03443041198438772, 'w_cls': 0.016297508666053877, 'w_recon': 0.2902727601950042}. Best is trial 33 with value: 0.3363849092267316.
+[I 2026-04-15 19:21:37,918] Trial 44 pruned. 
+✂️ Trial 44 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2260)
+[I 2026-04-15 19:23:56,349] Trial 45 pruned. 
+✂️ Trial 45 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0326)
+[I 2026-04-15 19:25:07,013] Trial 47 pruned. 
+[I 2026-04-15 19:25:07,133] A new study created in RDB with name: study_Recon_Cls_K
+✂️ Trial 47 触发 ASHA 剪枝 (Epoch 20, Val Loss: 111.0234)
+🏆 Best trial for Recon_Cls_ChiN: Score 0.3364
+
+============================================================
+🧬 Evaluating Combination: Recon_Cls_K (Tasks: ['kstar', 'cls', 'recon'])
+[I 2026-04-15 19:28:00,280] Trial 0 finished with value: 0.8196733059190251 and parameters: {'w_kstar': 2.2415100345116024, 'w_cls': 0.17018819670787094, 'w_recon': 47.645368560131274}. Best is trial 0 with value: 0.8196733059190251.
+[I 2026-04-15 19:30:49,411] Trial 1 finished with value: 0.2959660778729846 and parameters: {'w_kstar': 8.408348888173602, 'w_cls': 0.03493057150743023, 'w_recon': 0.04992459704255569}. Best is trial 1 with value: 0.2959660778729846.
+[I 2026-04-15 19:31:59,135] Trial 4 pruned. 
+✂️ Trial 4 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.6239)
+[I 2026-04-15 19:34:49,998] Trial 6 finished with value: 0.7564737747963088 and parameters: {'w_kstar': 0.15907853222566662, 'w_cls': 3.8217671766359493, 'w_recon': 0.026617285381672073}. Best is trial 1 with value: 0.2959660778729846.
+[I 2026-04-15 19:37:08,694] Trial 8 pruned. 
+✂️ Trial 8 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0839)
+[I 2026-04-15 19:38:21,293] Trial 10 pruned. 
+✂️ Trial 10 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1266)
+[I 2026-04-15 19:41:12,338] Trial 12 finished with value: 0.26857715342581673 and parameters: {'w_kstar': 14.052550010716235, 'w_cls': 0.011592757436109824, 'w_recon': 0.011465711659386221}. Best is trial 12 with value: 0.26857715342581673.
+[I 2026-04-15 19:43:31,023] Trial 14 pruned. 
+✂️ Trial 14 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0541)
+[I 2026-04-15 19:44:42,142] Trial 16 pruned. 
+✂️ Trial 16 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.3195)
+[I 2026-04-15 19:47:32,475] Trial 18 finished with value: 0.5391661344962545 and parameters: {'w_kstar': 0.8662226591781786, 'w_cls': 0.010940100700631816, 'w_recon': 0.014171100555641797}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 19:50:22,851] Trial 20 finished with value: 0.7563559908311547 and parameters: {'w_kstar': 4.736184072733287, 'w_cls': 64.91231019923319, 'w_recon': 0.12593807278382538}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 19:52:40,017] Trial 21 pruned. 
+✂️ Trial 21 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0385)
+[I 2026-04-15 19:55:30,870] Trial 23 finished with value: 0.40377571514994554 and parameters: {'w_kstar': 8.7384194588473, 'w_cls': 0.031345509458113444, 'w_recon': 0.040974976733375176}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 19:56:42,217] Trial 25 pruned. 
+✂️ Trial 25 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1287)
+[I 2026-04-15 19:59:33,968] Trial 27 finished with value: 0.45490553593762645 and parameters: {'w_kstar': 0.3606546436007775, 'w_cls': 0.021998079037194307, 'w_recon': 0.010024188805846384}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 20:02:21,205] Trial 29 finished with value: 0.5291403516273944 and parameters: {'w_kstar': 2.3415151944076693, 'w_cls': 0.3084830308637761, 'w_recon': 0.07434762916816268}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 20:05:11,329] Trial 31 finished with value: 0.4633107321621722 and parameters: {'w_kstar': 1.462009095805894, 'w_cls': 0.09525257059434432, 'w_recon': 0.18268008526892202}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 20:07:28,417] Trial 33 pruned. 
+✂️ Trial 33 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0258)
+[I 2026-04-15 20:08:41,045] Trial 36 pruned. 
+✂️ Trial 36 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0978)
+[I 2026-04-15 20:09:51,455] Trial 38 pruned. 
+✂️ Trial 38 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1473)
+[I 2026-04-15 20:12:40,877] Trial 40 finished with value: 0.6252763602708179 and parameters: {'w_kstar': 4.148471867446198, 'w_cls': 5.905880466060915, 'w_recon': 0.06362476053017692}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 20:15:31,585] Trial 42 finished with value: 0.5168375393981613 and parameters: {'w_kstar': 6.045236864049363, 'w_cls': 0.19505558291302358, 'w_recon': 0.020006552106239243}. Best is trial 13 with value: 0.18689687675939548.
+[I 2026-04-15 20:17:48,464] Trial 44 pruned. 
+✂️ Trial 44 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0240)
+[I 2026-04-15 20:18:58,966] Trial 46 pruned. 
+✂️ Trial 46 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1172)
+[I 2026-04-15 20:20:10,661] Trial 47 pruned. 
+[I 2026-04-15 20:20:10,772] A new study created in RDB with name: study_Recon_ChiN
+✂️ Trial 47 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2056)
+🏆 Best trial for Recon_Cls_K: Score 0.1869
+
+============================================================
+🧬 Evaluating Combination: Recon_ChiN (Tasks: ['chiN', 'recon'])
+[I 2026-04-15 20:22:52,510] Trial 0 finished with value: 1.2065379545920938 and parameters: {'w_chiN': 0.10059941454976007, 'w_recon': 0.335614131598434}. Best is trial 0 with value: 1.2065379545920938.
+[I 2026-04-15 20:24:00,016] Trial 2 pruned. 
+✂️ Trial 2 触发 ASHA 剪枝 (Epoch 20, Val Loss: 1.7589)
+[I 2026-04-15 20:25:09,365] Trial 4 pruned. 
+✂️ Trial 4 触发 ASHA 剪枝 (Epoch 20, Val Loss: 1.3819)
+[I 2026-04-15 20:27:52,045] Trial 6 finished with value: 0.6437041149315209 and parameters: {'w_chiN': 0.09435292773611198, 'w_recon': 0.2512101027551975}. Best is trial 6 with value: 0.6437041149315209.
+[I 2026-04-15 20:29:01,829] Trial 8 pruned. 
+✂️ Trial 8 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.9717)
+[I 2026-04-15 20:30:10,877] Trial 9 pruned. 
+✂️ Trial 9 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2446)
+[I 2026-04-15 20:32:23,564] Trial 11 pruned. 
+✂️ Trial 11 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.1164)
+[I 2026-04-15 20:35:08,337] Trial 13 finished with value: 0.5765215606465899 and parameters: {'w_chiN': 0.07189164808984823, 'w_recon': 0.5388208042101331}. Best is trial 13 with value: 0.5765215606465899.
+[I 2026-04-15 20:36:14,884] Trial 15 pruned. 
+✂️ Trial 15 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1548)
+[I 2026-04-15 20:37:23,061] Trial 17 pruned. 
+✂️ Trial 17 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.3467)
+[I 2026-04-15 20:40:07,890] Trial 19 finished with value: 1.3837652884283613 and parameters: {'w_chiN': 0.023318131585137354, 'w_recon': 0.48532118298646304}. Best is trial 14 with value: 0.3899326355001958.
+[I 2026-04-15 20:41:17,190] Trial 21 pruned. 
+✂️ Trial 21 触发 ASHA 剪枝 (Epoch 20, Val Loss: 2.7308)
+[I 2026-04-15 20:43:59,403] Trial 22 finished with value: 0.48900206963698983 and parameters: {'w_chiN': 0.14674661748279086, 'w_recon': 0.19793191847333363}. Best is trial 14 with value: 0.3899326355001958.
+[I 2026-04-15 20:46:40,386] Trial 24 finished with value: 0.5009531130252961 and parameters: {'w_chiN': 0.027174760504030865, 'w_recon': 0.047447178175717884}. Best is trial 14 with value: 0.3899326355001958.
+[I 2026-04-15 20:49:25,138] Trial 26 finished with value: 0.392055617495406 and parameters: {'w_chiN': 0.19393562356999933, 'w_recon': 0.13668392392899006}. Best is trial 14 with value: 0.3899326355001958.
+[I 2026-04-15 20:52:08,877] Trial 28 finished with value: 0.37447832652731977 and parameters: {'w_chiN': 0.6506365463079505, 'w_recon': 0.01912935840651587}. Best is trial 28 with value: 0.37447832652731977.
+[I 2026-04-15 20:53:15,804] Trial 30 pruned. 
+✂️ Trial 30 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.6305)
+[I 2026-04-15 20:54:23,774] Trial 32 pruned. 
+✂️ Trial 32 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0612)
+[I 2026-04-15 20:57:09,389] Trial 34 finished with value: 0.48175386835823525 and parameters: {'w_chiN': 0.29947991090352394, 'w_recon': 0.011062068945727857}. Best is trial 28 with value: 0.37447832652731977.
+[I 2026-04-15 20:59:52,573] Trial 36 finished with value: 0.7282603609560231 and parameters: {'w_chiN': 0.162998505317437, 'w_recon': 0.02797430885401512}. Best is trial 28 with value: 0.37447832652731977.
+[I 2026-04-15 21:02:06,932] Trial 38 pruned. 
+✂️ Trial 38 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0152)
+[I 2026-04-15 21:04:52,540] Trial 40 finished with value: 0.42175187321780755 and parameters: {'w_chiN': 0.06684477998804544, 'w_recon': 0.010224390910781046}. Best is trial 28 with value: 0.37447832652731977.
+[I 2026-04-15 21:05:59,694] Trial 42 pruned. 
+✂️ Trial 42 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0271)
+[I 2026-04-15 21:08:43,477] Trial 44 finished with value: 0.4110226178624389 and parameters: {'w_chiN': 0.5123073306318391, 'w_recon': 0.01968019269450092}. Best is trial 28 with value: 0.37447832652731977.
+[I 2026-04-15 21:09:52,204] Trial 47 pruned. 
+[I 2026-04-15 21:09:52,317] A new study created in RDB with name: study_Recon_K
+✂️ Trial 47 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2597)
+🏆 Best trial for Recon_ChiN: Score 0.3745
+
+============================================================
+🧬 Evaluating Combination: Recon_K (Tasks: ['kstar', 'recon'])
+[I 2026-04-15 21:12:36,007] Trial 0 finished with value: 0.32415758561453656 and parameters: {'w_kstar': 20.18592764320753, 'w_recon': 0.20191069017969812}. Best is trial 0 with value: 0.32415758561453656.
+[I 2026-04-15 21:13:42,924] Trial 1 pruned. 
+✂️ Trial 1 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.2999)
+[I 2026-04-15 21:14:51,706] Trial 2 pruned. 
+✂️ Trial 2 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1614)
+[I 2026-04-15 21:17:39,062] Trial 3 finished with value: 0.878203444250499 and parameters: {'w_kstar': 0.03016900132567367, 'w_recon': 1.2778469465205338}. Best is trial 0 with value: 0.32415758561453656.
+[I 2026-04-15 21:18:49,160] Trial 6 pruned. 
+✂️ Trial 6 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.6392)
+[I 2026-04-15 21:21:33,569] Trial 7 finished with value: 0.41932257083294866 and parameters: {'w_kstar': 0.2150326454869347, 'w_recon': 0.012112352127983422}. Best is trial 0 with value: 0.32415758561453656.
+[I 2026-04-15 21:24:14,903] Trial 10 finished with value: 0.4738762749148672 and parameters: {'w_kstar': 0.15014814968405904, 'w_recon': 0.12225031469853177}. Best is trial 0 with value: 0.32415758561453656.
+[I 2026-04-15 21:26:58,286] Trial 12 finished with value: 0.21959505093852455 and parameters: {'w_kstar': 2.336463347495874, 'w_recon': 0.012876817979530705}. Best is trial 12 with value: 0.21959505093852455.
+[I 2026-04-15 21:29:39,964] Trial 14 finished with value: 0.44511807003984477 and parameters: {'w_kstar': 2.282534540679316, 'w_recon': 0.011716998473169465}. Best is trial 12 with value: 0.21959505093852455.
+[I 2026-04-15 21:31:54,417] Trial 16 pruned. 
+✂️ Trial 16 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0215)
+[I 2026-04-15 21:34:39,402] Trial 18 finished with value: 0.5189725669210192 and parameters: {'w_kstar': 0.04806364464897044, 'w_recon': 0.03201177450298797}. Best is trial 15 with value: 0.21856503921624051.
+[I 2026-04-15 21:37:23,670] Trial 20 finished with value: 0.5680730411964608 and parameters: {'w_kstar': 0.01101555565635881, 'w_recon': 0.014437513959640023}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 21:38:32,434] Trial 23 pruned. 
+✂️ Trial 23 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0674)
+[I 2026-04-15 21:41:17,498] Trial 24 finished with value: 0.4298776491788586 and parameters: {'w_kstar': 0.08503779824177046, 'w_recon': 0.02460684794264421}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 21:43:31,756] Trial 26 pruned. 
+✂️ Trial 26 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0058)
+[I 2026-04-15 21:44:41,374] Trial 28 pruned. 
+✂️ Trial 28 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0414)
+[I 2026-04-15 21:46:54,568] Trial 29 pruned. 
+✂️ Trial 29 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0055)
+[I 2026-04-15 21:49:39,548] Trial 32 finished with value: 0.2570973337280559 and parameters: {'w_kstar': 0.5988052061813751, 'w_recon': 0.018078268224019894}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 21:52:22,315] Trial 34 finished with value: 0.36528418564277676 and parameters: {'w_kstar': 0.29813046130797377, 'w_recon': 0.04967918291445103}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 21:55:09,544] Trial 37 finished with value: 0.5313508220523021 and parameters: {'w_kstar': 0.11199838430112903, 'w_recon': 0.10525227297672364}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 21:56:18,222] Trial 39 pruned. 
+✂️ Trial 39 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1956)
+[I 2026-04-15 21:59:00,965] Trial 40 finished with value: 0.5796484364786707 and parameters: {'w_kstar': 0.019676716297591268, 'w_recon': 0.035812024866892736}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 22:01:43,352] Trial 42 finished with value: 0.4657998216662077 and parameters: {'w_kstar': 0.6317140267113104, 'w_recon': 0.018613428658589854}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 22:02:51,670] Trial 45 pruned. 
+✂️ Trial 45 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0065)
+[I 2026-04-15 22:05:35,467] Trial 46 finished with value: 0.4560857749392307 and parameters: {'w_kstar': 0.21011787279896554, 'w_recon': 0.06955780082995988}. Best is trial 19 with value: 0.20719465671560092.
+[I 2026-04-15 22:05:35,545] A new study created in RDB with name: study_Cls_ChiN
+🏆 Best trial for Recon_K: Score 0.2072
+
+============================================================
+🧬 Evaluating Combination: Cls_ChiN (Tasks: ['chiN', 'cls'])
+[I 2026-04-15 22:08:01,124] Trial 0 finished with value: 1.2255567927316053 and parameters: {'w_chiN': 43.461248527306644, 'w_cls': 71.4613757463015}. Best is trial 0 with value: 1.2255567927316053.
+[I 2026-04-15 22:10:31,269] Trial 2 finished with value: 0.5077519096698531 and parameters: {'w_chiN': 24.771283551209123, 'w_cls': 0.18767071397850832}. Best is trial 2 with value: 0.5077519096698531.
+[I 2026-04-15 22:12:59,741] Trial 4 finished with value: 0.550539646655318 and parameters: {'w_chiN': 15.117941102708304, 'w_cls': 0.21926924016565208}. Best is trial 2 with value: 0.5077519096698531.
+[I 2026-04-15 22:15:27,575] Trial 6 finished with value: 1.29200692755925 and parameters: {'w_chiN': 0.02489587964527605, 'w_cls': 0.184235436068958}. Best is trial 2 with value: 0.5077519096698531.
+[I 2026-04-15 22:16:29,418] Trial 9 pruned. 
+✂️ Trial 9 触发 ASHA 剪枝 (Epoch 20, Val Loss: 3.1564)
+[I 2026-04-15 22:18:58,657] Trial 10 finished with value: 1.7320508068568745 and parameters: {'w_chiN': 0.03392825319572552, 'w_cls': 5.538232142171849}. Best is trial 2 with value: 0.5077519096698531.
+[I 2026-04-15 22:20:00,660] Trial 12 pruned. 
+✂️ Trial 12 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0783)
+[I 2026-04-15 22:21:02,709] Trial 14 pruned. 
+✂️ Trial 14 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.1623)
+[I 2026-04-15 22:23:30,411] Trial 16 finished with value: 0.5005814211349439 and parameters: {'w_chiN': 0.3869148501800716, 'w_cls': 0.3454742882094903}. Best is trial 16 with value: 0.5005814211349439.
+[I 2026-04-15 22:25:55,748] Trial 19 finished with value: 0.37754240656960913 and parameters: {'w_chiN': 0.15322374043859338, 'w_cls': 0.011226445698713321}. Best is trial 19 with value: 0.37754240656960913.
+[I 2026-04-15 22:27:56,315] Trial 21 pruned. 
+✂️ Trial 21 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0089)
+[I 2026-04-15 22:30:26,713] Trial 23 finished with value: 0.32484125021012117 and parameters: {'w_chiN': 0.38368486796656126, 'w_cls': 0.02715221448112516}. Best is trial 23 with value: 0.32484125021012117.
+[I 2026-04-15 22:32:57,009] Trial 26 finished with value: 0.46834400497459316 and parameters: {'w_chiN': 0.07886136106438218, 'w_cls': 0.010311270194130563}. Best is trial 23 with value: 0.32484125021012117.
+[I 2026-04-15 22:35:24,925] Trial 28 finished with value: 0.4730708032509396 and parameters: {'w_chiN': 0.07759118508961663, 'w_cls': 0.011059773344180018}. Best is trial 23 with value: 0.32484125021012117.
+[I 2026-04-15 22:37:51,718] Trial 30 finished with value: 0.3903505458259914 and parameters: {'w_chiN': 0.07915409969146495, 'w_cls': 0.026925905655826563}. Best is trial 23 with value: 0.32484125021012117.
+[I 2026-04-15 22:39:50,613] Trial 33 pruned. 
+✂️ Trial 33 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0376)
+[I 2026-04-15 22:42:18,337] Trial 35 finished with value: 0.38523782154177977 and parameters: {'w_chiN': 0.17658888299529926, 'w_cls': 0.037247318521517594}. Best is trial 23 with value: 0.32484125021012117.
+[I 2026-04-15 22:44:19,841] Trial 37 pruned. 
+✂️ Trial 37 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0043)
+[I 2026-04-15 22:46:49,718] Trial 38 finished with value: 1.199732610297122 and parameters: {'w_chiN': 0.012561054697957966, 'w_cls': 0.022959937951783645}. Best is trial 23 with value: 0.32484125021012117.
+[I 2026-04-15 22:48:48,825] Trial 41 pruned. 
+✂️ Trial 41 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0024)
+[I 2026-04-15 22:51:17,528] Trial 43 finished with value: 0.32387342439459876 and parameters: {'w_chiN': 0.04328342711758465, 'w_cls': 0.015682327346580233}. Best is trial 43 with value: 0.32387342439459876.
+[I 2026-04-15 22:53:46,447] Trial 45 finished with value: 0.8957953366929058 and parameters: {'w_chiN': 0.022415855217668205, 'w_cls': 0.027572220280326642}. Best is trial 43 with value: 0.32387342439459876.
+[I 2026-04-15 22:56:14,039] Trial 47 finished with value: 0.4559927890592871 and parameters: {'w_chiN': 0.0486188969689886, 'w_cls': 0.01681969895219241}. Best is trial 43 with value: 0.32387342439459876.
+[I 2026-04-15 22:58:15,365] Trial 48 pruned. 
+✂️ Trial 48 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0025)
+[I 2026-04-15 23:00:18,370] Trial 49 pruned. 
+[I 2026-04-15 23:00:18,414] Using an existing study with name 'study_Cls_K' instead of creating a new one.
+✂️ Trial 49 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0017)
+🏆 Best trial for Cls_ChiN: Score 0.3239
+
+============================================================
+🧬 Evaluating Combination: Cls_K (Tasks: ['kstar', 'cls'])
+[I 2026-04-15 23:02:45,633] Trial 5 finished with value: 0.5754735875493899 and parameters: {'w_kstar': 0.09388308814065852, 'w_cls': 6.101728809517105}. Best is trial 5 with value: 0.5754735875493899.
+[I 2026-04-15 23:03:47,588] Trial 7 pruned. 
+✂️ Trial 7 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0204)
+[I 2026-04-15 23:05:44,405] Trial 9 pruned. 
+✂️ Trial 9 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0145)
+[I 2026-04-15 23:08:16,303] Trial 11 finished with value: 0.37213245930114136 and parameters: {'w_kstar': 0.11335278795006429, 'w_cls': 0.010860131210050937}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:10:43,221] Trial 13 finished with value: 0.4714091837354629 and parameters: {'w_kstar': 0.09244886621451595, 'w_cls': 0.023985396460647852}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:13:12,023] Trial 15 finished with value: 0.5078870254486186 and parameters: {'w_kstar': 0.010721171707038084, 'w_cls': 0.016132437955618646}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:14:10,910] Trial 17 pruned. 
+✂️ Trial 17 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0029)
+[I 2026-04-15 23:15:10,765] Trial 19 pruned. 
+✂️ Trial 19 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0063)
+[I 2026-04-15 23:17:10,469] Trial 20 pruned. 
+✂️ Trial 20 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0010)
+[I 2026-04-15 23:19:37,265] Trial 23 finished with value: 0.38570629348777236 and parameters: {'w_kstar': 0.10016261780383001, 'w_cls': 0.01085295467298913}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:20:38,064] Trial 25 pruned. 
+✂️ Trial 25 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0611)
+[I 2026-04-15 23:21:40,292] Trial 26 pruned. 
+✂️ Trial 26 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0108)
+[I 2026-04-15 23:23:41,201] Trial 28 pruned. 
+✂️ Trial 28 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0026)
+[I 2026-04-15 23:26:08,013] Trial 30 finished with value: 0.5383131205586029 and parameters: {'w_kstar': 0.06713818244610693, 'w_cls': 0.024606754604188884}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:28:07,749] Trial 32 pruned. 
+✂️ Trial 32 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0005)
+[I 2026-04-15 23:30:34,947] Trial 34 finished with value: 0.4990396555171118 and parameters: {'w_kstar': 0.018604354018576567, 'w_cls': 0.010552685615091692}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:33:02,382] Trial 36 finished with value: 0.5132685322184464 and parameters: {'w_kstar': 0.023252384151097413, 'w_cls': 0.10192316831544201}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:34:04,594] Trial 38 pruned. 
+✂️ Trial 38 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0028)
+[I 2026-04-15 23:36:30,045] Trial 40 finished with value: 0.49947426803921036 and parameters: {'w_kstar': 0.042739393414645374, 'w_cls': 0.01723843646641242}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:38:30,329] Trial 42 pruned. 
+✂️ Trial 42 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0004)
+[I 2026-04-15 23:40:33,468] Trial 44 pruned. 
+✂️ Trial 44 触发 ASHA 剪枝 (Epoch 40, Val Loss: 0.0007)
+[I 2026-04-15 23:41:39,637] Trial 46 pruned. 
+✂️ Trial 46 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0017)
+[I 2026-04-15 23:42:45,756] Trial 47 pruned. 
+✂️ Trial 47 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0542)
+[I 2026-04-15 23:45:25,411] Trial 48 finished with value: 0.5834151279885911 and parameters: {'w_kstar': 0.028398502743502613, 'w_cls': 10.117250676653331}. Best is trial 11 with value: 0.37213245930114136.
+[I 2026-04-15 23:46:32,417] Trial 49 pruned. 
+✂️ Trial 49 触发 ASHA 剪枝 (Epoch 20, Val Loss: 0.0013)
+🏆 Best trial for Cls_K: Score 0.3721
+
+============================================================
+✅ All evaluations complete!
+Results saved to /home/zxy/project/TAPD/Demo/outcome/graph_trainn/MTL_Optuna_Ablation_full

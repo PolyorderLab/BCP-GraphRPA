@@ -163,8 +163,17 @@ function polymer_to_gnn(chain; N_max::Int=20, D_feat::Int=2)
     
     for (idx, e) in enumerate(edges_obj)
         u, v = Graphs.src(e), Graphs.dst(e)
-        if idx <= N_blocks
-            curr_block = blocks[idx]
+        
+        # 【核心修复】使用 graph.edge2block 获取该边对应的真实 block 索引，
+        # 而不是错误地假设 edges_obj 的顺序与 blocks 的顺序一致。
+        if hasproperty(graph, :edge2block)
+            block_idx = graph.edge2block[idx]
+        else
+            block_idx = idx # 回退方案
+        end
+        
+        if block_idx > 0 && block_idx <= N_blocks
+            curr_block = blocks[block_idx]
             f_val = Float32(curr_block.f)
             label_str = string(curr_block.segment.label)
             type_val = occursin("A", label_str) ? 1.0f0 : 0.0f0
