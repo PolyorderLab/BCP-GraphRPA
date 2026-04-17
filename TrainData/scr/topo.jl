@@ -160,20 +160,16 @@ function polymer_to_gnn(chain; N_max::Int=20, D_feat::Int=2)
     for (idx, e) in enumerate(edges_obj)
         u, v = Graphs.src(e), Graphs.dst(e)
         
-        # 【核心修复】使用 graph.edge2block 获取该边对应的真实 block 索引，
-        # 而不是错误地假设 edges_obj 的顺序与 blocks 的顺序一致。
-        if hasproperty(graph, :edge2block)
-            block_idx = graph.edge2block[idx]
-        else
-            block_idx = idx # 回退方案
-        end
-        
-        if block_idx > 0 && block_idx <= N_blocks
-            curr_block = blocks[block_idx]
-            f_val = Float32(curr_block.f)
-            label_str = string(curr_block.segment.label)
+        # 使用 Polymer._sort_tuple2 来匹配 edge2block 的键格式
+        edge_key = u < v ? (u, v) : (v, u)
+
+        if haskey(graph.edge2block, edge_key)
+            block = graph.edge2block[edge_key]
+            f_val = Float32(block.f)
+            label_str = string(block.segment.label)
             type_val = occursin("A", label_str) ? 1.0f0 : 0.0f0
         else
+            @warn "未找到边 ($u, $v) 对应的块属性，使用默认值"
             f_val, type_val = 0.0f0, 0.5f0
         end
         
