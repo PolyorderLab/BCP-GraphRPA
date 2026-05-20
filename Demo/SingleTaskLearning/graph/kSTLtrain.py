@@ -5,11 +5,11 @@ import torch.nn as nn
 from torch_geometric.loader import DataLoader
 
 # Add project root to sys.path if needed
-sys.path.append("/home/zxy/project/TAPD")
-from src.data_utils import load_and_process_dataset
-from src.model_utils import get_model
-from src.train_utils import Trainer, get_splits
-from src.viz_utils import save_parity_plot, save_loss_curve
+sys.path.append("src")
+from data_utils import load_and_process_dataset
+from model_utils import get_model
+from train_utils import Trainer, get_splits
+from viz_utils import save_parity_plot, save_loss_curve
 
 # ================= 1. 配置路径与全局参数 =================
 DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/train_nnumber_1w"
