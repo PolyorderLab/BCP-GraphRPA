@@ -1,6 +1,7 @@
 import os
 import glob
 import yaml
+import pickle
 import torch
 import numpy as np
 import scipy.io as sio
@@ -8,7 +9,10 @@ import h5py
 from torch_geometric.data import Data
 from constants import TOPO_MAP
 
-def load_and_process_dataset(data_dir, task_type='chiN', scaler=None):
+def load_and_process_dataset(
+    data_dir, task_type='chiN', scaler=None, use_desc=False, desc_scaler=None,
+    desc_names=None
+):
     """
     扫描目录下的所有 .mat 和 .yml 文件，解析并直接构建 PyG Data 列表。
     
@@ -16,13 +20,24 @@ def load_and_process_dataset(data_dir, task_type='chiN', scaler=None):
         data_dir: 数据目录
         task_type: 任务类型，支持 'chiN', 'k', 'reconstruction', 'dual_regression', 'mtl', 'chiN_recon', 'k_recon', 'chiN_cls', 'k_cls', 'dual_recon', 'dual_cls'
         scaler: 目标值缩放器
+        use_desc: 是否计算描述符
+        desc_scaler: 描述符缩放器（use_desc=True 时，None 则自动 fit）
+        desc_names: 描述符名称列表，仅 use_desc=True 时有效
+
+    Returns:
+        use_desc=False: data_list
+        use_desc=True:  (data_list, fitted_desc_scaler)
     """
-    print(f"🔍 正在扫描数据目录: {data_dir} for task: {task_type}")
+    label = f"{task_type} (with descriptors)" if use_desc else task_type
+    print(f"🔍 正在扫描数据目录: {data_dir} for task: {label}")
     
     mat_files = sorted(glob.glob(os.path.join(data_dir, "*.mat")))
     if not mat_files:
         print("❌ 未在该目录下找到任何 .mat 文件！")
-        return []
+        return ([], None) if use_desc else []
+
+    if use_desc:
+        from desc_utils import get_descriptors, DescriptorScaler
 
     data_list = []
     chiN_raw_list = []
@@ -74,7 +89,14 @@ def load_and_process_dataset(data_dir, task_type='chiN', scaler=None):
                 num_blocks=torch.tensor([n_b], dtype=torch.long),
                 topo_type=torch.tensor([topo_label], dtype=torch.long)
             )
-            
+
+            if use_desc:
+                desc_raw = get_descriptors(edge_index, edge_attr_tensor,
+                                                     desc_names=desc_names)
+                data.desc_raw = torch.tensor(
+                    desc_raw, dtype=torch.float
+                ).unsqueeze(0)
+
             if task_type in ['reconstruction', 'mtl', 'chiN_recon', 'k_recon', 'dual_recon']:
                 max_nodes = Fp.shape[0]
                 dense_adj = torch.zeros((max_nodes, max_nodes), dtype=torch.float)
@@ -107,7 +129,24 @@ def load_and_process_dataset(data_dir, task_type='chiN', scaler=None):
     
     chiN_target = chiN_log if scaler is None else scaler.transform(chiN_log)
     kstar_target = kstar_log if scaler is None else scaler.transform(kstar_log)
-    
+
+    # ================= 6. 描述符标准化 =================
+    if use_desc:
+        desc_matrix = np.vstack(
+            [d.desc_raw.numpy()[0] for d in data_list]
+        )
+        desc_matrix = np.where(np.isnan(desc_matrix), -2, desc_matrix)
+        desc_matrix = np.where(np.isinf(desc_matrix), -2, desc_matrix)
+
+        if desc_scaler is None:
+            desc_scaler = DescriptorScaler()
+            desc_scaled = desc_scaler.fit_transform(desc_matrix)
+            print("✅ 描述符标准化器已fit")
+        else:
+            desc_scaled = desc_scaler.transform(desc_matrix)
+            print("✅ 使用已存在的描述符标准化器")
+
+    # ================= 7. 设置目标值和描述符 =================
     for i, data in enumerate(data_list):
         if task_type == 'chiN':
             data.y = torch.tensor(chiN_target[i], dtype=torch.float).view(1, 1)
@@ -121,5 +160,13 @@ def load_and_process_dataset(data_dir, task_type='chiN', scaler=None):
         elif task_type in ['mtl', 'dual_regression', 'chiN_recon', 'k_recon', 'chiN_cls', 'k_cls', 'dual_recon', 'dual_cls']:
             data.chiN_star = torch.tensor(chiN_target[i], dtype=torch.float).view(1, 1)
             data.k_star = torch.tensor(kstar_target[i], dtype=torch.float).view(1, 1)
-        
+
+        if use_desc:
+            data.desc = torch.tensor(
+                desc_scaled[i], dtype=torch.float
+            ).unsqueeze(0)
+            delattr(data, "desc_raw")
+
+    if use_desc:
+        return data_list, desc_scaler
     return data_list
