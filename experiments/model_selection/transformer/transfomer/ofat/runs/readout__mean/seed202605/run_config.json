@@ -1,0 +1,23 @@
+{
+  "data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "records_cache": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/data_cache/n_train_100k_records.pkl",
+  "output_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/ofat/runs/readout__mean/seed202605",
+  "run_name": "readout__mean__seed202605",
+  "seed": 202605,
+  "device": "cuda:0",
+  "max_samples": null,
+  "epochs": 120,
+  "early_stopping_patience": 25,
+  "batch_size": 40,
+  "lr": 0.0002,
+  "weight_decay": 1e-05,
+  "d_model": 256,
+  "num_heads": 8,
+  "num_layers": 2,
+  "ff_mult": 4,
+  "dropout": 0.1,
+  "readout": "mean",
+  "position_encoding": "learnable",
+  "representation": "full_topology",
+  "architecture": "transformer"
+}

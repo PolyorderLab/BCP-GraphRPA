@@ -1,0 +1,44 @@
+{
+  "study": "block_count_stratified_nested_training_size_ablation_with_common_validation",
+  "runner": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/run_transformer_stratified_nested.py",
+  "source_runner": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/run_nested_data_scaling_80k_pool.py",
+  "sizes_k": [
+    8,
+    16,
+    24,
+    32,
+    40,
+    48,
+    56,
+    64,
+    70,
+    72,
+    80
+  ],
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "nested_rule": "within each 2/3/4/5-block stratum: one random_state=42 permutation; monotone largest-remainder quotas proportional to the frozen 80k pool",
+  "fixed_split_source": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz",
+  "training_pool_count": 80000,
+  "validation_count": 20000,
+  "stratification_audit": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/transformer_cls_correct/nested_indices/stratification_audit.json",
+  "frozen_hyperparameters": {
+    "batch_size": 40,
+    "lr": 0.0002,
+    "weight_decay": 0.0,
+    "d_model": 256,
+    "num_heads": 8,
+    "num_layers": 3,
+    "ff_mult": 4,
+    "dropout": 0.0,
+    "readout": "cls",
+    "position_encoding": "learnable",
+    "representation": "full_topology",
+    "architecture": "transformer"
+  }
+}

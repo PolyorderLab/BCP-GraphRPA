@@ -1,0 +1,36 @@
+{
+  "development_data": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "development_count": 100000,
+  "train_csv": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/hyperparameter_selection_80k/data/n_train_100k_descriptor_matrix.csv",
+  "split": {
+    "random_state": 42,
+    "train_size": 80000,
+    "validation_size": 20000
+  },
+  "features": [
+    "SLE",
+    "r_deg",
+    "CV_arm",
+    "n_leaves",
+    "M_AB",
+    "IR",
+    "D_f",
+    "ISC",
+    "CAF",
+    "tau_mean",
+    "f_A"
+  ],
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "checkpoint_selection": "validation MSE in log10 chiN*",
+  "hyperparameter_selection": "five-seed mean validation MAPE on original chiN* scale",
+  "final_test": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "final_test_policy": "declared but never read or passed to this search; use only after selected values are frozen",
+  "expected_runs": 135,
+  "slots_per_gpu": 3
+}

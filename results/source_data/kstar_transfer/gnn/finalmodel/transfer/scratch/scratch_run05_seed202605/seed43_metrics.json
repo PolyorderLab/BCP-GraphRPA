@@ -1,0 +1,41 @@
+{
+  "experiment": "legacy_S01_scratch_kstar_seed43_inference",
+  "transfer_mode": "scratch",
+  "seed": 202605,
+  "task_type": "k_wavevector",
+  "test_role": "independent leakage-free inference only; not used for training or selection",
+  "test_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent",
+  "test_cache": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/transfer/data_cache/kstar_seed43_independent_2k.pt",
+  "test_size": 2000,
+  "source_checkpoint": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/transfer/scratch/scratch_run05_seed202605/best_model.pth",
+  "strict_full_checkpoint_load": true,
+  "architecture": {
+    "encoder": "legacy GINEEncoder",
+    "hidden_dim": 256,
+    "num_layers": 5,
+    "decoder_layers": 1,
+    "node_features": [
+      "is_free_end",
+      "is_branch_point",
+      "degree"
+    ],
+    "edge_features": [
+      "f",
+      "A/B type"
+    ],
+    "virtual_node": true,
+    "graph_topology": "original_bidirectional"
+  },
+  "MAPE": 0.21894386455665427,
+  "RMSE": 0.011647591344661602,
+  "MAE": 0.0059638024568557735,
+  "R2": 0.9994839582148328,
+  "MaxAE": 0.2380833625793457,
+  "runtime": {
+    "device": "cpu",
+    "python": "3.12.13 (main, Mar 20 2026, 00:33:26) [Clang 22.1.1 ]",
+    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.31",
+    "torch": "2.7.1+cu118",
+    "cuda_visible_devices": null
+  }
+}

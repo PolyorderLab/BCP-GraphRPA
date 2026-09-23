@@ -1,0 +1,23 @@
+{
+  "data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "records_cache": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/data_cache/n_train_100k_records.pkl",
+  "output_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/final/runs/species_fraction_only/seed202602",
+  "run_name": "species_fraction_only__seed202602",
+  "seed": 202602,
+  "device": "cuda:0",
+  "max_samples": null,
+  "epochs": 120,
+  "early_stopping_patience": 25,
+  "batch_size": 32,
+  "lr": 0.0005,
+  "weight_decay": 0.0,
+  "d_model": 192,
+  "num_heads": 6,
+  "num_layers": 3,
+  "ff_mult": 6,
+  "dropout": 0.0,
+  "readout": "attention",
+  "position_encoding": "sinusoidal",
+  "representation": "species_fraction_only",
+  "architecture": "transformer"
+}

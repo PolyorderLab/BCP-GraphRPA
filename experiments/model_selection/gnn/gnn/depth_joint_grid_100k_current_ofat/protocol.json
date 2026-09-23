@@ -1,0 +1,37 @@
+{
+  "purpose": "complete encoder x decoder depth interaction grid requested before local-grid redesign",
+  "model_condition": "S01_full_virtualnode_free_branch_degree_full_edge",
+  "graph": "original bidirectional + virtual node",
+  "node_features": "[is_free_end, is_branch_point, degree]",
+  "edge_features": "[f, A/B]",
+  "fixed_hyperparameters": {
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "hidden_dim": 128
+  },
+  "encoder_depths": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "decoder_depths": [
+    1,
+    2,
+    3
+  ],
+  "development_pool": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "actual_train_size": 80000,
+  "validation_size": 20000,
+  "split_source": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/ablation_80k/runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz",
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "selection_metric": "five-seed mean original-scale validation MAPE",
+  "test_policy": "no Test-A or Test-B access",
+  "reuse": "E4D1 exactly matches the existing S01 + assembled-OFAT five-seed ablation runs"
+}

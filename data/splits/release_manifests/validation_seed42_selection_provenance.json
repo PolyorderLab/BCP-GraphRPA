@@ -1,0 +1,26 @@
+{
+  "training_directory": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "source_pool": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_pool",
+  "destination": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "seed": 42,
+  "per_block": 500,
+  "pool_count_by_block": {
+    "2": 5000,
+    "3": 5000,
+    "4": 5000,
+    "5": 5000
+  },
+  "eligible_nonoverlap_by_block": {
+    "2": 791,
+    "3": 1084,
+    "4": 860,
+    "5": 795
+  },
+  "selected_by_block": {
+    "2": 500,
+    "3": 500,
+    "4": 500,
+    "5": 500
+  },
+  "selection_rule": "content exclusion on MAT content, then seeded uniform sampling"
+}

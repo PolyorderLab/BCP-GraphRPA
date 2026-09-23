@@ -1,0 +1,27 @@
+{
+  "topology": "A1B1T(A2,B2,B3)",
+  "checkpoint": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/C2_nested_train__80k__seed202601",
+  "device": "cpu",
+  "model_condition": "C2_virtualnode_learnable_node_full_edge",
+  "architecture": "LearnableNodeGINEEncoder(hidden_dim=512, num_layers=5, virtual node)",
+  "selection": "seed202601: lowest leakage-free development-validation MAPE among finalmodel checkpoints (0.36665%)",
+  "f_A": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "rho": [
+    0.5,
+    1,
+    2,
+    5,
+    10
+  ],
+  "explainer": "3 physical-node relabelings x 10 mask seeds x 100 optimisation epochs"
+}

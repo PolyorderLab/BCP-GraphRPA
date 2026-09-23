@@ -1,0 +1,37 @@
+{
+  "configuration": {
+    "batch_size": 256,
+    "lr": 0.0005,
+    "hidden_dim": 256,
+    "depth": 3,
+    "dropout": 0.0,
+    "weight_decay": 1e-05,
+    "features": [
+      "SLE",
+      "r_deg",
+      "CV_arm",
+      "n_leaves",
+      "M_AB",
+      "IR",
+      "D_f",
+      "ISC",
+      "CAF",
+      "tau_mean",
+      "f_A"
+    ]
+  },
+  "test_source_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent",
+  "test_descriptor_matrix": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/joint_selected_configuration/final_test_seed43_independent/test_descriptor_matrix.csv",
+  "test_size": 2000,
+  "n_seeds": 5,
+  "test_mape_mean_percent": 2.2116536617279055,
+  "test_mape_sd_percent": 0.10604810328970148,
+  "test_mape_per_seed_percent": [
+    2.3644917011260986,
+    2.1118946075439453,
+    2.1384947299957275,
+    2.1663780212402344,
+    2.2770092487335205
+  ],
+  "selection_status": "joint configuration and all five checkpoints were frozen before accessing the independent seed43 test set"
+}

@@ -1,0 +1,38 @@
+[
+  {
+    "batch_size": 256,
+    "learning_rate": 0.002,
+    "hidden_dim": 256,
+    "num_layers": 5,
+    "dec_layers": 1,
+    "hyper_key": "b256_lr0p002_h256_g5_d1",
+    "n_seeds": 3,
+    "validation_mape_mean_percent": 0.6522457599639893,
+    "validation_mape_sd_percent": 0.2526963902164792,
+    "validation_mape_per_seed_percent": "[0.8813018798828125, 0.38117557764053345, 0.6942598223686218]"
+  },
+  {
+    "batch_size": 128,
+    "learning_rate": 0.002,
+    "hidden_dim": 256,
+    "num_layers": 5,
+    "dec_layers": 1,
+    "hyper_key": "b128_lr0p002_h256_g5_d1",
+    "n_seeds": 3,
+    "validation_mape_mean_percent": 0.6825963159402212,
+    "validation_mape_sd_percent": 0.387365049657284,
+    "validation_mape_per_seed_percent": "[1.09059739112854, 0.3198411762714386, 0.6373503804206848]"
+  },
+  {
+    "batch_size": 64,
+    "learning_rate": 0.001,
+    "hidden_dim": 256,
+    "num_layers": 5,
+    "dec_layers": 1,
+    "hyper_key": "b64_lr0p001_h256_g5_d1",
+    "n_seeds": 3,
+    "validation_mape_mean_percent": 0.7077033917109171,
+    "validation_mape_sd_percent": 0.21249124292318758,
+    "validation_mape_per_seed_percent": "[0.46267759799957275, 0.8190673589706421, 0.8413652181625366]"
+  }
+]

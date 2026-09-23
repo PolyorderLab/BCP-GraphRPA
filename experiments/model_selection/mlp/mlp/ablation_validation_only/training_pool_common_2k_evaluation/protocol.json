@@ -1,0 +1,27 @@
+{
+  "purpose": "common-set evaluation for the pre-specified training-pool-size ablation",
+  "evaluation_source": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "evaluation_descriptor_matrix": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/final_test_evaluation/test_descriptor_matrix.csv",
+  "evaluation_size": 2000,
+  "pool_sizes_k": [
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100
+  ],
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "checkpoint_policy": "existing validation-selected checkpoints; no retraining",
+  "important_status": "This 2k set is no longer an untouched final test after this analysis. A new sealed test set is required for final model reporting."
+}

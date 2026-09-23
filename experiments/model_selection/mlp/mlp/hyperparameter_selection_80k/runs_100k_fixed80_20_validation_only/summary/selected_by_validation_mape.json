@@ -1,0 +1,58 @@
+{
+  "selection_metric": "five-seed mean original-scale MAPE on the fixed 20k validation fold",
+  "selected_values": {
+    "batch_size": "256",
+    "lr": "0.0005",
+    "hidden_dim": "256",
+    "depth": "3",
+    "dropout": "0.0"
+  },
+  "details": {
+    "batch_size": {
+      "dimension": "batch_size",
+      "value_label": "256",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 3.494130086898804,
+      "validation_mape_sd_percent": 0.209796526912428,
+      "validation_mape_per_seed_percent": "[3.8023972511291504, 3.5738930702209473, 3.451467990875244, 3.4027109146118164, 3.2401812076568604]",
+      "validation_best_mse_mean": 0.0005214471369981766
+    },
+    "lr": {
+      "dimension": "lr",
+      "value_label": "0.0005",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 7.55897274017334,
+      "validation_mape_sd_percent": 0.9209154051445716,
+      "validation_mape_per_seed_percent": "[6.610705375671387, 7.734501361846924, 8.454833984375, 6.5885186195373535, 8.406304359436035]",
+      "validation_best_mse_mean": 0.0025486674858257174
+    },
+    "hidden_dim": {
+      "dimension": "hidden_dim",
+      "value_label": "256",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 8.81816806793213,
+      "validation_mape_sd_percent": 1.106221443743254,
+      "validation_mape_per_seed_percent": "[10.661154747009277, 7.960904121398926, 9.00045108795166, 8.079154968261719, 8.389175415039062]",
+      "validation_best_mse_mean": 0.0029525411315262317
+    },
+    "depth": {
+      "dimension": "depth",
+      "value_label": "3",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 8.516305828094483,
+      "validation_mape_sd_percent": 0.772488926440031,
+      "validation_mape_per_seed_percent": "[8.311408996582031, 8.306258201599121, 8.119488716125488, 9.874528884887695, 7.969844341278076]",
+      "validation_best_mse_mean": 0.002784951264038682
+    },
+    "dropout": {
+      "dimension": "dropout",
+      "value_label": "0.0",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 8.108857917785645,
+      "validation_mape_sd_percent": 0.5501140858917855,
+      "validation_mape_per_seed_percent": "[8.119848251342773, 7.813000202178955, 9.040667533874512, 7.93590784072876, 7.634865760803223]",
+      "validation_best_mse_mean": 0.002946323109790683
+    }
+  },
+  "final_test_status": "not accessed; evaluation is permitted only after all values are frozen"
+}

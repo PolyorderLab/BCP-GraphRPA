@@ -1,0 +1,45 @@
+{
+  "task": "single-task chiN",
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "num_layers": 5,
+  "dec_layers": 1,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 10
+  },
+  "loss": "MSE on log10(chiN*)",
+  "eval": "convert back to original scale; report MAPE, RMSE, MAE, R2, MaxAE",
+  "aliases": [
+    "A1",
+    "B1",
+    "C1"
+  ],
+  "group_labels": [
+    "Experiment A: edge-feature confirmation",
+    "Experiment B: graph-construction confirmation",
+    "Experiment C: node-feature confirmation"
+  ],
+  "condition_label": "full virtual-node baseline",
+  "graph_label": "original bidirectional + virtual node",
+  "node_features_label": "[is_free_end, is_branch_point, degree]",
+  "edge_features_label": "[f, A/B]",
+  "graph_builder": "virtual_node",
+  "node_builder": "free_branch_degree",
+  "edge_mode": "full",
+  "optional": false,
+  "condition_key": "S01_full_virtualnode_free_branch_degree_full_edge",
+  "run_id": "S01_full_virtualnode_free_branch_degree_full_edge__b128_lr0p001_h128_g5_d1__seed202601",
+  "seed": 202601,
+  "dataset_cache_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "early_stopping_patience": 30
+}

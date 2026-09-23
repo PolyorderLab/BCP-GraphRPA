@@ -1,0 +1,19 @@
+{
+  "outer_validation": "GroupKFold(n_splits=5, groups=rho)",
+  "rho_groups": [
+    0.5,
+    1.0,
+    2.0,
+    5.0,
+    10.0
+  ],
+  "samples_per_test_fold": 9,
+  "samples_per_train_fold": 36,
+  "pipeline_fit_inside_each_outer_train_fold": [
+    "StandardScaler",
+    "PCA(n_components=2, whiten=True)",
+    "Ridge(alpha=10.0)"
+  ],
+  "hyperparameters_fixed_before_outer_evaluation": true,
+  "embedding_dimension_before_pca": 512
+}

@@ -1,0 +1,51 @@
+{
+  "task": "single-task chiN",
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "num_layers": 4,
+  "dec_layers": 1,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 10
+  },
+  "loss": "MSE on log10(chiN*)",
+  "eval": "convert back to original scale; report MAPE, RMSE, MAE, R2, MaxAE",
+  "aliases": [
+    "B2"
+  ],
+  "group_labels": [
+    "Experiment B: graph-construction confirmation"
+  ],
+  "condition_label": "bidirectional without virtual node",
+  "graph_label": "original bidirectional",
+  "node_features_label": "[is_free_end, is_branch_point, degree]",
+  "edge_features_label": "[f, A/B]",
+  "graph_builder": "bidirectional",
+  "node_builder": "free_branch_degree",
+  "edge_mode": "full",
+  "optional": false,
+  "condition_key": "B2_bidirectional_free_branch_degree_full_edge",
+  "run_id": "B2_bidirectional_free_branch_degree_full_edge__seed202605",
+  "seed": 202605,
+  "dataset_cache_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "early_stopping_patience": 30,
+  "frozen_hyperparameters": true,
+  "best_epoch": 180,
+  "epochs_trained": 200,
+  "best_validation_mse_log10": 8.790192472515628e-05,
+  "validation_mape_percent": 1.3466575145721436,
+  "validation_rmse": 2.9625940042381362,
+  "validation_mae": 0.9700097441673279,
+  "validation_r2": 0.9988347887992859,
+  "elapsed_seconds": 8130.981000185013,
+  "final_test_accessed": false
+}

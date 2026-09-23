@@ -1,0 +1,53 @@
+{
+  "selection_metric": "five-seed mean original-scale validation MAPE",
+  "selected_values": {
+    "batch_size": "128",
+    "learning_rate": "0.001",
+    "hidden_dim": "128",
+    "num_layers": "4",
+    "dec_layers": "1"
+  },
+  "details": {
+    "batch_size": {
+      "dimension": "batch_size",
+      "value_label": "128",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.4978292644023895,
+      "validation_mape_sd_percent": 0.04725342443146375,
+      "validation_mape_per_seed_percent": "[0.5750903487205505, 0.4676457941532135, 0.4548056125640869, 0.5055996179580688, 0.48600494861602783]"
+    },
+    "learning_rate": {
+      "dimension": "learning_rate",
+      "value_label": "0.001",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.4232840597629547,
+      "validation_mape_sd_percent": 0.07668431689608546,
+      "validation_mape_per_seed_percent": "[0.5339659452438354, 0.3899606466293335, 0.465025931596756, 0.3379833698272705, 0.3894844055175781]"
+    },
+    "hidden_dim": {
+      "dimension": "hidden_dim",
+      "value_label": "128",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.7237025618553161,
+      "validation_mape_sd_percent": 0.06702831404319061,
+      "validation_mape_per_seed_percent": "[0.6380394101142883, 0.7997840642929077, 0.7017942667007446, 0.6954655647277832, 0.7834295034408569]"
+    },
+    "num_layers": {
+      "dimension": "num_layers",
+      "value_label": "4",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.5526723325252533,
+      "validation_mape_sd_percent": 0.052472655064876604,
+      "validation_mape_per_seed_percent": "[0.6126513481140137, 0.5991234183311462, 0.5236443281173706, 0.48732390999794006, 0.5406186580657959]"
+    },
+    "dec_layers": {
+      "dimension": "dec_layers",
+      "value_label": "1",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.7913132190704346,
+      "validation_mape_sd_percent": 0.03531889591320657,
+      "validation_mape_per_seed_percent": "[0.8464418649673462, 0.796708345413208, 0.7922725677490234, 0.7566719651222229, 0.7644713521003723]"
+    }
+  },
+  "final_test_status": "sealed"
+}

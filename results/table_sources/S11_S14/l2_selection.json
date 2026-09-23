@@ -1,0 +1,49 @@
+{
+  "phase": "L2",
+  "decision": {
+    "incumbent": {
+      "batch_size": 128,
+      "learning_rate": 0.002,
+      "hidden_dim": 512,
+      "num_layers": 5,
+      "dec_layers": 1
+    },
+    "challenger": {
+      "batch_size": 128,
+      "learning_rate": 0.002,
+      "hidden_dim": 512,
+      "num_layers": 5,
+      "dec_layers": 1
+    },
+    "incumbent_per_seed_validation_mape_percent": [
+      0.27111971378326416,
+      0.3541794717311859,
+      0.3481695055961609,
+      0.31858253479003906,
+      0.3625672161579132
+    ],
+    "challenger_per_seed_validation_mape_percent": [
+      0.27111971378326416,
+      0.3541794717311859,
+      0.3481695055961609,
+      0.31858253479003906,
+      0.3625672161579132
+    ],
+    "incumbent_mean_validation_mape_percent": 0.33092368841171266,
+    "challenger_mean_validation_mape_percent": 0.33092368841171266,
+    "relative_improvement_percent": 0.0,
+    "paired_seed_wins": 0,
+    "promote": false,
+    "rule": "mean improvement >=5% and >=4/5 paired-seed wins"
+  },
+  "selected_hyperparameters": {
+    "batch_size": 128,
+    "learning_rate": 0.002,
+    "hidden_dim": 512,
+    "num_layers": 5,
+    "dec_layers": 1
+  },
+  "encoder_boundary_limited": false,
+  "e7_forbidden": true,
+  "test_accessed": false
+}

@@ -1,0 +1,627 @@
+{
+  "phase": "ofat",
+  "development_directory": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "fixed_split": {
+    "train_fraction": 0.8,
+    "validation_fraction": 0.2,
+    "random_state": 42
+  },
+  "final_test_directory": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "final_test_access_during_phase": "forbidden",
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "primary_selection_metric": "five-seed mean validation_MAPE",
+  "checkpoint_metric": "validation log-MSE",
+  "configs": [
+    {
+      "config_id": "anchor",
+      "phase": "ofat",
+      "families": [
+        "batch_size",
+        "lr",
+        "model_size",
+        "num_layers",
+        "ff_mult",
+        "dropout",
+        "readout",
+        "position_encoding",
+        "weight_decay"
+      ],
+      "varied_family": "anchor",
+      "varied_value": "anchor",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "batch_size__16",
+      "phase": "ofat",
+      "families": [
+        "batch_size"
+      ],
+      "varied_family": "batch_size",
+      "varied_value": 16,
+      "batch_size": 16,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "batch_size__32",
+      "phase": "ofat",
+      "families": [
+        "batch_size"
+      ],
+      "varied_family": "batch_size",
+      "varied_value": 32,
+      "batch_size": 32,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "batch_size__64",
+      "phase": "ofat",
+      "families": [
+        "batch_size"
+      ],
+      "varied_family": "batch_size",
+      "varied_value": 64,
+      "batch_size": 64,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "batch_size__128",
+      "phase": "ofat",
+      "families": [
+        "batch_size"
+      ],
+      "varied_family": "batch_size",
+      "varied_value": 128,
+      "batch_size": 128,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr__5e-5",
+      "phase": "ofat",
+      "families": [
+        "lr"
+      ],
+      "varied_family": "lr",
+      "varied_value": 5e-05,
+      "batch_size": 40,
+      "lr": 5e-05,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr__1e-4",
+      "phase": "ofat",
+      "families": [
+        "lr"
+      ],
+      "varied_family": "lr",
+      "varied_value": 0.0001,
+      "batch_size": 40,
+      "lr": 0.0001,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr__5e-4",
+      "phase": "ofat",
+      "families": [
+        "lr"
+      ],
+      "varied_family": "lr",
+      "varied_value": 0.0005,
+      "batch_size": 40,
+      "lr": 0.0005,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr__1e-3",
+      "phase": "ofat",
+      "families": [
+        "lr"
+      ],
+      "varied_family": "lr",
+      "varied_value": 0.001,
+      "batch_size": 40,
+      "lr": 0.001,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "model_size__d64h2",
+      "phase": "ofat",
+      "families": [
+        "model_size"
+      ],
+      "varied_family": "model_size",
+      "varied_value": [
+        64,
+        2
+      ],
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 64,
+      "num_heads": 2,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "model_size__d128h4",
+      "phase": "ofat",
+      "families": [
+        "model_size"
+      ],
+      "varied_family": "model_size",
+      "varied_value": [
+        128,
+        4
+      ],
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 128,
+      "num_heads": 4,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "model_size__d192h6",
+      "phase": "ofat",
+      "families": [
+        "model_size"
+      ],
+      "varied_family": "model_size",
+      "varied_value": [
+        192,
+        6
+      ],
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 192,
+      "num_heads": 6,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "num_layers__1",
+      "phase": "ofat",
+      "families": [
+        "num_layers"
+      ],
+      "varied_family": "num_layers",
+      "varied_value": 1,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 1,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "num_layers__3",
+      "phase": "ofat",
+      "families": [
+        "num_layers"
+      ],
+      "varied_family": "num_layers",
+      "varied_value": 3,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 3,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "num_layers__4",
+      "phase": "ofat",
+      "families": [
+        "num_layers"
+      ],
+      "varied_family": "num_layers",
+      "varied_value": 4,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 4,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "ff_mult__2",
+      "phase": "ofat",
+      "families": [
+        "ff_mult"
+      ],
+      "varied_family": "ff_mult",
+      "varied_value": 2,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 2,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "ff_mult__6",
+      "phase": "ofat",
+      "families": [
+        "ff_mult"
+      ],
+      "varied_family": "ff_mult",
+      "varied_value": 6,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 6,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout__0e00",
+      "phase": "ofat",
+      "families": [
+        "dropout"
+      ],
+      "varied_family": "dropout",
+      "varied_value": 0.0,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.0,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout__5e-2",
+      "phase": "ofat",
+      "families": [
+        "dropout"
+      ],
+      "varied_family": "dropout",
+      "varied_value": 0.05,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.05,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout__2e-1",
+      "phase": "ofat",
+      "families": [
+        "dropout"
+      ],
+      "varied_family": "dropout",
+      "varied_value": 0.2,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.2,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "readout__mean",
+      "phase": "ofat",
+      "families": [
+        "readout"
+      ],
+      "varied_family": "readout",
+      "varied_value": "mean",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "mean",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "readout__cls-mean",
+      "phase": "ofat",
+      "families": [
+        "readout"
+      ],
+      "varied_family": "readout",
+      "varied_value": "cls_mean",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls_mean",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "readout__attention",
+      "phase": "ofat",
+      "families": [
+        "readout"
+      ],
+      "varied_family": "readout",
+      "varied_value": "attention",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "attention",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "position_encoding__sinusoidal",
+      "phase": "ofat",
+      "families": [
+        "position_encoding"
+      ],
+      "varied_family": "position_encoding",
+      "varied_value": "sinusoidal",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "sinusoidal",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "position_encoding__none",
+      "phase": "ofat",
+      "families": [
+        "position_encoding"
+      ],
+      "varied_family": "position_encoding",
+      "varied_value": "none",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "none",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "weight_decay__0e00",
+      "phase": "ofat",
+      "families": [
+        "weight_decay"
+      ],
+      "varied_family": "weight_decay",
+      "varied_value": 0.0,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 0.0,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "weight_decay__1e-6",
+      "phase": "ofat",
+      "families": [
+        "weight_decay"
+      ],
+      "varied_family": "weight_decay",
+      "varied_value": 1e-06,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-06,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "weight_decay__1e-4",
+      "phase": "ofat",
+      "families": [
+        "weight_decay"
+      ],
+      "varied_family": "weight_decay",
+      "varied_value": 0.0001,
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 0.0001,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    }
+  ]
+}

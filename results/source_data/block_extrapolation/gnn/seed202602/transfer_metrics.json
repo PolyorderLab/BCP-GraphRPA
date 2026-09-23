@@ -1,0 +1,68 @@
+{
+  "experiment": "C2 nested-80k 6--10-block transfer generalization",
+  "run_id": "C2_min120_all__80k__seed202602",
+  "seed": 202602,
+  "checkpoint": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/C2_nested_train__80k__seed202602/best_model.pth",
+  "test_dir": "/home/zxy/project/TAPD/TrainData/data/transfer/6to10blocks_500_each",
+  "num_samples": 2500,
+  "block_count_distribution": {
+    "6": 500,
+    "7": 500,
+    "8": 500,
+    "9": 500,
+    "10": 500
+  },
+  "device": "cpu",
+  "MAPE": 10.228540420532227,
+  "RMSE": 50.2148551940918,
+  "MAE": 16.726709365844727,
+  "R2": 0.8086703419685364,
+  "MaxAE": 625.5367431640625,
+  "per_block_metrics": [
+    {
+      "block_count": 6,
+      "num_samples": 500,
+      "MAPE": 3.5459036827087402,
+      "RMSE": 10.326244354248047,
+      "MAE": 3.6300361156463623,
+      "R2": 0.9847927689552307,
+      "MaxAE": 125.25234985351562
+    },
+    {
+      "block_count": 7,
+      "num_samples": 500,
+      "MAPE": 6.007432460784912,
+      "RMSE": 28.33694076538086,
+      "MAE": 9.425675392150879,
+      "R2": 0.935483992099762,
+      "MaxAE": 287.5531005859375
+    },
+    {
+      "block_count": 8,
+      "num_samples": 500,
+      "MAPE": 9.982138633728027,
+      "RMSE": 49.678470611572266,
+      "MAE": 16.91189956665039,
+      "R2": 0.8278013467788696,
+      "MaxAE": 521.863037109375
+    },
+    {
+      "block_count": 9,
+      "num_samples": 500,
+      "MAPE": 13.526542663574219,
+      "RMSE": 56.67660140991211,
+      "MAE": 22.30525016784668,
+      "R2": 0.7716906070709229,
+      "MaxAE": 412.11724853515625
+    },
+    {
+      "block_count": 10,
+      "num_samples": 500,
+      "MAPE": 18.080684661865234,
+      "RMSE": 77.5748519897461,
+      "MAE": 31.36069107055664,
+      "R2": 0.652259111404419,
+      "MaxAE": 625.5367431640625
+    }
+  ]
+}

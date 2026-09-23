@@ -1,0 +1,140 @@
+{
+  "phase": "L1",
+  "top3": [
+    {
+      "batch_size": 128,
+      "learning_rate": 0.002,
+      "hidden_dim": 256,
+      "num_layers": 5,
+      "dec_layers": 1,
+      "hyper_key": "b128_lr0p002_h256_g5_d1",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.6549445509910583,
+      "validation_mape_sd_percent": 0.2988059335072167,
+      "validation_mape_per_seed_percent": "[1.09059739112854, 0.3198411762714386, 0.6373503804206848, 0.7736260890960693, 0.45330771803855896]"
+    },
+    {
+      "batch_size": 64,
+      "learning_rate": 0.001,
+      "hidden_dim": 256,
+      "num_layers": 5,
+      "dec_layers": 1,
+      "hyper_key": "b64_lr0p001_h256_g5_d1",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.6815673470497131,
+      "validation_mape_sd_percent": 0.15533759054438664,
+      "validation_mape_per_seed_percent": "[0.46267759799957275, 0.8190673589706421, 0.8413652181625366, 0.6657172441482544, 0.6190093159675598]"
+    },
+    {
+      "batch_size": 256,
+      "learning_rate": 0.002,
+      "hidden_dim": 256,
+      "num_layers": 5,
+      "dec_layers": 1,
+      "hyper_key": "b256_lr0p002_h256_g5_d1",
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 2.0683173656463625,
+      "validation_mape_sd_percent": 3.1159294434671545,
+      "validation_mape_per_seed_percent": "[0.8813018798828125, 0.38117557764053345, 0.6942598223686218, 0.7523002624511719, 7.632549285888672]"
+    }
+  ],
+  "core_decision": {
+    "incumbent": {
+      "batch_size": 128,
+      "learning_rate": 0.001,
+      "hidden_dim": 128,
+      "num_layers": 5,
+      "dec_layers": 1
+    },
+    "challenger": {
+      "batch_size": 128,
+      "learning_rate": 0.002,
+      "hidden_dim": 256,
+      "num_layers": 5,
+      "dec_layers": 1
+    },
+    "incumbent_per_seed_validation_mape_percent": [
+      1.3262478113174438,
+      0.6620684266090393,
+      0.5320690274238586,
+      0.8531368970870972,
+      0.7545367479324341
+    ],
+    "challenger_per_seed_validation_mape_percent": [
+      1.09059739112854,
+      0.3198411762714386,
+      0.6373503804206848,
+      0.7736260890960693,
+      0.45330771803855896
+    ],
+    "incumbent_mean_validation_mape_percent": 0.8256117820739746,
+    "challenger_mean_validation_mape_percent": 0.6549445509910583,
+    "relative_improvement_percent": 20.671607986769807,
+    "paired_seed_wins": 4,
+    "promote": true,
+    "rule": "mean improvement >=5% and >=4/5 paired-seed wins"
+  },
+  "boundary_expansion": {
+    "triggered": true,
+    "candidates": [
+      {
+        "batch_size": 128,
+        "learning_rate": 0.004,
+        "hidden_dim": 256,
+        "num_layers": 5,
+        "dec_layers": 1
+      },
+      {
+        "batch_size": 128,
+        "learning_rate": 0.002,
+        "hidden_dim": 512,
+        "num_layers": 5,
+        "dec_layers": 1
+      }
+    ],
+    "decision": {
+      "incumbent": {
+        "batch_size": 128,
+        "learning_rate": 0.002,
+        "hidden_dim": 256,
+        "num_layers": 5,
+        "dec_layers": 1
+      },
+      "challenger": {
+        "batch_size": 128,
+        "learning_rate": 0.002,
+        "hidden_dim": 512,
+        "num_layers": 5,
+        "dec_layers": 1
+      },
+      "incumbent_per_seed_validation_mape_percent": [
+        1.09059739112854,
+        0.3198411762714386,
+        0.6373503804206848,
+        0.7736260890960693,
+        0.45330771803855896
+      ],
+      "challenger_per_seed_validation_mape_percent": [
+        0.27111971378326416,
+        0.3541794717311859,
+        0.3481695055961609,
+        0.31858253479003906,
+        0.3625672161579132
+      ],
+      "incumbent_mean_validation_mape_percent": 0.6549445509910583,
+      "challenger_mean_validation_mape_percent": 0.33092368841171266,
+      "relative_improvement_percent": 49.47302211905407,
+      "paired_seed_wins": 4,
+      "promote": true,
+      "rule": "mean improvement >=5% and >=4/5 paired-seed wins"
+    }
+  },
+  "selected_hyperparameters": {
+    "batch_size": 128,
+    "learning_rate": 0.002,
+    "hidden_dim": 512,
+    "num_layers": 5,
+    "dec_layers": 1
+  },
+  "test_accessed": false
+}

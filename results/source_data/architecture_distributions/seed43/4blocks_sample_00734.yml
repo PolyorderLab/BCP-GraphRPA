@@ -1,0 +1,31 @@
+system:
+  k_star: 2.453255
+  topology: "Random_4blocks"
+  χN_star: 20.949024
+  components:
+    - blocks:
+        - label: "b1"
+          length: 0.2996984750286268
+          segment: "B"
+          ends:
+            - "N1"
+            - "N2"
+        - label: "b2"
+          length: 0.05764916020154587
+          segment: "A"
+          ends:
+            - "N2"
+            - "N3"
+        - label: "b3"
+          length: 0.5381735605279407
+          segment: "A"
+          ends:
+            - "N1"
+            - "N4"
+        - label: "b4"
+          length: 0.10447880424188657
+          segment: "B"
+          ends:
+            - "N4"
+            - "N5"
+      type: "OTD"

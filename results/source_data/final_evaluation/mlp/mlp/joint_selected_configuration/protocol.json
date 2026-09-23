@@ -1,0 +1,36 @@
+{
+  "role": "joint confirmation after OFAT values frozen",
+  "configuration": {
+    "batch_size": 256,
+    "lr": 0.0005,
+    "hidden_dim": 256,
+    "depth": 3,
+    "dropout": 0.0,
+    "weight_decay": 1e-05,
+    "epochs": 200,
+    "patience": 30
+  },
+  "features": [
+    "SLE",
+    "r_deg",
+    "CV_arm",
+    "n_leaves",
+    "M_AB",
+    "IR",
+    "D_f",
+    "ISC",
+    "CAF",
+    "tau_mean",
+    "f_A"
+  ],
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "development_split": "n_train_100k fixed 80k/20k, random_state=42",
+  "checkpoint_selection": "validation MSE in log10 chiN*",
+  "final_test_policy": "evaluate only after all five checkpoints finish"
+}

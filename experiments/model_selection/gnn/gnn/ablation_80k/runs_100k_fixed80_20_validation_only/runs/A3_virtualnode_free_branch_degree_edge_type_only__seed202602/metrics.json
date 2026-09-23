@@ -1,0 +1,51 @@
+{
+  "task": "single-task chiN",
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "num_layers": 4,
+  "dec_layers": 1,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 10
+  },
+  "loss": "MSE on log10(chiN*)",
+  "eval": "convert back to original scale; report MAPE, RMSE, MAE, R2, MaxAE",
+  "aliases": [
+    "A3"
+  ],
+  "group_labels": [
+    "Experiment A: edge-feature confirmation"
+  ],
+  "condition_label": "virtual node, edge A/B only",
+  "graph_label": "original bidirectional + virtual node",
+  "node_features_label": "[is_free_end, is_branch_point, degree]",
+  "edge_features_label": "[A/B]",
+  "graph_builder": "virtual_node",
+  "node_builder": "free_branch_degree",
+  "edge_mode": "type",
+  "optional": false,
+  "condition_key": "A3_virtualnode_free_branch_degree_edge_type_only",
+  "run_id": "A3_virtualnode_free_branch_degree_edge_type_only__seed202602",
+  "seed": 202602,
+  "dataset_cache_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "early_stopping_patience": 30,
+  "frozen_hyperparameters": true,
+  "best_epoch": 71,
+  "epochs_trained": 101,
+  "best_validation_mse_log10": 0.14468079462051392,
+  "validation_mape_percent": 68.59579467773438,
+  "validation_rmse": 89.22086796960676,
+  "validation_mae": 39.22517395019531,
+  "validation_r2": -0.05680572986602783,
+  "elapsed_seconds": 6914.449455022812,
+  "final_test_accessed": false
+}

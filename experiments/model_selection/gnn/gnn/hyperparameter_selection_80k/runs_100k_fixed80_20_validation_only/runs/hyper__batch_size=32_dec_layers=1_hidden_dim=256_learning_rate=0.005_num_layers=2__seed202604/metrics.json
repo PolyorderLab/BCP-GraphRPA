@@ -1,0 +1,47 @@
+{
+  "hidden_dim": 256,
+  "learning_rate": 0.005,
+  "batch_size": 32,
+  "num_layers": 2,
+  "dec_layers": 1,
+  "run_id": "hyper__batch_size=32_dec_layers=1_hidden_dim=256_learning_rate=0.005_num_layers=2__seed202604",
+  "seed": 202604,
+  "dimensions": [
+    [
+      "num_layers",
+      2
+    ]
+  ],
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "early_stopping_patience": 30,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "loss": "MSE on log10(chiN*)",
+  "graph_builder": "virtual_node",
+  "node_builder": "free_branch_degree",
+  "edge_mode": "full",
+  "condition_key": "S01_full_virtualnode_free_branch_degree_full_edge",
+  "aliases": [
+    "A1",
+    "B1",
+    "C1"
+  ],
+  "group_labels": [
+    "full model hyperparameter search"
+  ],
+  "condition_label": "full virtual-node baseline",
+  "graph_label": "original bidirectional + virtual node",
+  "node_features_label": "[is_free_end, is_branch_point, degree]",
+  "edge_features_label": "[f, A/B]",
+  "best_epoch": 169,
+  "best_validation_mse_log10": 0.0005320991708664223,
+  "validation_mape_percent": 3.2613680362701416,
+  "validation_rmse": 7.226678366892072,
+  "validation_mae": 2.320861577987671,
+  "validation_r2": 0.9930667281150818,
+  "elapsed_seconds": 15274.288526535034,
+  "final_test_accessed": false
+}

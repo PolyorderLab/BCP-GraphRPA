@@ -1,0 +1,51 @@
+{
+  "task": "single-task chiN",
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "num_layers": 4,
+  "dec_layers": 1,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 10
+  },
+  "loss": "MSE on log10(chiN*)",
+  "eval": "convert back to original scale; report MAPE, RMSE, MAE, R2, MaxAE",
+  "aliases": [
+    "B4"
+  ],
+  "group_labels": [
+    "Experiment B: graph-construction confirmation"
+  ],
+  "condition_label": "bipartite graph",
+  "graph_label": "bipartite",
+  "node_features_label": "junction=[is_free_end, is_branch_point, degree]; block=[f, A/B, block-indicator]",
+  "edge_features_label": "bipartite connectivity edges are zero edge_attr",
+  "graph_builder": "bipartite",
+  "node_builder": "free_branch_degree",
+  "edge_mode": "full",
+  "optional": true,
+  "condition_key": "B4_bipartite_free_branch_degree_full_edge",
+  "run_id": "B4_bipartite_free_branch_degree_full_edge__seed202602",
+  "seed": 202602,
+  "dataset_cache_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "early_stopping_patience": 30,
+  "frozen_hyperparameters": true,
+  "best_epoch": 155,
+  "epochs_trained": 185,
+  "best_validation_mse_log10": 6.268601169576868e-05,
+  "validation_mape_percent": 1.1266225576400757,
+  "validation_rmse": 4.40983251932664,
+  "validation_mae": 1.154097318649292,
+  "validation_r2": 0.9974182844161987,
+  "elapsed_seconds": 16082.78650522232,
+  "final_test_accessed": false
+}

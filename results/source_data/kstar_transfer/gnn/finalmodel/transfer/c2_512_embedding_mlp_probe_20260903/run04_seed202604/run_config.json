@@ -1,0 +1,17 @@
+{
+  "experiment": "C2_512_fixed_embedding_MLP_probe",
+  "seed": 202604,
+  "run_id": 4,
+  "checkpoint": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/C2_nested_train__80k__seed202604/best_model.pth",
+  "embedding_dim": 512,
+  "mlp": "512-256-128-1; LayerNorm/ReLU/dropout=0.1",
+  "best_val_loss_log_space": 4.534716208581813e-05,
+  "epochs_ran": 464,
+  "test_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent",
+  "test_size": 2000,
+  "MAPE": 0.9007606506347656,
+  "RMSE": 0.05706836883817443,
+  "MAE": 0.02510813996195793,
+  "R2": 0.9876119494438171,
+  "MaxAE": 0.920961856842041
+}

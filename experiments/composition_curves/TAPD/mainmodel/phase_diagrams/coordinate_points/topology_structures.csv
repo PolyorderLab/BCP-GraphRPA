@@ -1,0 +1,12 @@
+topology,type,nodes,blocks,block_fractions
+AB,linear diblock,0-1-2,"A: 0-1, B: 1-2",A=f_A; B=1-f_A
+ABA,linear triblock,0-1-2-3,"A1: 0-1, B: 1-2, A2: 2-3",A1=A2=f_A/2; B=1-f_A
+ABAB,linear tetrablock,0-1-2-3-4,"A1: 0-1, B1: 1-2, A2: 2-3, B2: 3-4",A1=A2=f_A/2; B1=B2=(1-f_A)/2
+ABABA,linear pentablock,0-1-2-3-4-5,"A1: 0-1, B1: 1-2, A2: 2-3, B2: 3-4, A3: 4-5",A1=A2=A3=f_A/3; B1=B2=(1-f_A)/2
+AB2,3-arm star,"center 0 connected to leaves 1,2,3","A: 0-1, B1: 0-2, B2: 0-3",A=f_A; B1=B2=(1-f_A)/2
+AB3,4-arm star,"center 0 connected to leaves 1,2,3,4","A: 0-1, B1: 0-2, B2: 0-3, B3: 0-4",A=f_A; B1=B2=B3=(1-f_A)/3
+M1,branched M architecture,"A1 free end - eb0; eb0 branches to eb1, eb2, eb3; eb2 - A2 free end","A1: N_A1-eb0, B1: eb0-eb1, B2: eb0-eb2, B3: eb0-eb3, A2: eb2-N_A2",A1=A2=f_A/2; B1=0.05(1-f_A); B2=0.25(1-f_A); B3=0.70(1-f_A)
+M2,branched M architecture without B3,A1 free end - eb0; eb0 branches to eb1 and eb2; eb2 - A2 free end,"A1: N_A1-eb0, B1: eb0-eb1, B2: eb0-eb2, A2: eb2-N_A2",A1=A2=f_A/2; B1=0.74(1-f_A); B2=0.26(1-f_A)
+BTABAT,Xie 2020 Fig. 4 branched architecture,"N_A1-tA-AB-tB-N_B2 with B3 tethered at tA and A3 tethered at tB","A1: N_A1-tA, A2: tA-AB, B1: AB-tB, B2: tB-N_B2, B3: tA-N_B3, A3: tB-N_A3",A1=A2=f_A/4; A3=f_A/2; B1=B2=0.15(1-f_A); B3=0.70(1-f_A)
+B2A2,Shi 2021 Fig. 3 B2A2 miktoarm,"one J1 center connected to two B free ends and two A free ends","B1: J1-N_B1, B2: J1-N_B2, A1: J1-N_A1, A2: J1-N_A2",A1=A2=f_A/2; B1=B2=(1-f_A)/2
+(B2A2)2,Shi 2021 Fig. 3 two-repeat B2A2 comb,"two B2A2 units connected by an A-side J2 junction","B1/B2 and A1/A2 at J1a; A2-J2-A3 bridge; A3/A4 and B3/B4 at J1b",A1=A2=A3=A4=f_A/4; B1=B2=B3=B4=(1-f_A)/4

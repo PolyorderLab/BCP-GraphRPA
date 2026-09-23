@@ -1,0 +1,12 @@
+alias,condition_key,condition_label,groups,optional
+A1,S01_full_virtualnode_free_branch_degree_full_edge,full virtual-node baseline,Experiment A: edge-feature confirmation;Experiment B: graph-construction confirmation;Experiment C: node-feature confirmation,False
+B1,S01_full_virtualnode_free_branch_degree_full_edge,full virtual-node baseline,Experiment A: edge-feature confirmation;Experiment B: graph-construction confirmation;Experiment C: node-feature confirmation,False
+C1,S01_full_virtualnode_free_branch_degree_full_edge,full virtual-node baseline,Experiment A: edge-feature confirmation;Experiment B: graph-construction confirmation;Experiment C: node-feature confirmation,False
+A2,A2_virtualnode_free_branch_degree_edge_f_only,"virtual node, edge f only",Experiment A: edge-feature confirmation,False
+A3,A3_virtualnode_free_branch_degree_edge_type_only,"virtual node, edge A/B only",Experiment A: edge-feature confirmation,False
+B2,B2_bidirectional_free_branch_degree_full_edge,bidirectional without virtual node,Experiment B: graph-construction confirmation,False
+B3,B3_line_graph_free_branch_degree_full_edge,line graph,Experiment B: graph-construction confirmation,False
+B4,B4_bipartite_free_branch_degree_full_edge,bipartite graph,Experiment B: graph-construction confirmation,True
+B5,B5_self_loop_free_branch_degree_full_edge,self-loop graph,Experiment B: graph-construction confirmation,True
+C2,C2_virtualnode_learnable_node_full_edge,virtual node with learnable node embeddings,Experiment C: node-feature confirmation,True
+C3,C3_virtualnode_degree_avg_neighbor_full_edge,"virtual node with [degree, avg_neighbor_degree]",Experiment C: node-feature confirmation,True

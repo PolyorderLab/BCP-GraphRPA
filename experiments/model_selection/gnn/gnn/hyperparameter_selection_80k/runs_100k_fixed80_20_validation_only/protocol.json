@@ -1,0 +1,62 @@
+{
+  "development_data": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "split": {
+    "random_state": 42,
+    "train_size": 80000,
+    "validation_size": 20000
+  },
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "reference": {
+    "hidden_dim": 256,
+    "learning_rate": 0.005,
+    "batch_size": 32,
+    "num_layers": 5,
+    "dec_layers": 1
+  },
+  "grids": {
+    "batch_size": [
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "learning_rate": [
+      1e-05,
+      5e-05,
+      0.0001,
+      0.0005,
+      0.001,
+      0.005,
+      0.01
+    ],
+    "hidden_dim": [
+      16,
+      32,
+      64,
+      128,
+      256
+    ],
+    "num_layers": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "dec_layers": [
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "final_test": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "final_test_policy": "not read in this phase"
+}

@@ -1,0 +1,51 @@
+{
+  "task": "single-task chiN",
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "num_layers": 4,
+  "dec_layers": 1,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 10
+  },
+  "loss": "MSE on log10(chiN*)",
+  "eval": "convert back to original scale; report MAPE, RMSE, MAE, R2, MaxAE",
+  "aliases": [
+    "C2"
+  ],
+  "group_labels": [
+    "Experiment C: node-feature confirmation"
+  ],
+  "condition_label": "virtual node with learnable node embeddings",
+  "graph_label": "original bidirectional + virtual node",
+  "node_features_label": "learnable node embedding; input data.x zeroed before encoder",
+  "edge_features_label": "[f, A/B]",
+  "graph_builder": "virtual_node",
+  "node_builder": "learnable_node",
+  "edge_mode": "full",
+  "optional": true,
+  "condition_key": "C2_virtualnode_learnable_node_full_edge",
+  "run_id": "C2_virtualnode_learnable_node_full_edge__seed202602",
+  "seed": 202602,
+  "dataset_cache_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "early_stopping_patience": 30,
+  "frozen_hyperparameters": true,
+  "best_epoch": 175,
+  "epochs_trained": 200,
+  "best_validation_mse_log10": 1.8298746205982753e-05,
+  "validation_mape_percent": 0.710166871547699,
+  "validation_rmse": 1.5049975114465968,
+  "validation_mae": 0.4880962371826172,
+  "validation_r2": 0.9996992945671082,
+  "elapsed_seconds": 11417.81419467926,
+  "final_test_accessed": false
+}

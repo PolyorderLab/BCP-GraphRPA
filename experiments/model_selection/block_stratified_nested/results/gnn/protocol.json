@@ -1,0 +1,71 @@
+{
+  "purpose": "clean nested training-size curve for Figure 6(f)",
+  "condition": "C2_virtualnode_learnable_node_full_edge",
+  "frozen_hyperparameters": {
+    "batch_size": 128,
+    "learning_rate": 0.002,
+    "hidden_dim": 512,
+    "num_layers": 5,
+    "dec_layers": 1
+  },
+  "train_data_source": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "base_training_indices_source": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/iterative_local_grid_c2_e5d1_80k_train_20k_val/fixed_80k_20k_split_indices.npz",
+  "nested_rule": "within each 2/3/4/5-block stratum: one random_state=42 permutation; every requested size uses monotone largest-remainder quotas proportional to the frozen 80k pool",
+  "nested_subsets": [
+    {
+      "train_size": 8000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_8k.npz"
+    },
+    {
+      "train_size": 16000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_16k.npz"
+    },
+    {
+      "train_size": 24000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_24k.npz"
+    },
+    {
+      "train_size": 32000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_32k.npz"
+    },
+    {
+      "train_size": 40000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_40k.npz"
+    },
+    {
+      "train_size": 48000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_48k.npz"
+    },
+    {
+      "train_size": 56000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_56k.npz"
+    },
+    {
+      "train_size": 64000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_64k.npz"
+    },
+    {
+      "train_size": 72000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_72k.npz"
+    },
+    {
+      "train_size": 80000,
+      "path": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/nested_train_80k.npz"
+    }
+  ],
+  "common_development_validation": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "common_development_validation_size": 2000,
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "training_runs_required": 50,
+  "scientific_status": "development validation; not sealed final-test performance",
+  "runner": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/run_gnn_stratified_nested.py",
+  "source_runner": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/training_size_c2_nested_common_val_seed42/run_nested_training_size.py",
+  "stratification_audit": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/gnn/nested_indices/stratification_audit.json",
+  "protocol_version": "c2_block_stratified_nested_common_seed42_20260921"
+}

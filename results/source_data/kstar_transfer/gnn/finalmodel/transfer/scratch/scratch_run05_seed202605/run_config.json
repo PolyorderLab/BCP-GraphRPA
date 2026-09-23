@@ -1,0 +1,63 @@
+{
+  "experiment": "VN_FreeBranchDegree_KStar",
+  "target": "kstar",
+  "task_type": "k_wavevector",
+  "run_id": 5,
+  "seed": 202605,
+  "note": "K-star single-task version of VN_FreeBranchDegree. It uses the same network structure, graph structure, node features, and edge features as the chiN script, but changes load_and_process_dataset task_type to 'k'. Node features are [is_free_end, is_branch_point, degree], where all three channels are derived from the original degree column. Edge features are [f, A/B type]. The original bidirectional topology and edge attributes are kept unchanged; a virtual node is added and connected bidirectionally to all nodes.",
+  "paths": {
+    "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+    "test_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k",
+    "result_root": "/home/zxy/project/TAPD/mainmodel/transfer_experiments/kstar_wavevector_kRg_transfer_5seeds_20260804/scratch/scratch_run05_seed202605"
+  },
+  "features": {
+    "node_features": [
+      "is_free_end",
+      "is_branch_point",
+      "degree"
+    ],
+    "edge_features": [
+      "f",
+      "A/B type"
+    ],
+    "virtual_node": true,
+    "graph_topology": "original_bidirectional",
+    "undirected_transform": null
+  },
+  "hyperparameters": {
+    "hidden_dim": 256,
+    "learning_rate": 0.005,
+    "encoder_learning_rate": 0.0005,
+    "decoder_learning_rate": 0.005,
+    "batch_size": 32,
+    "num_layers": 5,
+    "dec_layers": 1,
+    "epochs": 200,
+    "in_feats": 3,
+    "edge_dim": 2
+  },
+  "transfer": {
+    "transfer_mode": "scratch",
+    "pretrained_chin": null,
+    "encoder_lr": 0.0005,
+    "decoder_lr": 0.005,
+    "frozen_epochs": 0
+  },
+  "runtime": {
+    "python": "3.12.13 (main, Mar 20 2026, 00:33:26) [Clang 22.1.1 ]",
+    "python_executable": "/home/zxy/project/TAPD/.venv/bin/python",
+    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.31",
+    "torch_version": "2.7.1+cu118",
+    "cuda_available": true,
+    "cuda_device_count": 1,
+    "device": "cuda:0",
+    "cuda_visible_devices": "0",
+    "gpu_name": "NVIDIA GeForce RTX 2080 Ti"
+  },
+  "split": {
+    "split_random_state": 42,
+    "train_size": 80000,
+    "val_size": 20000,
+    "test_size": 2000
+  }
+}

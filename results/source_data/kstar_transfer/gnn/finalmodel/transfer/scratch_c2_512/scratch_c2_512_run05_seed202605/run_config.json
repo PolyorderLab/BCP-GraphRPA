@@ -1,0 +1,56 @@
+{
+  "experiment": "C2_learnable_node_KStar_transfer",
+  "transfer_mode": "scratch",
+  "seed": 202605,
+  "source_checkpoint": null,
+  "architecture": {
+    "encoder": "LearnableNodeGINEEncoder",
+    "max_nodes": 80,
+    "hidden_dim": 512,
+    "num_layers": 5,
+    "decoder_layers": 1,
+    "edge_features": [
+      "f",
+      "A/B type"
+    ],
+    "node_features": "learnable positional node embedding; data.x zeroed",
+    "virtual_node": true,
+    "initialization": "random seeded initialization; no pretrained encoder",
+    "parameter_count": 2685953
+  },
+  "optimization": {
+    "epochs": 200,
+    "batch_size": 32,
+    "encoder_lr": 0.0005,
+    "decoder_lr": 0.005,
+    "frozen_epochs": 0,
+    "optimizer": "Adam",
+    "scheduler": "ReduceLROnPlateau(factor=0.5, patience=10)",
+    "best_validation_loss": 2.1360181525551523e-06
+  },
+  "data": {
+    "task_type": "k_wavevector",
+    "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+    "test_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent",
+    "train_size": 80000,
+    "validation_size": 20000,
+    "split_random_state": 42,
+    "test_role": "independent final inference only; never used for selection"
+  },
+  "runtime": {
+    "device": "cuda:0",
+    "python": "3.12.13 (main, Mar 20 2026, 00:33:26) [Clang 22.1.1 ]",
+    "platform": "Linux-5.4.0-216-generic-x86_64-with-glibc2.31",
+    "torch": "2.7.1+cu118",
+    "cuda_visible_devices": "0"
+  },
+  "seed43_metrics": {
+    "test_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent",
+    "test_size": 2000,
+    "MAPE": 0.19642330706119537,
+    "RMSE": 0.011226634609816082,
+    "MAE": 0.005361857824027538,
+    "R2": 0.9995205998420715,
+    "MaxAE": 0.21338582038879395
+  }
+}

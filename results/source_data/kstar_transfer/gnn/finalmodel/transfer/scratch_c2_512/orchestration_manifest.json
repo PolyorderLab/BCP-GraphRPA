@@ -1,0 +1,48 @@
+{
+  "experiment": "C2_512_random_initialization_kstar_scratch",
+  "transfer_mode": "scratch",
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "result_root": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/transfer/scratch_c2_512",
+  "trainer": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/transfer/scripts/train_c2_kstar_transfer.py",
+  "architecture": {
+    "encoder": "LearnableNodeGINEEncoder",
+    "hidden_dim": 512,
+    "num_layers": 5,
+    "max_nodes": 80,
+    "decoder_layers": 1,
+    "node_features": "learnable positional node embedding; data.x zeroed",
+    "virtual_node": true,
+    "initialization": "random seeded initialization; no pretrained encoder"
+  },
+  "optimization": {
+    "epochs": 200,
+    "batch_size": 32,
+    "encoder_lr": 0.0005,
+    "decoder_lr": 0.005,
+    "optimizer": "Adam",
+    "scheduler": "ReduceLROnPlateau(factor=0.5, patience=10)"
+  },
+  "data": {
+    "task_type": "k_wavevector",
+    "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+    "test_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent",
+    "test_cache": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/transfer/data_cache/kstar_seed43_independent_2k.pt",
+    "test_role": "independent final inference only; never used for selection"
+  },
+  "scheduler": {
+    "gpus": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "jobs_per_gpu": 1,
+    "poll_seconds": 5.0
+  }
+}

@@ -1,0 +1,274 @@
+{
+  "phase": "interactions",
+  "development_directory": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "fixed_split": {
+    "train_fraction": 0.8,
+    "validation_fraction": 0.2,
+    "random_state": 42
+  },
+  "final_test_directory": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "final_test_access_during_phase": "forbidden",
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "primary_selection_metric": "five-seed mean validation_MAPE",
+  "checkpoint_metric": "validation log-MSE",
+  "configs": [
+    {
+      "config_id": "lr_x_batch__5e-4__64",
+      "phase": "interactions",
+      "families": [
+        "lr",
+        "batch_size"
+      ],
+      "grid": "lr_x_batch",
+      "batch_size": 64,
+      "lr": 0.0005,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr_x_batch__5e-4__32",
+      "phase": "interactions",
+      "families": [
+        "lr",
+        "batch_size"
+      ],
+      "grid": "lr_x_batch",
+      "batch_size": 32,
+      "lr": 0.0005,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr_x_batch__1e-3__64",
+      "phase": "interactions",
+      "families": [
+        "lr",
+        "batch_size"
+      ],
+      "grid": "lr_x_batch",
+      "batch_size": 64,
+      "lr": 0.001,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "lr_x_batch__1e-3__32",
+      "phase": "interactions",
+      "families": [
+        "lr",
+        "batch_size"
+      ],
+      "grid": "lr_x_batch",
+      "batch_size": 32,
+      "lr": 0.001,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "size_x_layers__d192h6__3",
+      "phase": "interactions",
+      "families": [
+        "model_size",
+        "num_layers"
+      ],
+      "grid": "size_x_layers",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 192,
+      "num_heads": 6,
+      "num_layers": 3,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "size_x_layers__d192h6__4",
+      "phase": "interactions",
+      "families": [
+        "model_size",
+        "num_layers"
+      ],
+      "grid": "size_x_layers",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 192,
+      "num_heads": 6,
+      "num_layers": 4,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "size_x_layers__d128h4__3",
+      "phase": "interactions",
+      "families": [
+        "model_size",
+        "num_layers"
+      ],
+      "grid": "size_x_layers",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 128,
+      "num_heads": 4,
+      "num_layers": 3,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "size_x_layers__d128h4__4",
+      "phase": "interactions",
+      "families": [
+        "model_size",
+        "num_layers"
+      ],
+      "grid": "size_x_layers",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 128,
+      "num_heads": 4,
+      "num_layers": 4,
+      "ff_mult": 4,
+      "dropout": 0.1,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-05,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout_x_weight_decay__0e00__0e00",
+      "phase": "interactions",
+      "families": [
+        "dropout",
+        "weight_decay"
+      ],
+      "grid": "dropout_x_weight_decay",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.0,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 0.0,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout_x_weight_decay__0e00__1e-6",
+      "phase": "interactions",
+      "families": [
+        "dropout",
+        "weight_decay"
+      ],
+      "grid": "dropout_x_weight_decay",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.0,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-06,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout_x_weight_decay__5e-2__0e00",
+      "phase": "interactions",
+      "families": [
+        "dropout",
+        "weight_decay"
+      ],
+      "grid": "dropout_x_weight_decay",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.05,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 0.0,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    },
+    {
+      "config_id": "dropout_x_weight_decay__5e-2__1e-6",
+      "phase": "interactions",
+      "families": [
+        "dropout",
+        "weight_decay"
+      ],
+      "grid": "dropout_x_weight_decay",
+      "batch_size": 40,
+      "lr": 0.0002,
+      "d_model": 256,
+      "num_heads": 8,
+      "num_layers": 2,
+      "ff_mult": 4,
+      "dropout": 0.05,
+      "readout": "cls",
+      "position_encoding": "learnable",
+      "weight_decay": 1e-06,
+      "representation": "full_topology",
+      "architecture": "transformer"
+    }
+  ]
+}

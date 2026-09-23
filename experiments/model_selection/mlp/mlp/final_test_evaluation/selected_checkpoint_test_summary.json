@@ -1,0 +1,24 @@
+{
+  "test_source_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "test_descriptor_matrix": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/final_test_evaluation/test_descriptor_matrix.csv",
+  "test_size": 2000,
+  "selection_status": "hyperparameters frozen from fixed 20k validation fold before this evaluation",
+  "hyperparameters": {
+    "batch_size": 256,
+    "lr": 0.0005,
+    "hidden_dim": 256,
+    "depth": 3,
+    "dropout": 0.0
+  },
+  "n_seeds": 5,
+  "test_mape_mean_percent": 3.5780869483947755,
+  "test_mape_sd_percent": 0.23455964811395083,
+  "test_mape_per_seed_percent": [
+    3.9359586238861084,
+    3.6553544998168945,
+    3.4749557971954346,
+    3.512779951095581,
+    3.3113858699798584
+  ],
+  "per_seed_metrics_csv": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/final_test_evaluation/selected_checkpoint_test_metrics.csv"
+}

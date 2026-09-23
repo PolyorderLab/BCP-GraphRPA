@@ -1,0 +1,79 @@
+[
+  {
+    "alias": "A1",
+    "condition_key": "S01_full_virtualnode_free_branch_degree_full_edge",
+    "condition_label": "full virtual-node baseline",
+    "groups": "Experiment A: edge-feature confirmation;Experiment B: graph-construction confirmation;Experiment C: node-feature confirmation",
+    "optional": false
+  },
+  {
+    "alias": "B1",
+    "condition_key": "S01_full_virtualnode_free_branch_degree_full_edge",
+    "condition_label": "full virtual-node baseline",
+    "groups": "Experiment A: edge-feature confirmation;Experiment B: graph-construction confirmation;Experiment C: node-feature confirmation",
+    "optional": false
+  },
+  {
+    "alias": "C1",
+    "condition_key": "S01_full_virtualnode_free_branch_degree_full_edge",
+    "condition_label": "full virtual-node baseline",
+    "groups": "Experiment A: edge-feature confirmation;Experiment B: graph-construction confirmation;Experiment C: node-feature confirmation",
+    "optional": false
+  },
+  {
+    "alias": "A2",
+    "condition_key": "A2_virtualnode_free_branch_degree_edge_f_only",
+    "condition_label": "virtual node, edge f only",
+    "groups": "Experiment A: edge-feature confirmation",
+    "optional": false
+  },
+  {
+    "alias": "A3",
+    "condition_key": "A3_virtualnode_free_branch_degree_edge_type_only",
+    "condition_label": "virtual node, edge A/B only",
+    "groups": "Experiment A: edge-feature confirmation",
+    "optional": false
+  },
+  {
+    "alias": "B2",
+    "condition_key": "B2_bidirectional_free_branch_degree_full_edge",
+    "condition_label": "bidirectional without virtual node",
+    "groups": "Experiment B: graph-construction confirmation",
+    "optional": false
+  },
+  {
+    "alias": "B3",
+    "condition_key": "B3_line_graph_free_branch_degree_full_edge",
+    "condition_label": "line graph",
+    "groups": "Experiment B: graph-construction confirmation",
+    "optional": false
+  },
+  {
+    "alias": "B4",
+    "condition_key": "B4_bipartite_free_branch_degree_full_edge",
+    "condition_label": "bipartite graph",
+    "groups": "Experiment B: graph-construction confirmation",
+    "optional": true
+  },
+  {
+    "alias": "B5",
+    "condition_key": "B5_self_loop_free_branch_degree_full_edge",
+    "condition_label": "self-loop graph",
+    "groups": "Experiment B: graph-construction confirmation",
+    "optional": true
+  },
+  {
+    "alias": "C2",
+    "condition_key": "C2_virtualnode_learnable_node_full_edge",
+    "condition_label": "virtual node with learnable node embeddings",
+    "groups": "Experiment C: node-feature confirmation",
+    "optional": true
+  },
+  {
+    "alias": "C3",
+    "condition_key": "C3_virtualnode_degree_avg_neighbor_full_edge",
+    "condition_label": "virtual node with [degree, avg_neighbor_degree]",
+    "groups": "Experiment C: node-feature confirmation",
+    "optional": true
+  }
+]

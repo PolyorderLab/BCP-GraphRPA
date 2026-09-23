@@ -1,0 +1,23 @@
+{
+  "data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "records_cache": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/data_cache/n_train_100k_records.pkl",
+  "output_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/transfomer/interactions/runs/dropout_x_weight_decay__5e-2__0e00/seed202602",
+  "run_name": "dropout_x_weight_decay__5e-2__0e00__seed202602",
+  "seed": 202602,
+  "device": "cuda:0",
+  "max_samples": null,
+  "epochs": 120,
+  "early_stopping_patience": 25,
+  "batch_size": 40,
+  "lr": 0.0002,
+  "weight_decay": 0.0,
+  "d_model": 256,
+  "num_heads": 8,
+  "num_layers": 2,
+  "ff_mult": 4,
+  "dropout": 0.05,
+  "readout": "cls",
+  "position_encoding": "learnable",
+  "representation": "full_topology",
+  "architecture": "transformer"
+}

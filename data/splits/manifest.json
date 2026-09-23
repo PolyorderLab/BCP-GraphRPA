@@ -1,0 +1,195 @@
+{
+  "development_record_order": "data/figure_acbd/responses/training_100k_response_data.csv:sample_id",
+  "fixed_split": {
+    "file": "development_fixed_80k_20k_seed42.npz",
+    "train_count": 80000,
+    "validation_count": 20000,
+    "split_random_state": 42,
+    "original_pt_train_identical": true,
+    "original_pt_val_test_union_identical": true
+  },
+  "block_stratified_nested": {
+    "directory": "block_stratified_nested",
+    "models": [
+      "GNN",
+      "MLP",
+      "Transformer"
+    ],
+    "subset_random_state": 42,
+    "rule": "Per-block-count deterministic permutation followed by monotone largest-remainder prefix allocation.",
+    "subsets": [
+      {
+        "train_size": 8000,
+        "counts_by_block": {
+          "2": 1998,
+          "3": 1999,
+          "4": 2000,
+          "5": 2003
+        },
+        "fractions_by_block": {
+          "2": 0.24975,
+          "3": 0.249875,
+          "4": 0.25,
+          "5": 0.250375
+        }
+      },
+      {
+        "train_size": 16000,
+        "counts_by_block": {
+          "2": 3995,
+          "3": 3998,
+          "4": 4001,
+          "5": 4006
+        },
+        "fractions_by_block": {
+          "2": 0.2496875,
+          "3": 0.249875,
+          "4": 0.2500625,
+          "5": 0.250375
+        }
+      },
+      {
+        "train_size": 24000,
+        "counts_by_block": {
+          "2": 5992,
+          "3": 5998,
+          "4": 6001,
+          "5": 6009
+        },
+        "fractions_by_block": {
+          "2": 0.24966666666666668,
+          "3": 0.24991666666666668,
+          "4": 0.25004166666666666,
+          "5": 0.250375
+        }
+      },
+      {
+        "train_size": 32000,
+        "counts_by_block": {
+          "2": 7990,
+          "3": 7996,
+          "4": 8002,
+          "5": 8012
+        },
+        "fractions_by_block": {
+          "2": 0.2496875,
+          "3": 0.249875,
+          "4": 0.2500625,
+          "5": 0.250375
+        }
+      },
+      {
+        "train_size": 40000,
+        "counts_by_block": {
+          "2": 9987,
+          "3": 9996,
+          "4": 10002,
+          "5": 10015
+        },
+        "fractions_by_block": {
+          "2": 0.249675,
+          "3": 0.2499,
+          "4": 0.25005,
+          "5": 0.250375
+        }
+      },
+      {
+        "train_size": 48000,
+        "counts_by_block": {
+          "2": 11984,
+          "3": 11995,
+          "4": 12002,
+          "5": 12019
+        },
+        "fractions_by_block": {
+          "2": 0.24966666666666668,
+          "3": 0.24989583333333334,
+          "4": 0.25004166666666666,
+          "5": 0.2503958333333333
+        }
+      },
+      {
+        "train_size": 56000,
+        "counts_by_block": {
+          "2": 13982,
+          "3": 13994,
+          "4": 14003,
+          "5": 14021
+        },
+        "fractions_by_block": {
+          "2": 0.24967857142857142,
+          "3": 0.24989285714285714,
+          "4": 0.25005357142857143,
+          "5": 0.250375
+        }
+      },
+      {
+        "train_size": 64000,
+        "counts_by_block": {
+          "2": 15979,
+          "3": 15993,
+          "4": 16003,
+          "5": 16025
+        },
+        "fractions_by_block": {
+          "2": 0.249671875,
+          "3": 0.249890625,
+          "4": 0.250046875,
+          "5": 0.250390625
+        }
+      },
+      {
+        "train_size": 70000,
+        "counts_by_block": {
+          "2": 17477,
+          "3": 17492,
+          "4": 17504,
+          "5": 17527
+        },
+        "fractions_by_block": {
+          "2": 0.24967142857142857,
+          "3": 0.2498857142857143,
+          "4": 0.25005714285714287,
+          "5": 0.25038571428571427
+        }
+      },
+      {
+        "train_size": 72000,
+        "counts_by_block": {
+          "2": 17977,
+          "3": 17992,
+          "4": 18003,
+          "5": 18028
+        },
+        "fractions_by_block": {
+          "2": 0.24968055555555554,
+          "3": 0.24988888888888888,
+          "4": 0.25004166666666666,
+          "5": 0.2503888888888889
+        }
+      },
+      {
+        "train_size": 80000,
+        "counts_by_block": {
+          "2": 19974,
+          "3": 19991,
+          "4": 20004,
+          "5": 20031
+        },
+        "fractions_by_block": {
+          "2": 0.249675,
+          "3": 0.2498875,
+          "4": 0.25005,
+          "5": 0.2503875
+        }
+      }
+    ]
+  },
+  "release_selection_metadata": [
+    "development_fixed_split_original.pt",
+    "ood_6to10blocks_generation_summary.yml",
+    "test_seed43_selection_manifest.json",
+    "validation_seed42_selection_manifest.csv",
+    "validation_seed42_selection_provenance.json"
+  ]
+}

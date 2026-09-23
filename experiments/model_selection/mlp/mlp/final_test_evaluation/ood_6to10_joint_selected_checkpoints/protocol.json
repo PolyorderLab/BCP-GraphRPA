@@ -1,0 +1,34 @@
+{
+  "ood_source_dir": "/home/zxy/project/TAPD/TrainData/data/transfer/6to10blocks_500_each",
+  "descriptor_matrix": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/final_test_evaluation/ood_6to10_frozen_checkpoints/ood_6to10_descriptor_matrix.csv",
+  "block_counts": [
+    6,
+    7,
+    8,
+    9,
+    10
+  ],
+  "samples_per_block": 500,
+  "total_samples": 2500,
+  "checkpoints": [
+    "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/joint_selected_configuration/checkpoints/joint_selected__seed202601.pt",
+    "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/joint_selected_configuration/checkpoints/joint_selected__seed202602.pt",
+    "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/joint_selected_configuration/checkpoints/joint_selected__seed202603.pt",
+    "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/joint_selected_configuration/checkpoints/joint_selected__seed202604.pt",
+    "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/joint_selected_configuration/checkpoints/joint_selected__seed202605.pt"
+  ],
+  "n_checkpoints": 5,
+  "formal_configuration": {
+    "batch_size": 256,
+    "lr": 0.0005,
+    "hidden_dim": 256,
+    "depth": 3,
+    "dropout": 0.0,
+    "weight_decay": 1e-05
+  },
+  "inference_only": true,
+  "retraining": false,
+  "fine_tuning": false,
+  "ood_labels_used_for_model_selection_or_calibration": false,
+  "aggregation": "mean and sample SD (ddof=1) of the five frozen-checkpoint metrics"
+}

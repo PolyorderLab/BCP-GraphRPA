@@ -1,0 +1,244 @@
+{
+  "topology": "A1B1T(A2,B2,B3)",
+  "checkpoint": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/finalmodel/C2_nested_train__80k__seed202601",
+  "device": "cuda:3",
+  "model_condition": "C2_virtualnode_learnable_node_full_edge",
+  "architecture": "LearnableNodeGINEEncoder(hidden_dim=512, num_layers=5, virtual node)",
+  "selection": "seed202601: lowest leakage-free development-validation MAPE among finalmodel checkpoints (0.36665%)",
+  "f_A": [
+    0.1,
+    0.2,
+    0.3,
+    0.4,
+    0.5,
+    0.6,
+    0.7,
+    0.8,
+    0.9
+  ],
+  "rho": [
+    0.5,
+    1,
+    2,
+    5,
+    10
+  ],
+  "explainer": {
+    "n_sample_edge": 225,
+    "spearman_abs_rpa_vs_deletion": 0.6441500703026082
+  },
+  "probe": [
+    {
+      "layer": 0,
+      "concept": "S_AA",
+      "n": 45,
+      "R2_grouped_by_rho": -0.0638106417859452
+    },
+    {
+      "layer": 0,
+      "concept": "S_BB",
+      "n": 45,
+      "R2_grouped_by_rho": -0.15295353806481482
+    },
+    {
+      "layer": 0,
+      "concept": "S_AB",
+      "n": 45,
+      "R2_grouped_by_rho": -0.09240583515757694
+    },
+    {
+      "layer": 0,
+      "concept": "q_star",
+      "n": 45,
+      "R2_grouped_by_rho": -0.14999774443430614
+    },
+    {
+      "layer": 0,
+      "concept": "chiN_star",
+      "n": 45,
+      "R2_grouped_by_rho": -0.0769826118968795
+    },
+    {
+      "layer": 1,
+      "concept": "S_AA",
+      "n": 45,
+      "R2_grouped_by_rho": -51.70157439742267
+    },
+    {
+      "layer": 1,
+      "concept": "S_BB",
+      "n": 45,
+      "R2_grouped_by_rho": -45.569651166024464
+    },
+    {
+      "layer": 1,
+      "concept": "S_AB",
+      "n": 45,
+      "R2_grouped_by_rho": -59.20524676442524
+    },
+    {
+      "layer": 1,
+      "concept": "q_star",
+      "n": 45,
+      "R2_grouped_by_rho": -11.517222611482415
+    },
+    {
+      "layer": 1,
+      "concept": "chiN_star",
+      "n": 45,
+      "R2_grouped_by_rho": -43.17335895148509
+    },
+    {
+      "layer": 2,
+      "concept": "S_AA",
+      "n": 45,
+      "R2_grouped_by_rho": 0.7194238902123411
+    },
+    {
+      "layer": 2,
+      "concept": "S_BB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.47249156117366453
+    },
+    {
+      "layer": 2,
+      "concept": "S_AB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9129475416988405
+    },
+    {
+      "layer": 2,
+      "concept": "q_star",
+      "n": 45,
+      "R2_grouped_by_rho": -6.26992474682896
+    },
+    {
+      "layer": 2,
+      "concept": "chiN_star",
+      "n": 45,
+      "R2_grouped_by_rho": -5.589187173076582
+    },
+    {
+      "layer": 3,
+      "concept": "S_AA",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9969212959611619
+    },
+    {
+      "layer": 3,
+      "concept": "S_BB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9762341125820452
+    },
+    {
+      "layer": 3,
+      "concept": "S_AB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.966501618797174
+    },
+    {
+      "layer": 3,
+      "concept": "q_star",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9221652843851107
+    },
+    {
+      "layer": 3,
+      "concept": "chiN_star",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9957525678194603
+    },
+    {
+      "layer": 4,
+      "concept": "S_AA",
+      "n": 45,
+      "R2_grouped_by_rho": 0.980399761407413
+    },
+    {
+      "layer": 4,
+      "concept": "S_BB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9578249570950892
+    },
+    {
+      "layer": 4,
+      "concept": "S_AB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9561223146334713
+    },
+    {
+      "layer": 4,
+      "concept": "q_star",
+      "n": 45,
+      "R2_grouped_by_rho": 0.8760454180451241
+    },
+    {
+      "layer": 4,
+      "concept": "chiN_star",
+      "n": 45,
+      "R2_grouped_by_rho": 0.996201940913164
+    },
+    {
+      "layer": 5,
+      "concept": "S_AA",
+      "n": 45,
+      "R2_grouped_by_rho": 0.5634048060436859
+    },
+    {
+      "layer": 5,
+      "concept": "S_BB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.5715018111701037
+    },
+    {
+      "layer": 5,
+      "concept": "S_AB",
+      "n": 45,
+      "R2_grouped_by_rho": 0.8949219910920359
+    },
+    {
+      "layer": 5,
+      "concept": "q_star",
+      "n": 45,
+      "R2_grouped_by_rho": 0.7623630158235848
+    },
+    {
+      "layer": 5,
+      "concept": "chiN_star",
+      "n": 45,
+      "R2_grouped_by_rho": 0.9832214922338853
+    }
+  ],
+  "matched_path": [
+    {
+      "layer": 0,
+      "n_pairs": 11205,
+      "spearman_embedding_vs_RPA_path": -0.013693316607577909
+    },
+    {
+      "layer": 1,
+      "n_pairs": 11205,
+      "spearman_embedding_vs_RPA_path": 0.3357095523820629
+    },
+    {
+      "layer": 2,
+      "n_pairs": 11205,
+      "spearman_embedding_vs_RPA_path": 0.31617903206510084
+    },
+    {
+      "layer": 3,
+      "n_pairs": 11205,
+      "spearman_embedding_vs_RPA_path": 0.4976454384276662
+    },
+    {
+      "layer": 4,
+      "n_pairs": 11205,
+      "spearman_embedding_vs_RPA_path": 0.47740051019681895
+    },
+    {
+      "layer": 5,
+      "n_pairs": 11205,
+      "spearman_embedding_vs_RPA_path": 0.7774114999680604
+    }
+  ]
+}

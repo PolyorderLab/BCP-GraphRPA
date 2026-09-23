@@ -1,0 +1,42 @@
+{
+  "task": "single-task chiN",
+  "train_data_dir": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "test_data_dir": "SEALED: not available to validation worker",
+  "epochs": 200,
+  "hidden_dim": 128,
+  "learning_rate": 0.001,
+  "batch_size": 128,
+  "num_layers": 4,
+  "dec_layers": 1,
+  "val_fraction": 0.2,
+  "split_random_state": 42,
+  "optimizer": "Adam",
+  "scheduler": {
+    "name": "ReduceLROnPlateau",
+    "mode": "min",
+    "factor": 0.5,
+    "patience": 10
+  },
+  "loss": "MSE on log10(chiN*)",
+  "eval": "convert back to original scale; report MAPE, RMSE, MAE, R2, MaxAE",
+  "aliases": [
+    "C3"
+  ],
+  "group_labels": [
+    "Experiment C: node-feature confirmation"
+  ],
+  "condition_label": "virtual node with [degree, avg_neighbor_degree]",
+  "graph_label": "original bidirectional + virtual node",
+  "node_features_label": "[degree, avg_neighbor_degree]",
+  "edge_features_label": "[f, A/B]",
+  "graph_builder": "virtual_node",
+  "node_builder": "degree_avg_neighbor_degree",
+  "edge_mode": "full",
+  "optional": true,
+  "condition_key": "C3_virtualnode_degree_avg_neighbor_full_edge",
+  "run_id": "C3_virtualnode_degree_avg_neighbor_full_edge__seed202605",
+  "seed": 202605,
+  "dataset_cache_dir": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "early_stopping_patience": 30,
+  "frozen_hyperparameters": true
+}

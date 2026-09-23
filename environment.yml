@@ -1,0 +1,8 @@
+name: tapd
+channels:
+  - conda-forge
+dependencies:
+  - python=3.12.10
+  - pip=25.0.1
+  - pip:
+      - -r requirements.txt

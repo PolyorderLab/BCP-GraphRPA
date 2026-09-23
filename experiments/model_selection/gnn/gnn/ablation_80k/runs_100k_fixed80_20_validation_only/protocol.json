@@ -1,0 +1,29 @@
+{
+  "phase": "validation-only A/B/C ablation after hyperparameter freeze",
+  "development_data": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "split": {
+    "random_state": 42,
+    "train_size": 80000,
+    "validation_size": 20000,
+    "copied_from": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz"
+  },
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "frozen_hyperparameters": {
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "hidden_dim": 128,
+    "num_layers": 4,
+    "dec_layers": 1
+  },
+  "frozen_from": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/summary/selected_by_validation_mape.json",
+  "development_cache_reused_from": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache",
+  "condition_source": "/home/zxy/project/TAPD/mainmodel/scripts/train_single_chin_supplementary_confirmation.py",
+  "final_test": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42",
+  "final_test_policy": "not read in this phase"
+}

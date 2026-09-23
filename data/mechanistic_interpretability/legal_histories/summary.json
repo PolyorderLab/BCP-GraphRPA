@@ -1,0 +1,44 @@
+{
+  "checkpoint": "/home/zxy/project/TAPD/add/mechanistic_interpretability_legal_history/checkpoints/C2_nested_train__80k__seed202601",
+  "history_definition": "all node orders satisfying the generator's sequential tree-growth rule",
+  "n_conditions": 45,
+  "n_assignments": 1170,
+  "n_histories_per_assignment": 132,
+  "n_prediction_rows": 154440,
+  "summary": [
+    {
+      "layer": 0,
+      "n_pairs": 16065,
+      "spearman_mean_embedding_vs_RPA_path": NaN
+    },
+    {
+      "layer": 1,
+      "n_pairs": 16065,
+      "spearman_mean_embedding_vs_RPA_path": 0.33688427768605045
+    },
+    {
+      "layer": 2,
+      "n_pairs": 16065,
+      "spearman_mean_embedding_vs_RPA_path": 0.3180980863320644
+    },
+    {
+      "layer": 3,
+      "n_pairs": 16065,
+      "spearman_mean_embedding_vs_RPA_path": 0.5042945268026244
+    },
+    {
+      "layer": 4,
+      "n_pairs": 16065,
+      "spearman_mean_embedding_vs_RPA_path": 0.47192370080880147
+    },
+    {
+      "layer": 5,
+      "n_pairs": 16065,
+      "spearman_mean_embedding_vs_RPA_path": 0.7751193752995564
+    }
+  ],
+  "prediction_stability": {
+    "mean_abs_relative_percent": 0.12452895763911243,
+    "p95_max_abs_relative_percent": 0.5604106187820435
+  }
+}

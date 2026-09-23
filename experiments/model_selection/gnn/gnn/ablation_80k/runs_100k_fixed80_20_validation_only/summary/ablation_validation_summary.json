@@ -1,0 +1,96 @@
+{
+  "selection_status": "hyperparameters frozen",
+  "final_test_status": "sealed",
+  "conditions": [
+    {
+      "condition_key": "A2_virtualnode_free_branch_degree_edge_f_only",
+      "aliases": "A2",
+      "condition_label": "virtual node, edge f only",
+      "optional": false,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 19.919163131713866,
+      "validation_mape_sd_percent": 0.16436809709900788,
+      "validation_mape_per_seed_percent": "[19.973346710205078, 19.949573516845703, 20.1512451171875, 19.750751495361328, 19.770898818969727]"
+    },
+    {
+      "condition_key": "A3_virtualnode_free_branch_degree_edge_type_only",
+      "aliases": "A3",
+      "condition_label": "virtual node, edge A/B only",
+      "optional": false,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 68.50116729736328,
+      "validation_mape_sd_percent": 0.24345947099240528,
+      "validation_mape_per_seed_percent": "[68.56800842285156, 68.59579467773438, 68.089599609375, 68.73346710205078, 68.51896667480469]"
+    },
+    {
+      "condition_key": "B2_bidirectional_free_branch_degree_full_edge",
+      "aliases": "B2",
+      "condition_label": "bidirectional without virtual node",
+      "optional": false,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 1.2593505740165711,
+      "validation_mape_sd_percent": 0.3262146961016464,
+      "validation_mape_per_seed_percent": "[0.9161719083786011, 1.5842715501785278, 1.534916639328003, 0.9147352576255798, 1.3466575145721436]"
+    },
+    {
+      "condition_key": "B3_line_graph_free_branch_degree_full_edge",
+      "aliases": "B3",
+      "condition_label": "line graph",
+      "optional": false,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 30.8285982131958,
+      "validation_mape_sd_percent": 11.400755874360724,
+      "validation_mape_per_seed_percent": "[10.437275886535645, 36.04066467285156, 36.100704193115234, 35.964332580566406, 35.600013732910156]"
+    },
+    {
+      "condition_key": "B4_bipartite_free_branch_degree_full_edge",
+      "aliases": "B4",
+      "condition_label": "bipartite graph",
+      "optional": true,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 1.165341567993164,
+      "validation_mape_sd_percent": 0.1299396008793448,
+      "validation_mape_per_seed_percent": "[0.9578933715820312, 1.1266225576400757, 1.226149082183838, 1.2254129648208618, 1.2906298637390137]"
+    },
+    {
+      "condition_key": "B5_self_loop_free_branch_degree_full_edge",
+      "aliases": "B5",
+      "condition_label": "self-loop graph",
+      "optional": true,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 2.476263499259949,
+      "validation_mape_sd_percent": 2.3262884974628943,
+      "validation_mape_per_seed_percent": "[0.9064091444015503, 2.4214842319488525, 6.507107734680176, 1.4080641269683838, 1.1382522583007812]"
+    },
+    {
+      "condition_key": "C2_virtualnode_learnable_node_full_edge",
+      "aliases": "C2",
+      "condition_label": "virtual node with learnable node embeddings",
+      "optional": true,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.719117796421051,
+      "validation_mape_sd_percent": 0.06866215322338205,
+      "validation_mape_per_seed_percent": "[0.650642991065979, 0.710166871547699, 0.7565816640853882, 0.8161929249763489, 0.6620045304298401]"
+    },
+    {
+      "condition_key": "C3_virtualnode_degree_avg_neighbor_full_edge",
+      "aliases": "C3",
+      "condition_label": "virtual node with [degree, avg_neighbor_degree]",
+      "optional": true,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.9772282481193543,
+      "validation_mape_sd_percent": 0.31786136902729983,
+      "validation_mape_per_seed_percent": "[0.8329820036888123, 1.191214919090271, 1.425546646118164, 0.752581000328064, 0.68381667137146]"
+    },
+    {
+      "condition_key": "S01_full_virtualnode_free_branch_degree_full_edge",
+      "aliases": "A1;B1;C1",
+      "condition_label": "full virtual-node baseline",
+      "optional": false,
+      "n_seeds": 5,
+      "validation_mape_mean_percent": 0.7849498987197876,
+      "validation_mape_sd_percent": 0.1053391673391718,
+      "validation_mape_per_seed_percent": "[0.7238396406173706, 0.9055876135826111, 0.8587198257446289, 0.7950193285942078, 0.6415830850601196]"
+    }
+  ]
+}

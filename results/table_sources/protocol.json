@@ -1,0 +1,50 @@
+{
+  "protocol_version": "c2_iterative_local_grid_v2_20260822",
+  "ledger": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/ITERATIVE_LOCAL_GRID_RECORD.md",
+  "development_pool": "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_100k",
+  "train_size": 80000,
+  "validation_size": 20000,
+  "split_source": "/home/zxy/project/TAPD/baselinemodels/pub0818/gnn/ablation_80k/runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz",
+  "l0": {
+    "condition": "C2_virtualnode_learnable_node_full_edge",
+    "hyperparameters": {
+      "batch_size": 128,
+      "learning_rate": 0.001,
+      "hidden_dim": 128,
+      "num_layers": 5,
+      "dec_layers": 1
+    },
+    "seeds": [
+      202601,
+      202602,
+      202603,
+      202604,
+      202605
+    ]
+  },
+  "l1_grid": {
+    "batch_size": [
+      64,
+      128,
+      256
+    ],
+    "learning_rate": [
+      0.0005,
+      0.001,
+      0.002
+    ],
+    "hidden_dim": [
+      64,
+      128,
+      256
+    ]
+  },
+  "l1_screen_seeds": [
+    202601,
+    202602,
+    202603
+  ],
+  "promotion_rule": "mean improvement >=5% and >=4/5 paired-seed wins",
+  "test_a_policy": "not accessed by bootstrap or any validation phase",
+  "test_b_policy": "sealed and not constructed"
+}

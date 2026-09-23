@@ -1,0 +1,49 @@
+{
+  "runner": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/run_mlp_stratified_nested.py",
+  "source_runner": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/training_size_nested_80k_common_val_seed42/run_nested_training_size.py",
+  "nested_subset_rule": "within each 2/3/4/5-block stratum: one random_state=42 permutation; monotone largest-remainder quotas proportional to the frozen 80k pool",
+  "train_sizes": [
+    8000,
+    16000,
+    24000,
+    32000,
+    40000,
+    48000,
+    56000,
+    64000,
+    72000,
+    80000
+  ],
+  "seeds": [
+    202601,
+    202602,
+    202603,
+    202604,
+    202605
+  ],
+  "features": [
+    "SLE",
+    "r_deg",
+    "CV_arm",
+    "n_leaves",
+    "M_AB",
+    "IR",
+    "D_f",
+    "ISC",
+    "CAF",
+    "tau_mean",
+    "f_A"
+  ],
+  "configuration": {
+    "batch_size": 256,
+    "lr": 0.0005,
+    "hidden_dim": 256,
+    "depth": 3,
+    "dropout": 0.0,
+    "weight_decay": 1e-05,
+    "epochs": 200,
+    "patience": 30
+  },
+  "fixed_split": "/home/zxy/project/TAPD/baselinemodels/pub0818/mlp/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz",
+  "stratification_audit": "/home/zxy/project/TAPD/baselinemodels/pub0818/add/correct/results/mlp/nested_indices/stratification_audit.json"
+}

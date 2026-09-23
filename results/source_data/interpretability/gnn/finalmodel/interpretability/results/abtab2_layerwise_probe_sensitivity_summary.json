@@ -1,0 +1,23 @@
+{
+  "n_settings": 15,
+  "pca_components": [
+    2,
+    3,
+    4,
+    6,
+    8
+  ],
+  "ridge_alphas": [
+    10.0,
+    100.0,
+    1000.0
+  ],
+  "best_layer_by_mean_counts": {
+    "GINE-1": 1,
+    "GINE-2": 4,
+    "GINE-3": 10
+  },
+  "GINE2_or_GINE3_best_by_mean_count": 14,
+  "Input_or_GINE1_best_by_mean_count": 1,
+  "interpretation": "Sensitivity analysis only; outer leave-one-rho-out scores were not used to select the canonical PCA(2)+Ridge(10) probe."
+}
