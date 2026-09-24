@@ -37,7 +37,7 @@ from torch_geometric.data import Data
 from torch_geometric.loader import DataLoader
 from tqdm import trange
 
-PROJECT_ROOT = Path("/home/zxy/project/TAPD")
+PROJECT_ROOT = Path(__file__).resolve().parents[6]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.data_utils import load_and_process_dataset  # noqa: E402
@@ -46,17 +46,10 @@ from src.ira_graph_common import SingleTaskRegressor, VirtualNodeWrapper  # noqa
 from src.plotting import compute_metrics  # noqa: E402
 
 
-TRAIN_DATA_DIR = PROJECT_ROOT / "TrainData/data/chiNlimited/n_train_100k"
-TEST_DATA_DIR = (
-    PROJECT_ROOT
-    / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent"
-)
-FINALMODEL_ROOT = PROJECT_ROOT / "baselinemodels/pub0818/gnn/finalmodel"
-CHIN_GRAPH_CACHE = (
-    PROJECT_ROOT
-    / "baselinemodels/pub0818/gnn/hyperparameter_selection_80k/"
-    "runs_100k_fixed80_20_validation_only/dataset_cache/n_train_100k_chiN_data.pt"
-)
+TRAIN_DATA_DIR = PROJECT_ROOT / "data/datasets/development_100k"
+TEST_DATA_DIR = PROJECT_ROOT / "data/datasets/seed43_2k"
+FINALMODEL_ROOT = PROJECT_ROOT / "checkpoints/gnn"
+CHIN_GRAPH_CACHE = PROJECT_ROOT / "results/cache/n_train_100k_chiN_data.pt"
 SEEDS = (202601, 202602, 202603, 202604, 202605)
 # ``scratch`` deliberately keeps the C2 architecture (including the learnable
 # positional node table) but skips loading any chiN checkpoint.  It is the

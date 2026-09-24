@@ -96,7 +96,7 @@ def summarize(runs: Path, output: Path) -> None:
 
 def main() -> None:
     here = Path(__file__).resolve().parent
-    root = here.parents[3]
+    root = here.parents[4]
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=here / "runs_100k_fixed80_20_validation_only")
     parser.add_argument(
@@ -119,10 +119,10 @@ def main() -> None:
     manifest = build_manifest()
     (args.output_dir / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     (args.output_dir / "protocol.json").write_text(json.dumps({
-        "development_data": str(root / "TrainData/data/chiNlimited/n_train_100k"), "development_count": 100000,
+        "development_data": str(root / "data/datasets/development_100k"), "development_count": 100000,
         "train_csv": str(args.train_csv.resolve()), "split": split, "features": list(FEATURES), "seeds": list(SEEDS),
         "checkpoint_selection": "validation MSE in log10 chiN*", "hyperparameter_selection": "five-seed mean validation MAPE on original chiN* scale",
-        "final_test": str(root / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42"),
+        "final_test": str(root / "data/datasets/validation_seed42"),
         "final_test_policy": "declared but never read or passed to this search; use only after selected values are frozen",
         "expected_runs": len(manifest), "slots_per_gpu": args.slots_per_gpu,
     }, indent=2), encoding="utf-8")
@@ -130,7 +130,7 @@ def main() -> None:
     completed = [task["experiment_id"] for task in manifest if (runs / f"{task['experiment_id']}.json").exists()]
     slots = [int(gpu) for gpu in args.gpus.split(",") for _ in range(args.slots_per_gpu)]
     active: list[dict] = []; retries: dict[str, int] = {}; failed: list[dict] = []
-    worker = here / "mlp_validation_worker.py"
+    worker = root / "src/models/mlp_validation_worker.py"
     while pending or active:
         available = list(slots)
         for item in active: available.remove(item["gpu"])

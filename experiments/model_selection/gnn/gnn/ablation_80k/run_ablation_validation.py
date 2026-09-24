@@ -74,7 +74,7 @@ def build_tasks(frozen: dict) -> list[dict]:
             cfg.update({
                 "run_id": run_id,
                 "seed": seed,
-                "train_data_dir": str(ROOT / "TrainData/data/chiNlimited/n_train_100k"),
+                "train_data_dir": str(ROOT / "data/datasets/development_100k"),
                 "dataset_cache_dir": str(HYPER_ROOT / "dataset_cache"),
                 "test_data_dir": "SEALED: not available to validation worker",
                 "epochs": 200, "minimum_epochs": 120,
@@ -143,14 +143,14 @@ def main() -> None:
     (args.output_dir / "manifest.json").write_text(json.dumps(tasks, indent=2), encoding="utf-8")
     (args.output_dir / "protocol.json").write_text(json.dumps({
         "phase": "validation-only A/B/C ablation after hyperparameter freeze",
-        "development_data": str(ROOT / "TrainData/data/chiNlimited/n_train_100k"),
+        "development_data": str(ROOT / "data/datasets/development_100k"),
         "split": split,
         "seeds": SEEDS,
         "frozen_hyperparameters": frozen,
         "frozen_from": str(HYPER_ROOT / "summary/selected_by_validation_mape.json"),
         "development_cache_reused_from": str(HYPER_ROOT / "dataset_cache"),
         "condition_source": str(ROOT / "mainmodel/scripts/train_single_chin_supplementary_confirmation.py"),
-        "final_test": str(ROOT / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42"),
+        "final_test": str(ROOT / "data/datasets/validation_seed42"),
         "final_test_policy": "not read in this phase",
     }, indent=2), encoding="utf-8")
     for task in tasks:
@@ -163,7 +163,7 @@ def main() -> None:
     active: list[dict] = []
     retries: dict[str, int] = {}
     slots = [gpu for gpu in args.gpus.split(",") for _ in range(args.slots_per_gpu)]
-    worker = GNN_ROOT / "gnn_validation_worker.py"
+    worker = ROOT / "src/models/gnn_validation_worker.py"
     while pending or active:
         used = {gpu: sum(item["gpu"] == gpu for item in active) for gpu in set(slots)}
         free = []

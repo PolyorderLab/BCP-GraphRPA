@@ -11,27 +11,28 @@ import os
 import re
 import statistics
 import subprocess
+import sys
 import time
 from copy import deepcopy
 from pathlib import Path
 
 
-ROOT = Path("/home/zxy/project/TAPD")
-CODE_ROOT = ROOT / "baselinemodels/pub0818/transfomer"
+ROOT = Path(__file__).resolve().parents[4]
+CODE_ROOT = Path(__file__).resolve().parent
 # The default preserves the published 100k study.  Dedicated reruns can set
 # these paths through the environment so their manifests, checkpoints, and
 # summaries remain completely separate.
 EXPERIMENT_ROOT = Path(os.environ.get("TRANSFORMER_EXPERIMENT_ROOT", str(CODE_ROOT)))
-PYTHON = ROOT / ".venv/bin/python"
+PYTHON = Path(sys.executable)
 TRAINER = CODE_ROOT / "train_validation_only.py"
 DATA_DIR = Path(os.environ.get(
-    "TRANSFORMER_DATA_DIR", str(ROOT / "TrainData/data/chiNlimited/n_train_100k")
+    "TRANSFORMER_DATA_DIR", str(ROOT / "data/datasets/development_100k")
 ))
 RECORDS_CACHE = Path(os.environ.get(
-    "TRANSFORMER_RECORDS_CACHE", str(CODE_ROOT / "data_cache/n_train_100k_records.pkl")
+    "TRANSFORMER_RECORDS_CACHE", str(ROOT / "results/cache/transformer_n_train_100k_records.pkl")
 ))
 FINAL_TEST_DIR = Path(os.environ.get(
-    "TRANSFORMER_FINAL_TEST_DIR", str(ROOT / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42")
+    "TRANSFORMER_FINAL_TEST_DIR", str(ROOT / "data/datasets/validation_seed42")
 ))
 SEEDS = [202601, 202602, 202603, 202604, 202605]
 

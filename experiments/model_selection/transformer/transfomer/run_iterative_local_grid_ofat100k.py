@@ -33,14 +33,14 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-ROOT = Path("/home/zxy/project/TAPD")
-CODE_ROOT = ROOT / "baselinemodels/pub0818/transfomer"
+ROOT = Path(__file__).resolve().parents[4]
+CODE_ROOT = Path(__file__).resolve().parent
 OUTPUT = CODE_ROOT / "iterative_local_grid_ofat100k_baseline_center"
-DATA_DIR = ROOT / "TrainData/data/chiNlimited/n_train_100k"
-CACHE = CODE_ROOT / "data_cache/n_train_100k_records.pkl"
+DATA_DIR = ROOT / "data/datasets/development_100k"
+CACHE = ROOT / "results/cache/transformer_n_train_100k_records.pkl"
 TRAINER = CODE_ROOT / "train_validation_only.py"
 SOURCE_OFAT = CODE_ROOT / "ofat"
-PYTHON = ROOT / ".venv/bin/python"
+PYTHON = Path(sys.executable)
 
 SPLIT_SEED = 42
 TRAIN_COUNT = 80_000
@@ -109,6 +109,18 @@ def write_json(path: Path, payload: object) -> None:
     write_immutable(path, json_text(payload))
 
 
+def sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as handle:
+        for block in iter(lambda: handle.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def names_sha256(names: list[str]) -> str:
+    return hashlib.sha256("\n".join(names).encode("utf-8")).hexdigest()
+
+
 def load_cache() -> dict:
     if not CACHE.is_file():
         raise FileNotFoundError(f"Missing verified cache: {CACHE}")
@@ -122,6 +134,8 @@ def load_cache() -> dict:
     names = [str(record["base_name"]) for record in records]
     if len(set(names)) != len(names):
         raise RuntimeError("Cache contains duplicate base names")
+    if payload.get("listing_sha256") != names_sha256(names):
+        raise RuntimeError("Cache listing hash mismatch")
     return payload
 
 
@@ -153,6 +167,13 @@ def prepare_split(payload: dict) -> dict:
         )
     return {
         "path": str(split_path.resolve()),
+        "sha256": sha256_file(split_path),
+        "train_membership_sha256": names_sha256(
+            sorted(records[int(index)]["base_name"] for index in train_indices)
+        ),
+        "validation_membership_sha256": names_sha256(
+            sorted(records[int(index)]["base_name"] for index in validation_indices)
+        ),
         "train_count": len(train_indices),
         "validation_count": len(validation_indices),
     }
@@ -172,6 +193,12 @@ def slug(value: object) -> str:
     return str(value).replace("_", "-")
 
 
+def config_signature(config: dict) -> str:
+    keys = tuple(ANCHOR.keys())
+    canonical = {key: config[key] for key in keys}
+    return hashlib.sha256(json.dumps(canonical, sort_keys=True).encode("utf-8")).hexdigest()
+
+
 def config_id(config: dict) -> str:
     return (
         f"cfg_b{config['batch_size']}_lr{slug(config['lr'])}_"
@@ -185,6 +212,7 @@ def config_id(config: dict) -> str:
 def canonical_config(config: dict) -> dict:
     result = {key: config[key] for key in ANCHOR}
     result["config_id"] = config_id(result)
+    result["config_sha256"] = config_signature(result)
     result["protocol_version"] = PROTOCOL_VERSION
     result["selection_metric"] = "five-seed mean validation_MAPE"
     result["checkpoint_metric"] = "validation log-MSE"
@@ -233,9 +261,9 @@ def unique_configs(configs: list[dict]) -> list[dict]:
     seen = set()
     for config in configs:
         item = canonical_config(config)
-        if item["config_id"] in seen:
+        if item["config_sha256"] in seen:
             continue
-        seen.add(item["config_id"])
+        seen.add(item["config_sha256"])
         output.append(item)
     return output
 
@@ -290,14 +318,20 @@ def audit_anchor(split: dict) -> dict:
             raise RuntimeError(f"Anchor data split mismatch: {source}")
         if data.get("validation_count") != VALIDATION_COUNT or data.get("test_loaded") is not False:
             raise RuntimeError(f"Anchor data test audit failed: {source}")
+        if data.get("train_membership_sha256") != split["train_membership_sha256"]:
+            raise RuntimeError(f"Anchor train membership mismatch: {source}")
+        if data.get("validation_membership_sha256") != split["validation_membership_sha256"]:
+            raise RuntimeError(f"Anchor validation membership mismatch: {source}")
         source_runs[str(seed)] = {
             "source_run": str(source.resolve()),
             "source_log": str((SOURCE_OFAT / "logs" / f"anchor__seed{seed}.log").resolve()),
+            "file_sha256": {name: sha256_file(source / name) for name in required},
             "validation_MAPE": metrics["validation_MAPE"],
             "epochs_completed": metrics["epochs_completed"],
         }
     return {
         "source_manifest": str(source_manifest_path.resolve()),
+        "source_manifest_sha256": sha256_file(source_manifest_path),
         "runs": source_runs,
     }
 
@@ -343,7 +377,7 @@ def prepare() -> dict:
         "protocol_version": PROTOCOL_VERSION,
         "runner": str(Path(__file__).resolve()),
         "development_directory": str(DATA_DIR.resolve()),
-        "records_cache": {"path": str(CACHE.resolve())},
+        "records_cache": {"path": str(CACHE.resolve()), "sha256": sha256_file(CACHE), "listing_sha256": payload["listing_sha256"]},
         "fixed_split": split,
         "seeds": list(SEEDS),
         "anchor": anchor,
@@ -404,6 +438,8 @@ def run_valid(config: dict, seed: int) -> bool:
             and data.get("train_count") == TRAIN_COUNT
             and data.get("validation_count") == VALIDATION_COUNT
             and data.get("test_loaded") is False
+            and data.get("train_membership_sha256") == load_manifest()["fixed_split"]["train_membership_sha256"]
+            and data.get("validation_membership_sha256") == load_manifest()["fixed_split"]["validation_membership_sha256"]
         )
     except (OSError, ValueError, TypeError, KeyError, json.JSONDecodeError):
         return False
@@ -668,7 +704,7 @@ def run_l4(args: argparse.Namespace) -> dict:
         best_value = (best["d_model"], best["num_heads"]) if family == "model_size" else best[family]
         audit.append({"coordinate": family, "incumbent_value": incumbent_value, "target_value": target_value, "best_challenger_config_id": best["config_id"], "best_challenger_value": best_value, "best_challenger_mean": best_mean, "incumbent_mean": mean(incumbent_values), "relative_improvement_percent": 100 * (mean(incumbent_values) - best_mean) / mean(incumbent_values), "paired_seed_wins": sum(new < old for old, new in zip(incumbent_values, best_values)), "target_center_retained": best_value == target_value})
     write_rows(OUTPUT / "summary" / "L4_coordinate_audit.csv", audit)
-    result = {"stage": "L4", "diagnostic_only": True, "selection_reopened": False, "frozen_incumbent": incumbent, "coordinate_audit": audit, "target_config": canonical_config(TARGET), "target_reached_after_L3": config_id(incumbent) == config_id(TARGET), "test_accessed": False}
+    result = {"stage": "L4", "diagnostic_only": True, "selection_reopened": False, "frozen_incumbent": incumbent, "coordinate_audit": audit, "target_config": canonical_config(TARGET), "target_reached_after_L3": config_signature(incumbent) == config_signature(TARGET), "test_accessed": False}
     write_json(OUTPUT / "summary" / "L4_completion.json", result)
     write_json(OUTPUT / "summary" / "search_result.json", {"target": canonical_config(TARGET), "L3_winner": incumbent, "target_reached": result["target_reached_after_L3"], "L4_coordinate_audit": audit, "test_accessed": False})
     return result

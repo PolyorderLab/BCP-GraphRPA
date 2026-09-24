@@ -25,15 +25,15 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 
 
-ROOT = Path("/home/zxy/project/TAPD")
-CODE_ROOT = ROOT / "baselinemodels/pub0818/transfomer"
+ROOT = Path(__file__).resolve().parents[3]
+CODE_ROOT = Path(__file__).resolve().parent
 STUDY_ROOT = CODE_ROOT / "nested_data_scaling_80k_pool_seed42"
-DATA_DIR = ROOT / "TrainData/data/chiNlimited/n_train_100k"
-TEST_DIR = ROOT / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42"
+DATA_DIR = ROOT / "data/datasets/development_100k"
+TEST_DIR = ROOT / "data/datasets/validation_seed42"
 CACHE = CODE_ROOT / "data_cache/n_train_100k_records.pkl"
 TRAINER = CODE_ROOT / "train_validation_only.py"
 EVALUATOR = CODE_ROOT / "evaluate_final_test.py"
-PYTHON = ROOT / ".venv/bin/python"
+PYTHON = Path(sys.executable)
 
 SIZES_K = [8, 16, 24, 32, 40, 48, 56, 64, 72, 80]
 SEEDS = [202601, 202602, 202603, 202604, 202605]

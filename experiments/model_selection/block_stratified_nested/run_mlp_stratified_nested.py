@@ -17,12 +17,12 @@ import numpy as np
 from stratified_nested_common import block_labels, build_stratified_nested_indices, load_sample_ids, write_indices
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[3]
-MLP_ROOT = ROOT / "baselinemodels/pub0818/mlp"
+ROOT = HERE.parents[2]
+MLP_ROOT = ROOT / "experiments/model_selection/mlp/mlp"
 SEARCH_ROOT = MLP_ROOT / "hyperparameter_selection_80k"
 TRAIN_CSV = SEARCH_ROOT / "data/n_train_100k_descriptor_matrix.csv"
-SPLIT_FILE = SEARCH_ROOT / "runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz"
-WORKER = SEARCH_ROOT / "mlp_validation_worker.py"
+SPLIT_FILE = ROOT / "data/splits/development_fixed_80k_20k_seed42.npz"
+WORKER = ROOT / "src/models/mlp_validation_worker.py"
 OUTPUT = HERE / "results/mlp"
 SEEDS = (202601, 202602, 202603, 202604, 202605)
 SIZES = tuple(range(8_000, 80_001, 8_000))
@@ -46,7 +46,7 @@ def prepare() -> list[dict]:
     (OUTPUT / "manifest.json").write_text(json.dumps(tasks, indent=2), encoding="utf-8")
     protocol = {
         "runner": str(Path(__file__).resolve()),
-        "source_runner": str(MLP_ROOT / "training_size_nested_80k_common_val_seed42/run_nested_training_size.py"),
+        "source_runner": str(Path(__file__).resolve()),
         "nested_subset_rule": "within each 2/3/4/5-block stratum: one random_state=42 permutation; monotone largest-remainder quotas proportional to the frozen 80k pool",
         "train_sizes": list(SIZES), "seeds": list(SEEDS), "features": FEATURES.split(","),
         "configuration": CONFIG, "fixed_split": str(SPLIT_FILE),

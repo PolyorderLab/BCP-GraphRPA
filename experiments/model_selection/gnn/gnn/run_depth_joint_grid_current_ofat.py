@@ -18,11 +18,11 @@ import numpy as np
 import torch
 
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 GNN_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from baselinemodels.pub0818.gnn.run_iterative_local_grid import (
+from experiments.model_selection.gnn.gnn.run_iterative_local_grid import (
     BASELINE_HYPER,
     SEEDS,
     SOURCE_SPLIT,
@@ -73,6 +73,7 @@ def prepare_output(output: Path) -> dict:
         "actual_train_size": int(len(train)),
         "validation_size": int(len(val)),
         "split_source": str(SOURCE_SPLIT),
+        "split_sha256": "9995508aa196f47693482c09f4ec2a5ba17db19a5a3d000a0e20c848532d4567",
         "seeds": SEEDS,
         "selection_metric": "five-seed mean original-scale validation MAPE",
         "test_policy": "no Test-A or Test-B access",

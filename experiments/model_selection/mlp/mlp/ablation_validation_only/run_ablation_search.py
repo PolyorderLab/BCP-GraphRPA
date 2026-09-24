@@ -53,23 +53,25 @@ def pool_tasks():
              "split":f"train_{n//1000}k_split_indices.npz", "max_train":None} for n in POOL_SIZES for seed in SEEDS]
 
 def prepare_matrix(project, n):
-    sys.path.insert(0, str(project / "baselinemodels/mlp_pub"))
+    here = Path(__file__).resolve().parent
+    sys.path.insert(0, str(here.parent / "descriptor_selection_80k"))
     import analyze_descriptors as mod
-    d = project / "baselinemodels/pub0818/mlp/ablation_validation_only/data"; csv = d / f"train_{n//1000}k_descriptor_matrix.csv"
+    d = here / "data"; csv = d / f"train_{n//1000}k_descriptor_matrix.csv"
     if not csv.exists():
-        frame = mod.extract_split(project / "TrainData/data/chiNlimited" / f"n_train_{n//1000}k", "train", workers=8, limit=None)
+        frame = mod.extract_split(project / "data/datasets/pools" / f"n_train_{n//1000}k", "train", workers=8, limit=None)
         frame.to_csv(csv, index=False)
     split_for(n, d / f"train_{n//1000}k_split_indices.npz")
 
 def main():
     here = Path(__file__).resolve().parent
-    root = here.parents[3]
+    root = here.parents[4]
     ap = argparse.ArgumentParser(); ap.add_argument("--gpus", default="0,1,2,3"); ap.add_argument("--slots-per-gpu", type=int, default=3); ap.add_argument("--epochs", type=int, default=200); ap.add_argument("--patience", type=int, default=30); args = ap.parse_args()
     data = here / "data"; data.mkdir(exist_ok=True)
     # Prepare every pool matrix from its own YML/MAT directory; no external test data is touched.
     for n in POOL_SIZES: prepare_matrix(root, n)
     split_for(100000, data / "train_100k_split_indices.npz")
     tasks = descriptor_tasks() + pool_tasks(); out = here / "runs"; logs = here / "logs"; out.mkdir(exist_ok=True); logs.mkdir(exist_ok=True)
+    (here / "predictions").mkdir(exist_ok=True); (here / "checkpoints").mkdir(exist_ok=True)
     (here / "manifest.json").write_text(json.dumps(tasks, indent=2), encoding="utf-8")
     pending = deque(t for t in tasks if not (out / f"{t['id']}.json").exists()); completed = len(tasks)-len(pending); active=[]; failed=[]
     slots=[int(x) for x in args.gpus.split(",") for _ in range(args.slots_per_gpu)]; worker=here/"validation_ablation_worker.py"; status=here/"status.json"

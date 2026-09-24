@@ -11,13 +11,13 @@ import sys
 import time
 from pathlib import Path
 
-PROJECT_ROOT = Path("/home/zxy/project/TAPD")
-TRANSFER_ROOT = PROJECT_ROOT / "baselinemodels/pub0818/gnn/finalmodel/transfer"
+PROJECT_ROOT = Path(__file__).resolve().parents[6]
+TRANSFER_ROOT = Path(__file__).resolve().parent.parent
 GRAPH_TRAINER = TRANSFER_ROOT / "scripts/train_c2_kstar_transfer.py"
 MLP_TRAINER = TRANSFER_ROOT / "scripts/train_kstar_label_curve_embedding_mlp.py"
-DEFAULT_OUTPUT_ROOT = TRANSFER_ROOT / "kstar_label_curve_stratified_20260913"
-TRAIN_CACHE = TRANSFER_ROOT / "data_cache/kstar_train_100k.pt"
-TEST_CACHE = TRANSFER_ROOT / "data_cache/kstar_seed43_independent_2k.pt"
+DEFAULT_OUTPUT_ROOT = PROJECT_ROOT / "results/runs/kstar_label_curve"
+TRAIN_CACHE = PROJECT_ROOT / "results/cache/kstar_train_100k.pt"
+TEST_CACHE = PROJECT_ROOT / "results/cache/kstar_seed43_independent_2k.pt"
 SEEDS = (202601, 202602, 202603, 202604, 202605)
 SIZES = (100, 250, 500, 1000, 2000)
 METHODS = (
@@ -69,7 +69,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--gpus", type=int, nargs="+", default=[0, 1, 2, 3])
     parser.add_argument("--jobs-per-gpu", type=int, default=1)
-    parser.add_argument("--python", default=str(PROJECT_ROOT / ".venv/bin/python"))
+    parser.add_argument("--python", default=sys.executable)
     parser.add_argument("--output-root", type=Path, default=DEFAULT_OUTPUT_ROOT)
     parser.add_argument("--methods", nargs="+", choices=METHODS, default=list(METHODS))
     parser.add_argument("--sizes", nargs="+", type=int, default=list(SIZES))

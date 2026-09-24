@@ -12,16 +12,16 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader as TensorLoader, Subset, TensorDataset
 from torch_geometric.loader import DataLoader
 
-ROOT = Path('/home/zxy/project/TAPD')
+ROOT = Path(__file__).resolve().parents[6]
 sys.path.insert(0, str(ROOT))
 from src.ira_common import LearnableNodeGINEEncoder
 from src.ira_graph_common import SingleTaskRegressor, VirtualNodeWrapper
 from src.plotting import compute_metrics
 
-TRANSFER = ROOT / 'baselinemodels/pub0818/gnn/finalmodel/transfer'
-FINAL = ROOT / 'baselinemodels/pub0818/gnn/finalmodel'
-TRAIN_CACHE = TRANSFER / 'data_cache/kstar_train_100k.pt'
-TEST_CACHE = TRANSFER / 'data_cache/kstar_seed43_independent_2k.pt'
+TRANSFER = Path(__file__).resolve().parent.parent
+FINAL = ROOT / 'checkpoints/gnn'
+TRAIN_CACHE = ROOT / 'results/cache/kstar_train_100k.pt'
+TEST_CACHE = ROOT / 'results/cache/kstar_seed43_independent_2k.pt'
 SEEDS = (202601, 202602, 202603, 202604, 202605)
 
 class ProbeMLP(nn.Module):
@@ -40,7 +40,7 @@ def wrap(data): return VirtualNodeWrapper(data, node_mode='zero', edge_mode='ful
 
 def model_for(seed, device):
     m = SingleTaskRegressor(LearnableNodeGINEEncoder(max_nodes=80, edge_dim=2, hidden_dim=512, num_layers=5), hidden_dim=512, num_dec_layers=1).to(device)
-    ckpt = FINAL / f'C2_nested_train__80k__seed{seed}' / 'best_model.pth'
+    ckpt = FINAL / f'seed{seed}' / 'best_model.pth'
     state = torch.load(ckpt, map_location=device, weights_only=True)
     enc = {k.removeprefix('encoder.'):v for k,v in state.items() if k.startswith('encoder.')}
     m.encoder.load_state_dict(enc, strict=True); m.encoder.eval()
@@ -96,6 +96,6 @@ def main():
     with (args.output_dir/'probe_loss_history.csv').open('w',newline='') as f: w=csv.DictWriter(f,fieldnames=['epoch','train_loss','val_loss']); w.writeheader(); w.writerows(hist)
     pred=10**predict(mlp,sx,device); truth=10**sy.reshape(-1); met=compute_metrics(truth,pred); ape=np.abs(pred-truth)/np.clip(np.abs(truth),1e-12,None)*100
     np.savez(args.output_dir/'seed43_predictions.npz',y_true=truth,y_pred=pred,abs_error=np.abs(pred-truth),ape_percent=ape)
-    result={'experiment':'C2_512_fixed_embedding_MLP_probe','seed':args.seed,'run_id':args.run_id,'checkpoint':str(ckpt),'embedding_dim':512,'mlp':'512-256-128-1; LayerNorm/ReLU/dropout=0.1','best_val_loss_log_space':best,'epochs_ran':len(hist),'test_data_dir':str(ROOT/'TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent'),'test_size':len(test),'MAPE':float(met['MAPE']),'RMSE':float(met['RMSE']),'MAE':float(met['MAE']),'R2':float(met['R²']),'MaxAE':float(met['MaxAE'])}
+    result={'experiment':'C2_512_fixed_embedding_MLP_probe','seed':args.seed,'run_id':args.run_id,'checkpoint':str(ckpt),'embedding_dim':512,'mlp':'512-256-128-1; LayerNorm/ReLU/dropout=0.1','best_val_loss_log_space':best,'epochs_ran':len(hist),'test_data_dir':str(ROOT/'data/datasets/seed43_2k'),'test_size':len(test),'MAPE':float(met['MAPE']),'RMSE':float(met['RMSE']),'MAE':float(met['MAE']),'R2':float(met['R²']),'MaxAE':float(met['MaxAE'])}
     (args.output_dir/'metrics.json').write_text(json.dumps(result,indent=2)+'\n'); (args.output_dir/'run_config.json').write_text(json.dumps(result,indent=2)+'\n'); print(json.dumps(result),flush=True)
 if __name__=='__main__': main()

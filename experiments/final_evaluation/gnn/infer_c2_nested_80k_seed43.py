@@ -14,25 +14,25 @@ import numpy as np
 import torch
 from torch_geometric.loader import DataLoader
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from baselinemodels.pub0818.gnn.gnn_validation_worker import evaluate
+from src.models.gnn_validation_worker import evaluate
 from mainmodel.scripts import train_single_chin_supplementary_confirmation as source
 from src.data_utils import load_and_process_dataset
 
 
-MODEL_ROOT = Path(__file__).resolve().parent
-TEST_DIR = ROOT / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed43_independent"
-OUTPUT_ROOT = MODEL_ROOT / "seed43_independent_2k_inference"
-CACHE = Path("/tmp/tapd_c2_seed43_test_data_chiN.pt")
+MODEL_ROOT = ROOT / "checkpoints/gnn"
+TEST_DIR = ROOT / "data/datasets/seed43_2k"
+OUTPUT_ROOT = ROOT / "results/seed43_inference/gnn"
+CACHE = OUTPUT_ROOT / "seed43_test_data_chiN.pt"
 SEEDS = tuple(range(202601, 202606))
 
 
 def records() -> list[tuple[dict, Path]]:
     items = []
     for seed in SEEDS:
-        checkpoint_dir = MODEL_ROOT / f"C2_nested_train__80k__seed{seed}"
+        checkpoint_dir = MODEL_ROOT / f"seed{seed}"
         checkpoint, metrics_path = checkpoint_dir / "best_model.pth", checkpoint_dir / "metrics.json"
         if not checkpoint.is_file() or not metrics_path.is_file():
             raise FileNotFoundError(f"Incomplete C2 checkpoint directory: {checkpoint_dir}")
@@ -44,6 +44,7 @@ def test_source() -> list:
     if CACHE.is_file():
         return torch.load(CACHE, map_location="cpu", weights_only=False)
     data = load_and_process_dataset(str(TEST_DIR), task_type="chiN")
+    CACHE.parent.mkdir(parents=True, exist_ok=True)
     torch.save(data, CACHE)
     return data
 

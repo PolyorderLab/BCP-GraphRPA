@@ -15,11 +15,11 @@ import time
 from pathlib import Path
 
 
-PROJECT_ROOT = Path("/home/zxy/project/TAPD")
-TRANSFER_ROOT = PROJECT_ROOT / "baselinemodels/pub0818/gnn/finalmodel/transfer"
+PROJECT_ROOT = Path(__file__).resolve().parents[6]
+TRANSFER_ROOT = PROJECT_ROOT / "experiments/kstar_transfer/gnn/finalmodel/transfer"
 TRAINER = TRANSFER_ROOT / "scripts/train_c2_kstar_transfer.py"
 SEEDS = (202601, 202602, 202603, 202604, 202605)
-MODES = ("frozen_encoder", "finetune_encoder", "two_stage")
+MODES = ("scratch", "frozen_encoder", "finetune_encoder", "two_stage")
 
 
 def output_dir(mode: str, run_id: int, seed: int) -> Path:

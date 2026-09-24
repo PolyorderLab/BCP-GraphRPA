@@ -14,7 +14,7 @@ def main():
     mlp = here.parent
     search = mlp / "hyperparameter_selection_80k"
     source_run = search / "runs_100k_fixed80_20_validation_only"
-    worker = search / "mlp_validation_worker.py"
+    worker = here.parents[4] / "src/models/mlp_validation_worker.py"
     runs, checkpoints = here / "runs", here / "checkpoints"
     predictions, logs = here / "validation_predictions", here / "logs"
     for path in (runs, checkpoints, predictions, logs): path.mkdir(parents=True, exist_ok=True)

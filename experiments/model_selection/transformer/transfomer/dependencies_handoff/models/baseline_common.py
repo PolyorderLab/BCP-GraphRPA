@@ -6,6 +6,7 @@ import os
 import random
 from collections import Counter
 from datetime import datetime
+from pathlib import Path
 
 os.environ.setdefault("MPLCONFIGDIR", "/tmp/matplotlib")
 
@@ -23,14 +24,15 @@ from torch.utils.data import DataLoader, Dataset, Subset
 
 import sys
 
-sys.path.append("/home/zxy/project/TAPD")
+ROOT = Path(__file__).resolve().parents[5]
+sys.path.insert(0, str(ROOT))
 from src.plotting import compute_metrics, plot_parity_log
 
 
-TRAIN_DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_train_10k"
-TEST_DATA_DIR = "/home/zxy/project/TAPD/TrainData/data/chiNlimited/n_test_2k"
-DEFAULT_IMAGE_DIR = "/home/zxy/project/TAPD/TrainData/data/chiNlimited/chain_visualizations"
-OUTCOME_ROOT = "/home/zxy/project/TAPD/baselinemodels/outcome"
+TRAIN_DATA_DIR = str(ROOT / "data/datasets/development_100k")
+TEST_DATA_DIR = str(ROOT / "data/datasets/seed43_2k")
+DEFAULT_IMAGE_DIR = str(ROOT / "results/chain_visualizations")
+OUTCOME_ROOT = str(ROOT / "results/transformer")
 SEEDS = [202601, 202602, 202603, 202604, 202605]
 
 

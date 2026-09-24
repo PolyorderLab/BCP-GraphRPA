@@ -16,13 +16,13 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
 
-PROJECT_ROOT = Path("/home/zxy/project/TAPD")
+PROJECT_ROOT = Path(__file__).resolve().parents[6]
 sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.plotting import compute_metrics  # noqa: E402
 
-TRANSFER_ROOT = PROJECT_ROOT / "baselinemodels/pub0818/gnn/finalmodel/transfer"
-FULL_EMBEDDING_ROOT = TRANSFER_ROOT / "c2_512_embedding_mlp_probe_20260903"
+TRANSFER_ROOT = Path(__file__).resolve().parent.parent
+FULL_EMBEDDING_ROOT = PROJECT_ROOT / "results/cache/kstar_transfer/c2_512_embedding_mlp_probe"
 SEEDS = (202601, 202602, 202603, 202604, 202605)
 
 
@@ -171,7 +171,7 @@ def main() -> None:
             return np.random.default_rng(args.seed).permutation(pool_length)[:size]
         split = np.load(cache_path.parent / "split_indices.npz")
         source_indices = split[f"{pool_name}_idx"]
-        mat_paths = sorted((PROJECT_ROOT / "TrainData/data/chiNlimited/n_train_100k").glob("*.mat"))
+        mat_paths = sorted((PROJECT_ROOT / "data/datasets/development_100k").glob("*.mat"))
         if len(source_indices) != pool_length:
             raise RuntimeError(f"Embedding rows do not match {pool_name} split indices")
         labels = np.asarray(
@@ -240,7 +240,7 @@ def main() -> None:
         "MAPE": float(metrics["MAPE"]),
         "RMSE": float(metrics["RMSE"]),
         "MAE": float(metrics["MAE"]),
-        "R2": float(metrics["R²"]),
+        "R2": float(metrics["R虏"]),
         "MaxAE": float(metrics["MaxAE"]),
     }
     text = json.dumps(result, indent=2) + "\n"

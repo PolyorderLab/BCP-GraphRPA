@@ -10,7 +10,7 @@ RAW_FEATURES = ("Nnodes", "Nedges", "density", "lambda_alg", "r_deg", "d_nb_avg"
 CFG = {"hidden_dim": 256, "depth": 3, "dropout": 0.0, "lr": 0.0005, "batch_size": 256, "weight_decay": 1e-5}
 
 def main():
-    here = Path(__file__).resolve().parent; project = here.parents[3]; data = here / "data"; out_root = here / "raw_descriptor_ablation"; out = out_root / "runs"; logs = out_root / "logs"; out.mkdir(parents=True, exist_ok=True); logs.mkdir(exist_ok=True)
+    here = Path(__file__).resolve().parent; project = here.parents[4]; data = here / "data"; out_root = here / "raw_descriptor_ablation"; out = out_root / "runs"; logs = out_root / "logs"; out.mkdir(parents=True, exist_ok=True); logs.mkdir(exist_ok=True); (out_root / "predictions").mkdir(exist_ok=True); (out_root / "checkpoints").mkdir(exist_ok=True)
     tasks=[]
     settings=[("full_35", RAW_FEATURES)] + [(f"without_{name}", tuple(x for x in RAW_FEATURES if x != name)) for name in RAW_FEATURES]
     for name, features in settings:

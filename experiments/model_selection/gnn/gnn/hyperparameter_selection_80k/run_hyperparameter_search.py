@@ -10,7 +10,7 @@ from statistics import mean, stdev
 import numpy as np
 from sklearn.model_selection import train_test_split
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[5]
 SEEDS = (202601, 202602, 202603, 202604, 202605)
 REFERENCE = {'hidden_dim': 256, 'learning_rate': 5e-3, 'batch_size': 32, 'num_layers': 5, 'dec_layers': 1}
 GRIDS = {
@@ -45,7 +45,7 @@ def build_tasks():
         for seed in SEEDS:
             c = dict(record['config']); c.update({
                 'run_id': f'hyper__{key}__seed{seed}', 'seed': seed, 'dimensions': record['dimensions'],
-                'train_data_dir': str(ROOT / 'TrainData/data/chiNlimited/n_train_100k'),
+                'train_data_dir': str(ROOT / 'data/datasets/development_100k'),
                 'test_data_dir': 'SEALED: not available to validation worker', 'epochs': 200, 'minimum_epochs': 120,
                 'early_stopping_patience': 30, 'val_fraction': .2, 'split_random_state': 42,
                 'optimizer': 'Adam', 'loss': 'MSE on log10(chiN*)', 'graph_builder': 'virtual_node',
@@ -124,7 +124,7 @@ def main():
     p = argparse.ArgumentParser(); p.add_argument('--output-dir', type=Path, default=Path(__file__).resolve().parent / 'runs_100k_fixed80_20_validation_only'); p.add_argument('--gpus', default='0,1,2,3'); p.add_argument('--slots-per-gpu', type=int, default=1); p.add_argument('--max-retries', type=int, default=1); p.add_argument('--prepare-only', action='store_true'); p.add_argument('--adopt-existing', action='store_true'); a = p.parse_args()
     split = prepare_split(a.output_dir / 'fixed_80k_20k_split_indices.npz'); configs, runs, logs = (a.output_dir / n for n in ('configs', 'runs', 'logs'))
     for d in (configs, runs, logs): d.mkdir(parents=True, exist_ok=True)
-    tasks = build_tasks(); (a.output_dir / 'manifest.json').write_text(json.dumps(tasks, indent=2)); (a.output_dir / 'protocol.json').write_text(json.dumps({'development_data': str(ROOT / 'TrainData/data/chiNlimited/n_train_100k'), 'split': split, 'seeds': SEEDS, 'reference': REFERENCE, 'grids': GRIDS, 'final_test': str(ROOT / 'TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42'), 'final_test_policy': 'not read in this phase'}, indent=2))
+    tasks = build_tasks(); (a.output_dir / 'manifest.json').write_text(json.dumps(tasks, indent=2)); (a.output_dir / 'protocol.json').write_text(json.dumps({'development_data': str(ROOT / 'data/datasets/development_100k'), 'split': split, 'seeds': SEEDS, 'reference': REFERENCE, 'grids': GRIDS, 'final_test': str(ROOT / 'data/datasets/validation_seed42'), 'final_test_policy': 'not read in this phase'}, indent=2))
     for task in tasks: (configs / f"{task['run_id']}.json").write_text(json.dumps(task, indent=2))
     if a.prepare_only:
         print(f'Prepared {len(tasks)} runs ({len({t["run_id"].rsplit("__seed", 1)[0] for t in tasks})} unique configurations).')
@@ -136,7 +136,7 @@ def main():
     if active:
         print(f'adopted={len(active)} existing workers', flush=True)
     slots = [g for g in a.gpus.split(',') for _ in range(a.slots_per_gpu)]
-    worker = Path(__file__).resolve().parents[1] / 'gnn_validation_worker.py'
+    worker = ROOT / 'src/models/gnn_validation_worker.py'
     while pending or active:
         # Treat each repeated entry in ``slots`` as an independent capacity
         # slot.  The previous set-based filter collapsed duplicate GPU IDs,

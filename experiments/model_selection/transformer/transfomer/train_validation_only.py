@@ -20,8 +20,8 @@ from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader
 
 
-ROOT = Path("/home/zxy/project/TAPD")
-MODEL_DIR = ROOT / "baselinemodels/models"
+ROOT = Path(__file__).resolve().parents[3]
+MODEL_DIR = Path(__file__).resolve().parent / "dependencies_handoff/models"
 sys.path.insert(0, str(MODEL_DIR))
 sys.path.insert(0, str(ROOT))
 

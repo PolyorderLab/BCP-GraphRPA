@@ -28,11 +28,11 @@ import torch
 from torch_geometric.loader import DataLoader
 
 
-ROOT = Path(__file__).resolve().parents[3]
+ROOT = Path(__file__).resolve().parents[4]
 GNN_ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from baselinemodels.pub0818.gnn.gnn_validation_worker import evaluate
+from src.models.gnn_validation_worker import evaluate
 from mainmodel.scripts import train_single_chin_supplementary_confirmation as source
 from src.data_utils import load_and_process_dataset
 
@@ -59,8 +59,8 @@ BASELINE_CONDITION = "C2_virtualnode_learnable_node_full_edge"
 SOURCE_ABLATION_ROOT = GNN_ROOT / "ablation_80k/runs_100k_fixed80_20_validation_only"
 SOURCE_SPLIT = SOURCE_ABLATION_ROOT / "fixed_80k_20k_split_indices.npz"
 SOURCE_BASELINE_RUNS = SOURCE_ABLATION_ROOT / "runs"
-TRAIN_DATA = ROOT / "TrainData/data/chiNlimited/n_train_100k"
-DEVELOPMENT_TEST = ROOT / "TrainData/data/chiNlimited/n_test_2k_leakage_free_seed42"
+TRAIN_DATA = ROOT / "data/datasets/development_100k"
+DEVELOPMENT_TEST = ROOT / "data/datasets/validation_seed42"
 DEFAULT_OUTPUT = GNN_ROOT / "iterative_local_grid_80k_train_20k_val"
 
 
@@ -91,7 +91,7 @@ def build_config(condition_key: str, hyper: dict, seed: int, stage: str) -> dict
             / "hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/dataset_cache"
         ),
         "test_data_dir": "SEALED: not available to validation worker",
-        "epochs": 200, "minimum_epochs": 120,
+        "epochs": 200,
         "early_stopping_patience": 30,
         "val_fraction": 0.2,
         "split_random_state": 42,

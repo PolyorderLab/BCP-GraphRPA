@@ -12,11 +12,11 @@ import numpy as np
 from stratified_nested_common import block_labels, build_stratified_nested_indices, load_sample_ids, write_indices
 
 HERE = Path(__file__).resolve().parent
-ROOT = HERE.parents[3]
-CODE_ROOT = ROOT / "baselinemodels/pub0818/transfomer"
+ROOT = HERE.parents[2]
+CODE_ROOT = ROOT / "experiments/model_selection/transformer/transfomer"
 SOURCE = CODE_ROOT / "run_nested_data_scaling_80k_pool.py"
-DESCRIPTORS = ROOT / "baselinemodels/pub0818/mlp/hyperparameter_selection_80k/data/n_train_100k_descriptor_matrix.csv"
-SPLIT_FILE = ROOT / "baselinemodels/pub0818/gnn/hyperparameter_selection_80k/runs_100k_fixed80_20_validation_only/fixed_80k_20k_split_indices.npz"
+DESCRIPTORS = ROOT / "experiments/model_selection/mlp/mlp/hyperparameter_selection_80k/data/n_train_100k_descriptor_matrix.csv"
+SPLIT_FILE = ROOT / "data/splits/development_fixed_80k_20k_seed42.npz"
 OUTPUT = HERE / "results/transformer_cls_correct"
 SIZES_K = [8, 16, 24, 32, 40, 48, 56, 64, 70, 72, 80]
 
@@ -33,7 +33,7 @@ def load_source():
 def prepare(source, base) -> None:
     split = np.load(SPLIT_FILE)
     pool = np.asarray(split["train_index"], dtype=np.int64)
-    validation = np.asarray(split["val_index"], dtype=np.int64)
+    validation = np.asarray(split["validation_index"], dtype=np.int64)
     labels = block_labels(load_sample_ids(DESCRIPTORS))
     subsets, audit = build_stratified_nested_indices(pool, labels, [size * 1000 for size in SIZES_K])
     write_indices(OUTPUT / "nested_indices", subsets, audit, validation_indices=validation, train_key="train_indices")
