@@ -196,8 +196,8 @@ python experiments/model_selection/block_stratified_nested/run_mlp_stratified_ne
 python experiments/model_selection/block_stratified_nested/run_transformer_stratified_nested.py --help
 ```
 
-The corresponding training-size curves are rendered by the GNN, MLP, and
-Transformer ablation notebooks listed below.
+The corresponding training-size curves are rendered in
+`notebooks/si_figures.ipynb`.
 
 The supplementary experiment matrices have dedicated numerical entry points:
 
@@ -230,8 +230,8 @@ experiments/final_evaluation/mlp/evaluate_seed43.py
 experiments/final_evaluation/transformer/evaluate_80k_seed43_independent.py
 ```
 
-Generate the comparison and parity plots with
-`notebooks/seed43_final_evaluation.ipynb`.
+Generate the main comparison in `notebooks/main_figures.ipynb` and its
+supplementary parity and error plots in `notebooks/si_figures.ipynb`.
 
 ### Block-count extrapolation
 
@@ -240,8 +240,8 @@ The GNN, MLP, and Transformer are evaluated on the same 2,500 architectures:
 `experiments/block_extrapolation/`, frozen models are under `checkpoints/`, and
 predictions are under `results/source_data/block_extrapolation/`.
 
-Run `notebooks/block_extrapolation.ipynb` to regenerate the main extrapolation
-figure and supplementary per-seed parity figure. Plotting uses stored local
+Run `notebooks/main_figures.ipynb` for the extrapolation figure and
+`notebooks/si_figures.ipynb` for per-seed parity. Plotting uses stored local
 predictions and does not require a GPU.
 
 ### Transfer learning
@@ -260,17 +260,17 @@ five-seed label-budget grid is orchestrated by
 `scripts/run_kstar_label_curve_5seeds.py`; its `--dry-run` option prints the
 planned commands without starting GPU jobs.
 
-Run `notebooks/kstar_transfer.ipynb` for the limited-label, full-data, parity,
-and signed-error figures. Main evidence tables are stored under
+Run `notebooks/main_figures.ipynb` and `notebooks/si_figures.ipynb` for the
+limited-label, full-data, parity, and signed-error figures. Main evidence tables are stored under
 `results/source_data/kstar_transfer/main_evidence_20260913/`.
 
 ### Mechanistic interpretation
 
 Executable analyses are under `scripts/mechanistic_interpretability/`. Run
-`notebooks/mechanistic_interpretability.ipynb` to regenerate the main mechanism
-figure and robustness and legal-growth-history companion figures. Local inputs
+`notebooks/main_figures.ipynb` for the mechanism figure and
+`notebooks/si_figures.ipynb` for grid robustness. Local inputs
 are under `data/mechanistic_interpretability/`; outputs are written to
-`results/figures/mechanistic_interpretability/`.
+`results/reproduced/mechanistic_interpretability/`.
 
 `run_abtab2_rpa_gnn.py` is the retained numerical entry point for the frozen-GNN
 ABTAB2 analysis. It computes the RPA edge decomposition, constrained message
@@ -279,8 +279,8 @@ block-placement counterfactuals consumed by the notebook.
 
 ### Composition curves
 
-Run `notebooks/composition_curves.ipynb` for the composition-curve and
-phase-diagram manuscript figures. The notebook is the sole plotting entry and
+Run `notebooks/main_figures.ipynb` for the composition-curve and
+phase-diagram manuscript figures. This notebook contains their plotting code and
 uses bundled numerical inputs in `results/source_data/composition_curves/`.
 
 The numerical regeneration chain is under
@@ -291,7 +291,7 @@ loads the five frozen GNN checkpoints and writes the CSV/JSON consumed by the
 notebook. This script intentionally produces numerical source data only; it
 does not contain plotting code.
 
-## Figure reproduction
+## Figure generation
 
 Start Jupyter from the repository root so relative paths resolve consistently:
 
@@ -300,21 +300,18 @@ conda activate tapd
 jupyter notebook notebooks/
 ```
 
-| Notebook | Main output | Primary local inputs |
+| Notebook | Figures | Primary local inputs |
 | --- | --- | --- |
-| `schematics.ipynb` | Figs. 1 and 9 | `data/schematics/` |
-| `figure_acbd.ipynb` | Fig. 2 | `data/figure_acbd/` |
-| `seed43_final_evaluation.ipynb` | Fig. 3 | `results/source_data/final_evaluation/` |
-| `block_extrapolation.ipynb` | Fig. 4 and OOD parity panels | `results/source_data/block_extrapolation/` |
-| `mechanistic_interpretability.ipynb` | Fig. 5 and robustness panels | `data/mechanistic_interpretability/` |
-| `kstar_transfer.ipynb` | Fig. 6 and transfer supplementary panels | `results/source_data/kstar_transfer/` |
-| `composition_curves.ipynb` | Figs. 7 and 8 | `results/source_data/composition_curves/` |
-| `gnn_ablations.ipynb` | GNN ablation and training-size panels | `results/source_data/gnn/`, `experiments/model_selection/gnn/` |
-| `mlp_ablations.ipynb` | MLP descriptor, validation, and training-size panels | `results/source_data/mlp/`, `experiments/model_selection/mlp/` |
-| `transformer_ablations.ipynb` | Transformer selection and ablation panels | `results/source_data/transformer/`, `experiments/model_selection/transformer/` |
+| `main_figures.ipynb` | Main Figs. 1–9 | PPTX schematic and bundled numerical inputs |
+| `si_figures.ipynb` | Supplementary Figs. S1–S23 | Bundled numerical inputs under `data/` and `results/source_data/` |
 
-The notebooks read bundled inputs and write figures under `results/figures/`.
-They create missing output directories without modifying numerical inputs.
+The notebooks draw data panels from bundled numerical inputs and display
+each figure inline. Figs. 1 and 9 are editable drawings in
+`results/GINE_concise_editable.pptx`; their existing exports are displayed in
+the main notebook. The figure-to-input mapping is in
+[`notebooks/README.md`](notebooks/README.md). Notebook output is written under
+`results/reproduced/` and may differ in typography and layout from the final
+manuscript artwork. Running the notebooks does not modify numerical inputs.
 
 ## Practical notes
 
@@ -324,5 +321,5 @@ They create missing output directories without modifying numerical inputs.
 - Plotting notebooks use stored predictions and can run without retraining.
 - Large training commands expose available paths and options through `--help`;
   check those options before launching multi-GPU jobs.
-- Generated figures belong in `results/figures/`; newly generated datasets
-  belong in `data/datasets/`.
+- Notebook figure outputs are written under `results/reproduced/`; newly generated
+  datasets belong in `data/datasets/`.
