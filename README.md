@@ -7,7 +7,7 @@ This repository is the reproducibility package accompanying the manuscript
 *Effective Graph Neural Representation of Chain Architectures of Block
 Copolymers Tested by Predicting RPA Instability Limits*, submitted for
 publication. The code associated with this study is publicly accessible at
-[https://github.com/kachrel/BCP-GraphRPA](https://github.com/kachrel/BCP-GraphRPA).
+[https://github.com/PolyorderLab/BCP-GraphRPA](https://github.com/PolyorderLab/BCP-GraphRPA).
 
 It contains the shared Python source, fixed data splits, model-selection and
 evaluation scripts, frozen checkpoints, local numerical results, and notebooks
