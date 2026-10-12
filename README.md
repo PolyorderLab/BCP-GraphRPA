@@ -1,17 +1,20 @@
-# TAPD: graph representation learning for block-copolymer architectures
+# BCP-GraphRPA
+
+**Graph representation learning for block-copolymer architectures and RPA
+instability prediction.**
 
 This repository is the reproducibility package accompanying the manuscript
 *Effective Graph Neural Representation of Chain Architectures of Block
 Copolymers Tested by Predicting RPA Instability Limits*, submitted for
 publication. The code associated with this study is publicly accessible at
-[https://github.com/kachrel/TAPD](https://github.com/kachrel/TAPD).
+[https://github.com/kachrel/BCP-GraphRPA](https://github.com/kachrel/BCP-GraphRPA).
 
 It contains the shared Python source, fixed data splits, model-selection and
 evaluation scripts, frozen checkpoints, local numerical results, and notebooks
 used to regenerate the manuscript and Supplementary Information figures.
 
 <p align="center">
-  <img src="results/figures/schematics/figure1_architecture_representation.png" alt="Figure 1: TAPD graph representation, prediction, transfer, and block-count extrapolation workflow" width="100%">
+  <img src="results/figures/schematics/figure1_architecture_representation.png" alt="Figure 1: BCP-GraphRPA representation, prediction, transfer, and block-count extrapolation workflow" width="100%">
 </p>
 <p align="center">
   <em>Figure 1 | Overview of the graph-based architecture representation, RPA-instability prediction, transfer-learning, and block-count-extrapolation workflows reported in the submitted manuscript.</em>
