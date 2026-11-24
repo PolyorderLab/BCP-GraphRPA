@@ -24,22 +24,18 @@ Run commands from this directory unless stated otherwise. Plotting the released
 results is CPU-only and uses bundled source data. Training and inference usually
 require the full datasets and, for practical runtimes, a CUDA-capable GPU.
 
-## Repository layout
-
-| Path | Purpose |
-| --- | --- |
-| `src/` | Shared data loaders, constants, model workers, training helpers, and plotting utilities. |
-| `data/` | Example records, figure inputs, fixed splits, selection tools, and Julia data-generation code. |
-| `experiments/` | Current model-selection, final-evaluation, transfer, and extrapolation workflows. |
-| `mainmodel/` | Main GNN training and supplementary-confirmation entry points. |
-| `checkpoints/` | Frozen models used by the released inference workflows. |
-| `notebooks/` | Executable entries for manuscript and supplementary figures. |
-| `scripts/` | Shared validation, inference, and mechanistic-analysis scripts. |
-| `results/source_data/` | Numerical inputs read by plotting notebooks. |
-| `results/figures/` | Generated PNG, SVG, and PDF figures. |
-| `results/table_sources/` | Machine-readable inputs for manuscript and supplementary tables. |
+Start with [installation](#installation) and the [quick verification](#quick-verification).
+To regenerate the paper's panels from released results, go to [figure generation](#figure-generation).
+To train the frozen-embedding probe from raw records, follow the [k* transfer experiment](#transfer-learning).
 
 ## Installation
+
+On Windows, enable long paths in the checkout when cloning:
+
+```sh
+git clone -c core.longpaths=true https://github.com/PolyorderLab/BCP-GraphRPA.git
+cd BCP-GraphRPA
+```
 
 The release environment uses Python 3.12.10. The simplest setup is Conda:
 
@@ -70,13 +66,109 @@ environment records PyTorch 2.12.0. Figure notebooks can run on CPU.
 Check the bundled data pipeline and release package before larger workflows:
 
 ```bash
-python data/check_data_pipeline.py
+python -X utf8 data/check_data_pipeline.py
 python src/check_label_conversion.py
-python scripts/verify_bundle.py
+python -X utf8 scripts/verify_bundle.py --data-dir data/example/n_train_1k --device cpu
 ```
 
 The data-pipeline check uses bundled examples and temporary output. It tests
 MAT/YAML pairing, split selection, exclusion rules, and target conversion.
+The bundle check loads the seed-202602 checkpoint and runs one epoch on eight
+examples. In `verification/verification.json`, expect `samples: 8` and
+`batch_output_shape: [4, 1]`. The fresh model's one-epoch losses can vary.
+
+## Figure generation
+
+With the project environment active, start Jupyter from the repository root so relative paths resolve consistently:
+
+```bash
+python -m notebook notebooks/
+```
+
+| Notebook | Figures | Primary local inputs |
+| --- | --- | --- |
+| `main_figures.ipynb` | Main Figs. 1–9 | PPTX schematic and bundled numerical inputs |
+| `si_figures.ipynb` | Supplementary Figs. S1–S23 | Bundled numerical inputs under `data/` and `results/source_data/` |
+
+The notebooks draw data panels from bundled numerical inputs and display
+each figure inline. Figs. 1 and 9 are editable drawings in
+`results/GINE_concise_editable.pptx`; their existing exports are displayed in
+the main notebook. The figure-to-input mapping is in
+[`notebooks/README.md`](notebooks/README.md). Notebook output is written under
+`results/reproduced/` and may differ in typography and layout from the final
+manuscript artwork. Running the notebooks does not modify numerical inputs.
+
+## Transfer learning
+
+### Prepare the two graph caches
+
+From the repository root, download
+`development_100k.tar.gz` and `final_in_domain_test_2k.zip` from the
+[released dataset](https://doi.org/10.5281/zenodo.22685926) into the current
+directory. The following commands target a fresh checkout and work in
+PowerShell or a POSIX shell with Python and tar:
+
+```sh
+python -c "from pathlib import Path; Path('data/datasets').mkdir(parents=True, exist_ok=True)"
+tar -xzf development_100k.tar.gz -C data/datasets
+python -m zipfile -e final_in_domain_test_2k.zip data/datasets
+python -c "from pathlib import Path; p=Path('data/datasets'); (p/'n_train_100k').rename(p/'development_100k'); (p/'n_test_2k_leakage_free_seed43_independent').rename(p/'seed43_2k')"
+python -X utf8 experiments/kstar_transfer/gnn/finalmodel/transfer/scripts/train_c2_kstar_transfer.py --prepare-data-cache-only --transfer-mode scratch --seed 202601 --device cpu --output-dir results/cache/kstar_transfer --train-cache results/cache/kstar_train_100k.pt --test-cache results/cache/kstar_seed43_independent_2k.pt
+```
+
+The released script requires a mode, seed and output directory even for cache
+preparation. In this command, `scratch` initializes a model for a forward check;
+`--prepare-data-cache-only` exits before fitting it.
+The two input directories must directly contain matching MAT/YML pairs.
+The first cache contains the full 100,000-record development pool before
+the 80k/20k split. The second contains the independent seed-43 test set.
+Starting from the released raw records, the loader orders records by MAT
+filename and stores the logarithm of the dimensionless wavevector, converting
+the YAML wavelength as described in [Wavelength and wavevector labels](#wavelength-and-wavevector-labels). Expect
+`Prepared caches: train=100000, seed43_test=2000`. Existing cache paths are
+reused, so use fresh paths when rebuilding from different inputs.
+
+### Run the full-data probe for seed 202601
+
+From the repository root, run the following command.
+
+```sh
+python -X utf8 experiments/kstar_transfer/gnn/finalmodel/transfer/scripts/train_c2_512_embedding_mlp_probe.py --seed 202601 --run-id 1 --device cpu --output-dir results/cache/kstar_transfer/c2_512_embedding_mlp_probe/run01_seed202601
+```
+
+Use a fresh output directory for each run. The probe writes the split indices,
+512-dimensional embeddings and fitted MLP weights there. Use `--device cuda:0`
+on a CUDA installation for faster inference and training.
+
+Compare your run's `metrics.json` and `seed43_predictions.npz` with the
+archived results in
+`results/source_data/kstar_transfer/gnn/finalmodel/transfer/c2_512_embedding_mlp_probe_20260903/run01_seed202601/`.
+Training results may vary with hardware and numerical libraries.
+
+### Extend to five seeds and label budgets
+
+The limited-label MLP reads these embedding outputs by seed. Repeat with
+run IDs 2–5 and seeds 202602–202605 in the corresponding
+`run02_seed202602` through `run05_seed202605` directories before launching
+the complete grid.
+
+The transfer workflow is under
+`experiments/kstar_transfer/gnn/finalmodel/transfer/`. Its training entry point,
+`scripts/train_c2_kstar_transfer.py`, includes both pretrained transfer and
+randomly initialized scratch controls. The task is `k_wavevector`, so the target
+convention in [Wavelength and wavevector labels](#wavelength-and-wavevector-labels) applies.
+
+The frozen-embedding MLP is generated by
+`scripts/train_c2_512_embedding_mlp_probe.py`. After those five full-data runs
+have produced their embedding caches, limited-label MLP runs use
+`scripts/train_kstar_label_curve_embedding_mlp.py`. The complete five-method,
+five-seed label-budget grid is orchestrated by
+`scripts/run_kstar_label_curve_5seeds.py`; its `--dry-run` option prints the
+planned commands without starting GPU jobs.
+
+Run `notebooks/main_figures.ipynb` and `notebooks/si_figures.ipynb` for the
+limited-label, full-data, parity, and signed-error figures. Main evidence tables are stored under
+`results/source_data/kstar_transfer/main_evidence_20260913/`.
 
 ## Data and target conventions
 
@@ -146,37 +238,6 @@ wavevector targets. `src/data_utils.py` implements common loading and conversion
 `src/constants.py` provides topology mappings for random 2- through 6-block
 architectures; unknown topology labels receive `-1`.
 
-## Raw architecture and RPA generation
-
-The generation utilities use Julia 1.12.7. Their environment is defined by
-`data/generation/Project.toml` and `data/generation/Manifest.toml`:
-
-```bash
-julia --project=data/generation -e "using Pkg; Pkg.instantiate()"
-julia --project=data/generation data/generation/rpa/smoke_test.jl
-
-julia --threads=1 data/generation/number_5.jl \
-  --count-per-block 2 \
-  --seed 42 \
-  --output-dir data/datasets/smoke_2to5
-
-julia data/generation/generate_6block_transfer_test.jl \
-  --block-counts 6,7,8,9,10 \
-  --count-per-block 1 \
-  --seed 20260707 \
-  --output-dir data/datasets/smoke_ood
-```
-
-Use a new output directory: the generators refuse to overwrite an existing
-one. For deterministic small checks, use one Julia thread because the raw
-generator combines the supplied seed with the thread ID. Full generation uses
-30,000 samples per block for the 2–5-block pool and 500 samples per block for
-the 6–10-block OOD set.
-
-The local RPA implementation is
-`data/generation/rpa/ExtractedPolyorderRPA.jl`. It requires Polymer,
-PolymerArchitecture, Graphs, LinearAlgebra, Optim, and Roots.
-
 ## Main experimental workflows
 
 ### Model selection and training-size studies
@@ -244,26 +305,6 @@ Run `notebooks/main_figures.ipynb` for the extrapolation figure and
 `notebooks/si_figures.ipynb` for per-seed parity. Plotting uses stored local
 predictions and does not require a GPU.
 
-### Transfer learning
-
-The transfer workflow is under
-`experiments/kstar_transfer/gnn/finalmodel/transfer/`. Its training entry point,
-`scripts/train_c2_kstar_transfer.py`, includes both pretrained transfer and
-randomly initialized scratch controls. The task is `k_wavevector`, so the target
-convention above applies.
-
-The frozen-embedding MLP is generated by
-`scripts/train_c2_512_embedding_mlp_probe.py`. After those five full-data runs
-have produced their embedding caches, limited-label MLP runs use
-`scripts/train_kstar_label_curve_embedding_mlp.py`. The complete five-method,
-five-seed label-budget grid is orchestrated by
-`scripts/run_kstar_label_curve_5seeds.py`; its `--dry-run` option prints the
-planned commands without starting GPU jobs.
-
-Run `notebooks/main_figures.ipynb` and `notebooks/si_figures.ipynb` for the
-limited-label, full-data, parity, and signed-error figures. Main evidence tables are stored under
-`results/source_data/kstar_transfer/main_evidence_20260913/`.
-
 ### Mechanistic interpretation
 
 Executable analyses are under `scripts/mechanistic_interpretability/`. Run
@@ -291,27 +332,51 @@ loads the five frozen GNN checkpoints and writes the CSV/JSON consumed by the
 notebook. This script intentionally produces numerical source data only; it
 does not contain plotting code.
 
-## Figure generation
+## Raw architecture and RPA generation
 
-Start Jupyter from the repository root so relative paths resolve consistently:
+The generation utilities use Julia 1.12.7. Their environment is defined by
+`data/generation/Project.toml` and `data/generation/Manifest.toml`:
 
 ```bash
-conda activate tapd
-jupyter notebook notebooks/
+julia --project=data/generation -e "using Pkg; Pkg.instantiate()"
+julia --project=data/generation data/generation/rpa/smoke_test.jl
+
+julia --threads=1 data/generation/number_5.jl \
+  --count-per-block 2 \
+  --seed 42 \
+  --output-dir data/datasets/smoke_2to5
+
+julia data/generation/generate_6block_transfer_test.jl \
+  --block-counts 6,7,8,9,10 \
+  --count-per-block 1 \
+  --seed 20260707 \
+  --output-dir data/datasets/smoke_ood
 ```
 
-| Notebook | Figures | Primary local inputs |
-| --- | --- | --- |
-| `main_figures.ipynb` | Main Figs. 1–9 | PPTX schematic and bundled numerical inputs |
-| `si_figures.ipynb` | Supplementary Figs. S1–S23 | Bundled numerical inputs under `data/` and `results/source_data/` |
+Use a new output directory: the generators refuse to overwrite an existing
+one. For deterministic small checks, use one Julia thread because the raw
+generator combines the supplied seed with the thread ID. Full generation uses
+30,000 samples per block for the 2–5-block pool and 500 samples per block for
+the 6–10-block OOD set.
 
-The notebooks draw data panels from bundled numerical inputs and display
-each figure inline. Figs. 1 and 9 are editable drawings in
-`results/GINE_concise_editable.pptx`; their existing exports are displayed in
-the main notebook. The figure-to-input mapping is in
-[`notebooks/README.md`](notebooks/README.md). Notebook output is written under
-`results/reproduced/` and may differ in typography and layout from the final
-manuscript artwork. Running the notebooks does not modify numerical inputs.
+The local RPA implementation is
+`data/generation/rpa/ExtractedPolyorderRPA.jl`. It requires Polymer,
+PolymerArchitecture, Graphs, LinearAlgebra, Optim, and Roots.
+
+## Repository layout
+
+| Path | Purpose |
+| --- | --- |
+| `src/` | Shared data loaders, constants, model workers, training helpers, and plotting utilities. |
+| `data/` | Example records, figure inputs, fixed splits, selection tools, and Julia data-generation code. |
+| `experiments/` | Current model-selection, final-evaluation, transfer, and extrapolation workflows. |
+| `mainmodel/` | Main GNN training and supplementary-confirmation entry points. |
+| `checkpoints/` | Frozen models used by the released inference workflows. |
+| `notebooks/` | Executable entries for manuscript and supplementary figures. |
+| `scripts/` | Shared validation, inference, and mechanistic-analysis scripts. |
+| `results/source_data/` | Numerical inputs read by plotting notebooks. |
+| `results/figures/` | Generated PNG, SVG, and PDF figures. |
+| `results/table_sources/` | Machine-readable inputs for manuscript and supplementary tables. |
 
 ## Practical notes
 
